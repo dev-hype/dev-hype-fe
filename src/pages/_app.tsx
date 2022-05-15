@@ -1,20 +1,32 @@
+import { useState } from 'react'
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 import { ChakraProvider } from '@chakra-ui/react'
 
 import type { AppProps } from 'next/app'
 
 import DefaultHead from 'src/modules/core/components/DefaultHead'
+import AuthProvider from 'src/modules/auth/providers/AuthProvider'
 
 import { theme } from 'src/modules/core/config/theme'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <>
-      <DefaultHead />
+  const [queryClient] = useState(() => new QueryClient())
 
-      <ChakraProvider theme={theme}>
-        <Component {...pageProps} />
-      </ChakraProvider>
-    </>
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Hydrate state={pageProps.dehydratedState}>
+        <AuthProvider>
+          <DefaultHead />
+
+          <ChakraProvider theme={theme}>
+            <Component {...pageProps} />
+          </ChakraProvider>
+        </AuthProvider>
+      </Hydrate>
+
+      <ReactQueryDevtools />
+    </QueryClientProvider>
   )
 }
 

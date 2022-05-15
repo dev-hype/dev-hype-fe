@@ -1,9 +1,19 @@
+import { dehydrate } from 'react-query'
 import type { NextPage } from 'next'
 
 import { Box, Button, Heading, Text } from '@chakra-ui/react'
 
 import AppLayout from 'src/modules/core/components/AppLayout'
 import PageHeader from 'src/modules/core/components/PageHeader'
+import { hybridRoute } from 'src/modules/core/routes/hybridRoute'
+
+export const getServerSideProps = hybridRoute(async (ctx, queryClient) => {
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  }
+})
 
 const Home: NextPage = () => {
   return (

@@ -15,6 +15,7 @@
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": ["error"],
     "jsx-a11y/anchor-is-valid": "off",
-    "import/named": "off"
+    "import/named": "off",
+    "react-hooks/exhaustive-deps": "error"
   }
 }

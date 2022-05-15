@@ -7,8 +7,8 @@ import { Box, Button, Link as ChakraLink, Text } from '@chakra-ui/react'
 
 import { FaChartPie, FaHome, FaUserGraduate } from 'react-icons/fa'
 
-// import { corePaths } from '../../constants/paths'
-// import { userPaths } from 'src/modules/user/constants/paths'
+import { corePaths } from 'src/modules/core/constants/paths'
+import { usersPaths } from 'src/modules/users/constants/paths'
 // import { insightsPaths } from 'src/modules/insights/constants/paths'
 
 import Logo from 'public/images/logo.png'
@@ -17,17 +17,17 @@ const navItems = [
   {
     icon: <FaHome size={26} />,
     title: 'Home',
-    href: '/',
+    href: corePaths.home(),
   },
   {
     icon: <FaUserGraduate size={24} />,
     title: 'Profile',
-    href: '',
+    href: usersPaths.profile('1'),
   },
   {
     icon: <FaChartPie size={24} />,
     title: 'Insights',
-    href: '',
+    href: '/insights',
   },
 ]
 
