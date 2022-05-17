@@ -8,7 +8,7 @@ import { IAuthUserResponse } from '../../types/res'
 
 type QueryKey = [string]
 
-export const authUserQueryKey: QueryKey = ['/users/me']
+export const getAuthUserQueryKey = (): QueryKey => ['/users/me']
 
 export const authUserQueryFn: QueryFunction<
   IAuthUserResponse,
@@ -27,10 +27,8 @@ export const useAuthUserQuery = () => {
     QueryKey
   >({
     queryFn: authUserQueryFn,
-    queryKey: authUserQueryKey,
+    queryKey: getAuthUserQueryKey(),
     enabled: isLoggedIn,
-    staleTime: Infinity,
-    cacheTime: Infinity,
   })
 
   return queryResult

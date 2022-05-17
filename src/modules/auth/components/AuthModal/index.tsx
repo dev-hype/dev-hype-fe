@@ -16,8 +16,6 @@ import {
   Button,
 } from '@chakra-ui/react'
 
-import { FaCheck } from 'react-icons/fa'
-
 import LoginForm from './LoginForm'
 import SignupForm from './SignupForm'
 
@@ -70,8 +68,8 @@ const AuthModal: React.FC = () => {
                 <Image
                   src={Logo.src}
                   alt="Dev Hype"
-                  width={70}
-                  height={70}
+                  width={75}
+                  height={75}
                   objectFit="contain"
                   objectPosition="center"
                 />
@@ -84,9 +82,9 @@ const AuthModal: React.FC = () => {
                       closeAuthModal()
 
                       toast({
-                        description: 'Login Success',
-                        icon: <FaCheck />,
-                        colorScheme: 'green',
+                        title: 'Login Success',
+                        description: "You're now logged in",
+                        status: 'success',
                       })
                     }}
                   />
@@ -96,9 +94,9 @@ const AuthModal: React.FC = () => {
                       setActiveView(AuthView.Login)
 
                       toast({
-                        description: 'Signup Success',
-                        icon: <FaCheck />,
-                        colorScheme: 'green',
+                        title: 'Signup Success',
+                        description: "You're now registered",
+                        status: 'success',
                       })
                     }}
                   />

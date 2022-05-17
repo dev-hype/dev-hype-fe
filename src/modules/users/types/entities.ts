@@ -4,17 +4,17 @@ export interface IUserProfile {
   lastName: string
   bio: string | null
   avatar: string | null
-  userId: number
+  userId: string
   countryId: number | null
 }
 
 export interface IAuthUser {
-  id: number
+  id: string
   email: string
-  profile?: IUserProfile
+  profile: IUserProfile | null
 }
 
 export interface IUser {
-  id: number
-  profile?: IUserProfile
+  id: string
+  profile: IUserProfile | null
 }

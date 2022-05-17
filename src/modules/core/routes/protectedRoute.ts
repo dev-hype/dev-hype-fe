@@ -10,13 +10,13 @@ import { QueryClient } from 'react-query'
 import { corePaths } from '../constants/paths'
 
 import { getAuthUser } from 'src/modules/users/api/users'
-import { authUserQueryKey } from 'src/modules/users/hooks/queries/useAuthUserQuery'
+import { getAuthUserQueryKey } from 'src/modules/users/hooks/queries/useAuthUserQuery'
 
 import { IAuthUser } from 'src/modules/users/types/entities'
 import { IAuthUserResponse } from 'src/modules/users/types/res'
 
 type Callback<
-  P extends { [key: string]: any } = { user: IAuthUser },
+  P extends { [key: string]: any } = { [key: string]: any },
   Q extends ParsedUrlQuery = ParsedUrlQuery,
   D extends PreviewData = PreviewData,
 > = (
@@ -27,7 +27,7 @@ type Callback<
 
 export const protectedRoute =
   <
-    P extends { [key: string]: any } = { user: IAuthUser },
+    P extends { [key: string]: any } = { [key: string]: any },
     Q extends ParsedUrlQuery = ParsedUrlQuery,
     D extends PreviewData = PreviewData,
   >(
@@ -36,10 +36,13 @@ export const protectedRoute =
   async (ctx) => {
     const queryClient = new QueryClient()
 
-    await queryClient.prefetchQuery(authUserQueryKey, () => getAuthUser(ctx))
+    await queryClient.prefetchQuery(getAuthUserQueryKey(), () =>
+      getAuthUser(ctx),
+    )
 
-    const userData =
-      queryClient.getQueryData<IAuthUserResponse>(authUserQueryKey)
+    const userData = queryClient.getQueryData<IAuthUserResponse>(
+      getAuthUserQueryKey(),
+    )
 
     if (!userData?.user) {
       return {

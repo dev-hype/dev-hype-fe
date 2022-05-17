@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
@@ -7,32 +7,45 @@ import { Box, Button, Link as ChakraLink, Text } from '@chakra-ui/react'
 
 import { FaChartPie, FaHome, FaUserGraduate } from 'react-icons/fa'
 
+import { useAuthUserQuery } from 'src/modules/users/hooks/queries/useAuthUserQuery'
+
 import { corePaths } from 'src/modules/core/constants/paths'
 import { usersPaths } from 'src/modules/users/constants/paths'
 // import { insightsPaths } from 'src/modules/insights/constants/paths'
 
 import Logo from 'public/images/logo.png'
 
-const navItems = [
-  {
-    icon: <FaHome size={26} />,
-    title: 'Home',
-    href: corePaths.home(),
-  },
-  {
-    icon: <FaUserGraduate size={24} />,
-    title: 'Profile',
-    href: usersPaths.profile('1'),
-  },
-  {
-    icon: <FaChartPie size={24} />,
-    title: 'Insights',
-    href: '/insights',
-  },
-]
-
 const AppNav: React.FC = () => {
   const { pathname } = useRouter()
+
+  const { data: userData } = useAuthUserQuery()
+
+  const navItems = useMemo(
+    () => [
+      {
+        icon: <FaHome size={26} />,
+        title: 'Home',
+        href: corePaths.home(),
+      },
+      ...(userData?.user
+        ? [
+            {
+              icon: <FaUserGraduate size={24} />,
+              title: 'Profile',
+              href: userData.user.profile
+                ? usersPaths.profile(userData.user.id)
+                : usersPaths.create_profile(),
+            },
+          ]
+        : []),
+      {
+        icon: <FaChartPie size={24} />,
+        title: 'Insights',
+        href: '/insights',
+      },
+    ],
+    [userData],
+  )
 
   return (
     <Box

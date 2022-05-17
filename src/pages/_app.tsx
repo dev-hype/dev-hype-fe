@@ -11,7 +11,17 @@ import AuthProvider from 'src/modules/auth/providers/AuthProvider'
 import { theme } from 'src/modules/core/config/theme'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [queryClient] = useState(() => new QueryClient())
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          mutations: { retry: false },
+          queries: {
+            staleTime: 2 * 60 * 1000,
+          },
+        },
+      }),
+  )
 
   return (
     <QueryClientProvider client={queryClient}>

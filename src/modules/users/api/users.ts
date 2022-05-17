@@ -4,8 +4,7 @@ import { GetServerSidePropsContext } from 'next'
 import { httpClient } from 'src/modules/core/config/httpClient'
 import { httpServer } from 'src/modules/core/config/httpServer'
 
-import { IUser } from '../types/entities'
-import { IAuthUserResponse } from '../types/res'
+import { IAuthUserResponse, IUserResponse } from '../types/res'
 
 export const getAuthUser = async (ctx?: GetServerSidePropsContext) => {
   let http: AxiosInstance
@@ -30,11 +29,7 @@ export const getUser = async (id: string, ctx?: GetServerSidePropsContext) => {
     http = httpClient
   }
 
-  try {
-    const user = await http.get<IUser>(`/users/${id}`)
+  const user = await http.get<IUserResponse>(`/users/${id}`)
 
-    return user.data
-  } catch (error) {
-    return null
-  }
+  return user.data
 }

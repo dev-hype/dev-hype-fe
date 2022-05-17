@@ -30,6 +30,7 @@ import { useAuthContext } from 'src/modules/auth/providers/AuthProvider'
 import { useAuthUserQuery } from 'src/modules/users/hooks/queries/useAuthUserQuery'
 
 import { logout } from 'src/modules/auth/api/auth'
+import { corePaths } from '../../constants/paths'
 
 interface IPageHeaderProps {
   title: string
@@ -58,6 +59,7 @@ const PageHeader: React.FC<IPageHeaderProps> = (props) => {
         alignItems="center"
         justifyContent="space-between"
         px="8"
+        zIndex="banner"
       >
         <Heading as="h1" size="md" fontWeight={600}>
           {title}
@@ -118,7 +120,7 @@ const PageHeader: React.FC<IPageHeaderProps> = (props) => {
                       onClick={() => {
                         logout()
                         setLoggedInFlagOff()
-                        window.location.reload()
+                        window.location.href = corePaths.home()
                       }}
                     >
                       Logout
