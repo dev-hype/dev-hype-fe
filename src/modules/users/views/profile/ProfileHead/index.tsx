@@ -71,7 +71,7 @@ const ProfileHead: React.FC = () => {
                 : 'Anonymous'}
             </Heading>
 
-            <Text fontSize="sm" color="gray.600" mb="1">
+            <Text fontSize="sm" color="gray.600" mb="8">
               {profile?.bio}
             </Text>
 

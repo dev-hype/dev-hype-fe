@@ -1,4 +1,4 @@
-import { QueryFunction, useQuery } from 'react-query'
+import { QueryFunction, useInfiniteQuery } from 'react-query'
 
 import { getUserGoals } from '../../api/goals'
 
@@ -13,14 +13,15 @@ export const getUserGoalsQueryKey = (userId: string): UserQueryKey => [
 
 export const userQueryFn: QueryFunction<IUserGoalsResponse, UserQueryKey> = ({
   queryKey,
+  pageParam = 1,
 }) => {
   const [, { userId }] = queryKey
 
-  return getUserGoals(userId)
+  return getUserGoals({ userId, page: pageParam, limit: 20 })
 }
 
 export const useUserGoalsQuery = (userId: string) => {
-  const queryResult = useQuery<
+  const queryResult = useInfiniteQuery<
     IUserGoalsResponse,
     unknown,
     IUserGoalsResponse,
@@ -28,6 +29,12 @@ export const useUserGoalsQuery = (userId: string) => {
   >({
     queryFn: userQueryFn,
     queryKey: getUserGoalsQueryKey(userId),
+    keepPreviousData: true,
+    getNextPageParam: (lastPage) => {
+      return lastPage.page * lastPage.limit < lastPage.count
+        ? lastPage.page + 1
+        : undefined
+    },
   })
 
   return queryResult

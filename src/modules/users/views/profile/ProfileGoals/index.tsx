@@ -1,17 +1,45 @@
-import React from 'react'
+import React, { useMemo } from 'react'
+import useInfiniteScroll from 'react-infinite-scroll-hook'
 
-import { Box, Container, Spinner, Text } from '@chakra-ui/react'
+import { Box, Container, Progress, Spinner, Text } from '@chakra-ui/react'
 
 import GoalWidget from 'src/modules/goals/components/GoalWidget'
 
 import { useUserGoalsQuery } from 'src/modules/goals/hooks/queries/useUserGoalsQuery'
 
+import { IUserGoalsResponse } from 'src/modules/goals/types/res'
+
 const ProfileGoals: React.FC<{ userId: string }> = (props) => {
   const { userId } = props
 
-  const { data: goalsData, isLoading } = useUserGoalsQuery(userId)
+  const {
+    data: goalsData,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isError,
+  } = useUserGoalsQuery(userId)
 
-  const isEmptyView = goalsData && !isLoading && goalsData.goals.length === 0
+  const [sentryRef] = useInfiniteScroll({
+    onLoadMore: fetchNextPage,
+    hasNextPage: Boolean(hasNextPage),
+    loading: isFetchingNextPage,
+    disabled: isError,
+  })
+
+  const goals = useMemo(() => {
+    if (goalsData) {
+      return goalsData.pages.reduce(
+        (base, current) => [...base, ...current.goals],
+        [] as IUserGoalsResponse['goals'],
+      )
+    }
+
+    return []
+  }, [goalsData])
+
+  const isEmptyView = goalsData && !isLoading && goals.length === 0
 
   return (
     <Container maxW="container.lg" p="6">
@@ -26,7 +54,7 @@ const ProfileGoals: React.FC<{ userId: string }> = (props) => {
       )}
 
       {goalsData
-        ? goalsData.goals.map((goalData) => {
+        ? goals.map((goalData) => {
             const { milestones, projects, topic, ...goal } = goalData
 
             return (
@@ -41,6 +69,12 @@ const ProfileGoals: React.FC<{ userId: string }> = (props) => {
             )
           })
         : null}
+
+      {hasNextPage || isFetchingNextPage ? (
+        <Box ref={sentryRef}>
+          <Progress size="xs" isIndeterminate />
+        </Box>
+      ) : null}
     </Container>
   )
 }
