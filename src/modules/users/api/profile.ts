@@ -7,3 +7,9 @@ export const createProfile = async (data: IProfileFormDto) => {
 
   return response.data
 }
+
+export const editProfile = async (data: IProfileFormDto) => {
+  const response = await httpClient.put('/users/profile', data)
+
+  return response.data
+}

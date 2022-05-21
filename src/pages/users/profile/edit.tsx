@@ -11,8 +11,8 @@ import PageHeader from 'src/modules/core/components/PageHeader'
 import ProfileForm from 'src/modules/users/views/profile/ProfileForm'
 import Photo from 'src/modules/core/components/Photo'
 
+import { useEditProfileMutation } from 'src/modules/users/hooks/mutations/useEditProfileMutation'
 import { useAuthUserQuery } from 'src/modules/users/hooks/queries/useAuthUserQuery'
-import { useCreateProfileMutation } from 'src/modules/users/hooks/mutations/useCreateProfileMutation'
 import { usersPaths } from 'src/modules/users/constants/paths'
 
 import { protectedRoute } from 'src/modules/core/routes/protectedRoute'
@@ -27,32 +27,32 @@ export const getServerSideProps = protectedRoute(async (ctx, queryClient) => {
   }
 })
 
-const CreateProfile: NextPage = () => {
+const EditProfile: NextPage = () => {
   const { replace } = useRouter()
 
   const { data: userData } = useAuthUserQuery()
 
-  const { mutate: createProfile, isLoading } = useCreateProfileMutation()
+  const { mutate: editProfile, isLoading } = useEditProfileMutation()
 
   const submitHandler = useCallback(
     (formData: IProfileFormDto) => {
       const userId = userData?.user?.id
 
       if (userId) {
-        createProfile(formData, {
+        editProfile(formData, {
           onSuccess: () => {
             replace(usersPaths.profile(userId))
           },
         })
       }
     },
-    [createProfile, replace, userData],
+    [editProfile, replace, userData],
   )
 
   return (
     <>
       <Head>
-        <title>Setup Your Profile - Dev Hype</title>
+        <title>Edit Profile - Dev Hype</title>
       </Head>
 
       <AppLayout disablePadding>
@@ -84,15 +84,27 @@ const CreateProfile: NextPage = () => {
         </Box>
 
         <Container>
-          <ProfileForm
-            userId={userData?.user?.id || ''}
-            onSubmit={submitHandler}
-            isSubmitting={isLoading}
-          />
+          {userData?.user?.profile ? (
+            <ProfileForm
+              userId={userData.user.id}
+              onSubmit={submitHandler}
+              isSubmitting={isLoading}
+              initialState={{
+                firstName: userData.user.profile.firstName,
+                lastName: userData.user.profile.lastName,
+                bio: userData.user.profile.bio || '',
+                ...(userData.user.profile.avatar
+                  ? { avatar: userData.user.profile.avatar }
+                  : {}),
+                countryCode: userData.user.profile.country.alpha2,
+              }}
+              isEdit
+            />
+          ) : null}
         </Container>
       </AppLayout>
     </>
   )
 }
 
-export default CreateProfile
+export default EditProfile

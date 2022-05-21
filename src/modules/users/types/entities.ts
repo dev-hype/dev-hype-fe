@@ -5,7 +5,12 @@ export interface IUserProfile {
   bio: string | null
   avatar: string | null
   userId: string
-  countryId: number | null
+  country: {
+    id: number
+    name: string
+    alpha2: string
+    alpha3: string
+  }
 }
 
 export interface IAuthUser {

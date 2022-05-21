@@ -8,6 +8,7 @@ import {
   Container,
   Heading,
   HStack,
+  Icon,
   Stat,
   StatHelpText,
   StatNumber,
@@ -15,10 +16,14 @@ import {
   VStack,
 } from '@chakra-ui/react'
 
+import { MdOutlineLocationOn } from 'react-icons/md'
+
 import ProfileTabs from '../ProfileTabs'
 import Photo from 'src/modules/core/components/Photo'
 
 import { useUserQuery } from 'src/modules/users/hooks/queries/useUserQuery'
+import Link from 'next/link'
+import { usersPaths } from 'src/modules/users/constants/paths'
 
 const ProfileHead: React.FC = () => {
   const { query } = useRouter()
@@ -66,17 +71,29 @@ const ProfileHead: React.FC = () => {
                 : 'Anonymous'}
             </Heading>
 
-            <Text fontSize="sm" color="gray.600">
+            <Text fontSize="sm" color="gray.600" mb="1">
               {profile?.bio}
             </Text>
+
+            <HStack spacing="0">
+              <Icon color="gray.700" fontSize="xl" mr="0.5">
+                <MdOutlineLocationOn size="inherit" />
+              </Icon>
+
+              <Text fontSize="sm" color="gray.600">
+                {profile?.country.name}
+              </Text>
+            </HStack>
           </Box>
         </Box>
 
         <VStack alignItems="flex-end">
           <HStack justifyContent="flex-end" mb="auto">
-            <Button size="sm" variant="outline" colorScheme="brand">
-              Edit Profile
-            </Button>
+            <Link href={usersPaths.edit_profile()} passHref>
+              <Button as="a" size="sm" variant="outline" colorScheme="brand">
+                Update Profile
+              </Button>
+            </Link>
           </HStack>
 
           <HStack spacing={8}>

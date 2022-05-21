@@ -1,4 +1,5 @@
 import React from 'react'
+import { format, isAfter, isValid } from 'date-fns'
 
 import {
   Box,
@@ -9,45 +10,59 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
+import { IMilestone } from '../../types/entities'
 
-const Milestones: React.FC = () => {
+interface IMilestonesProps {
+  milestones: IMilestone[]
+}
+
+const Milestones: React.FC<IMilestonesProps> = (props) => {
+  const { milestones } = props
+
   return (
     <VStack p="4" spacing="5" alignItems="flex-start">
-      <HStack>
-        <CircularProgress value={40} color="brand.400" size="40px" mr="2">
-          <CircularProgressLabel fontWeight="semibold" fontSize="xs">
-            40%
-          </CircularProgressLabel>
-        </CircularProgress>
+      {milestones.map((milestone) => {
+        const startDate = isValid(new Date(milestone.startDate))
+          ? format(new Date(milestone.startDate), 'MMM d')
+          : null
 
-        <Box>
-          <Heading size="sm" fontWeight="semibold">
-            Introduction To Databases with PostgresQL, 2nd Edition
-          </Heading>
+        const endDate =
+          milestone.estimatedEndDate &&
+          isValid(new Date(milestone.estimatedEndDate))
+            ? format(new Date(milestone.estimatedEndDate), 'MMM d')
+            : null
 
-          <Text fontSize="sm" fontWeight="semibold" color="gray.400">
-            Jan 1 - Feb 15
-          </Text>
-        </Box>
-      </HStack>
+        const progress = isAfter(new Date(milestone.startDate), new Date())
+          ? 0
+          : (new Date().getTime() - new Date(milestone.startDate).getTime()) /
+            (new Date(milestone.estimatedEndDate).getTime() -
+              new Date(milestone.startDate).getTime())
 
-      <HStack>
-        <CircularProgress value={10} color="brand.400" size="40px" mr="2">
-          <CircularProgressLabel fontWeight="semibold" fontSize="xs">
-            10%
-          </CircularProgressLabel>
-        </CircularProgress>
+        return (
+          <HStack key={milestone.id}>
+            <CircularProgress
+              value={progress}
+              color="brand.400"
+              size="40px"
+              mr="2"
+            >
+              <CircularProgressLabel fontWeight="semibold" fontSize="xs">
+                {progress}%
+              </CircularProgressLabel>
+            </CircularProgress>
 
-        <Box>
-          <Heading size="sm" fontWeight="semibold">
-            PostgresQL: The Complete Guide, by John Darling
-          </Heading>
+            <Box>
+              <Heading size="sm" fontWeight="semibold">
+                {milestone.name}
+              </Heading>
 
-          <Text fontSize="sm" fontWeight="semibold" color="gray.400">
-            Feb 1 - Mar 31
-          </Text>
-        </Box>
-      </HStack>
+              <Text fontSize="sm" fontWeight="semibold" color="gray.400">
+                {startDate} - {endDate}
+              </Text>
+            </Box>
+          </HStack>
+        )
+      })}
     </VStack>
   )
 }

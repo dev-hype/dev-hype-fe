@@ -10,6 +10,7 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
+  HStack,
   Input,
   InputGroup,
   InputRightElement,
@@ -21,9 +22,14 @@ import { FaExclamationCircle } from 'react-icons/fa'
 import SelectInput from 'src/modules/core/components/SelectInput'
 
 import { SelectOption } from 'src/modules/core/types/entities'
+import Link from 'next/link'
+import { usersPaths } from 'src/modules/users/constants/paths'
 
 interface IProfileFormProps {
-  initialState?: IProfileFormDto
+  userId: string
+  initialState?: IProfileFormDto | null
+  isSubmitting?: boolean
+  isEdit?: boolean
   onSubmit: (profile: IProfileFormDto) => void
 }
 
@@ -34,7 +40,7 @@ const defaultState: IProfileFormDto = {
 }
 
 const ProfileForm: React.FC<IProfileFormProps> = (props) => {
-  const { initialState, onSubmit } = props
+  const { userId, initialState, isSubmitting, isEdit, onSubmit } = props
 
   const {
     control,
@@ -60,6 +66,7 @@ const ProfileForm: React.FC<IProfileFormProps> = (props) => {
           <InputGroup>
             <Input
               id="firstName"
+              disabled={isSubmitting}
               placeholder="First name..."
               fontSize="sm"
               isInvalid={false}
@@ -87,6 +94,7 @@ const ProfileForm: React.FC<IProfileFormProps> = (props) => {
           <InputGroup>
             <Input
               id="lastName"
+              disabled={isSubmitting}
               placeholder="Last name..."
               fontSize="sm"
               isInvalid={false}
@@ -114,6 +122,7 @@ const ProfileForm: React.FC<IProfileFormProps> = (props) => {
           <InputGroup>
             <Textarea
               id="bio"
+              disabled={isSubmitting}
               placeholder="Bio..."
               fontSize="sm"
               isInvalid={false}
@@ -151,6 +160,7 @@ const ProfileForm: React.FC<IProfileFormProps> = (props) => {
                   value={selectedOption}
                   options={[{ label: 'Iran', value: 'ir' }]}
                   onBlur={onBlur}
+                  isDisabled={isSubmitting}
                   onChange={(newValue) => {
                     setValue(
                       'countryCode',
@@ -172,11 +182,19 @@ const ProfileForm: React.FC<IProfileFormProps> = (props) => {
           }}
         />
 
-        <Box mt="12">
-          <Button type="submit" w="48">
-            Setup Profile
+        <HStack mt="12" spacing="4">
+          <Button type="submit" disabled={isSubmitting}>
+            {isEdit ? 'Update' : 'Setup'} Profile
           </Button>
-        </Box>
+
+          {isEdit && (
+            <Link href={usersPaths.profile(userId)} passHref>
+              <Button as="a" variant="ghost" disabled={isSubmitting}>
+                Cancel
+              </Button>
+            </Link>
+          )}
+        </HStack>
       </Box>
     </form>
   )

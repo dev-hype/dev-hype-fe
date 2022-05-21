@@ -17,6 +17,7 @@ import { corePaths } from 'src/modules/core/constants/paths'
 import { getUserQueryKey } from 'src/modules/users/hooks/queries/useUserQuery'
 
 import { IUserResponse } from 'src/modules/users/types/res'
+import { useRouter } from 'next/router'
 
 export const getServerSideProps = hybridRoute(async (ctx, queryClient) => {
   const profileUserId = ctx.params?.userId
@@ -56,6 +57,8 @@ export const getServerSideProps = hybridRoute(async (ctx, queryClient) => {
 })
 
 const Profile: NextPage = () => {
+  const { query } = useRouter()
+
   return (
     <>
       <Head>
@@ -70,7 +73,7 @@ const Profile: NextPage = () => {
         </Box>
 
         <Box>
-          <ProfileGoals />
+          <ProfileGoals userId={query.userId as string} />
         </Box>
       </AppLayout>
     </>

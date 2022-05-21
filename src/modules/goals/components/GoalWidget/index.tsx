@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { format, isValid } from 'date-fns'
 
 import {
   Badge,
@@ -17,15 +18,34 @@ import { FaEllipsisV } from 'react-icons/fa'
 import Milestones from './Milestones'
 import Projects from './Projects'
 
+import { IGoal, IMilestone, IProject, ITopic } from '../../types/entities'
+
 enum ExpandableContent {
   Milestones,
   Projects,
 }
 
-const GoalWidget: React.FC = () => {
+interface IGoalWidgetProps {
+  goal: IGoal
+  milestones: IMilestone[]
+  projects: IProject[]
+  topic: ITopic
+}
+
+const GoalWidget: React.FC<IGoalWidgetProps> = (props) => {
+  const { goal, milestones, projects, topic } = props
+
   const [activeContent, setActiveContent] = useState<ExpandableContent | null>(
     null,
   )
+
+  const startDate = isValid(new Date(goal.startDate))
+    ? format(new Date(goal.startDate), 'MMM d')
+    : null
+  const endDate =
+    goal.estimatedEndDate && isValid(new Date(goal.estimatedEndDate))
+      ? format(new Date(goal.estimatedEndDate), 'MMM d')
+      : null
 
   return (
     <Box>
@@ -33,11 +53,11 @@ const GoalWidget: React.FC = () => {
         <HStack p="4" bgColor="brand.50" justifyContent="space-between">
           <Box>
             <HStack mb="4">
-              <Heading size="sm" mb="1" mr="1.5">
-                Learn Backend web development with Golang
+              <Heading size="sm" mr="1.5">
+                {goal.name}
               </Heading>
 
-              <Badge variant="solid">Web Development</Badge>
+              <Badge variant="solid">{topic.name}</Badge>
             </HStack>
 
             <Box display="flex">
@@ -65,7 +85,7 @@ const GoalWidget: React.FC = () => {
                   )
                 }
               >
-                5 Milestones
+                {milestones.length} Milestones
               </Button>
 
               <Button
@@ -92,7 +112,7 @@ const GoalWidget: React.FC = () => {
                   )
                 }
               >
-                1 Project
+                {projects.length} Project
               </Button>
             </Box>
           </Box>
@@ -103,10 +123,10 @@ const GoalWidget: React.FC = () => {
                 fontSize="sm"
                 color="gray.500"
                 fontWeight="semibold"
-                mb="2"
+                mb="1"
                 lineHeight={1}
               >
-                Jan 1 - Mar 31
+                {startDate} - {endDate}
               </Text>
 
               <HStack>
@@ -139,7 +159,7 @@ const GoalWidget: React.FC = () => {
           <Box boxShadow="sm" border="1px" borderColor="gray.50">
             {activeContent === ExpandableContent.Milestones && (
               <Box>
-                <Milestones />
+                <Milestones milestones={milestones} />
               </Box>
             )}
 
