@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import useInfiniteScroll from 'react-infinite-scroll-hook'
 
 import {
@@ -9,23 +9,30 @@ import {
   Spinner,
   Text,
   Tooltip,
-  useBoolean,
+  useDisclosure,
 } from '@chakra-ui/react'
 
 import { FaPlus } from 'react-icons/fa'
 
 import GoalWidget from 'src/modules/goals/components/GoalWidget'
 import CreateGoalModal from 'src/modules/goals/components/CreateGoalModal'
+import DeleteGoalModal from './DeleteGoalModal'
 
 import { useUserGoalsQuery } from 'src/modules/goals/hooks/queries/useUserGoalsQuery'
 
 import { IUserGoalsResponse } from 'src/modules/goals/types/res'
+import { IGoal } from 'src/modules/goals/types/entities'
 
 const ProfileGoals: React.FC<{ userId: string }> = (props) => {
   const { userId } = props
 
-  const [isNewGoalModalOpen, { on: openNewGoalModal, off: closeNewGoalModal }] =
-    useBoolean(false)
+  const {
+    isOpen: isNewGoalModalOpen,
+    onOpen: openNewGoalModal,
+    onClose: closeNewGoalModal,
+  } = useDisclosure()
+
+  const [goalToDelete, setGoalToDelete] = useState<IGoal | null>(null)
 
   const {
     data: goalsData,
@@ -93,6 +100,7 @@ const ProfileGoals: React.FC<{ userId: string }> = (props) => {
                   <GoalWidget
                     goal={goal}
                     milestones={milestones}
+                    onDeleteClick={setGoalToDelete}
                     projects={projects}
                     topic={topic}
                   />
@@ -112,6 +120,16 @@ const ProfileGoals: React.FC<{ userId: string }> = (props) => {
         isOpen={isNewGoalModalOpen}
         onClose={closeNewGoalModal}
       />
+
+      {goalToDelete ? (
+        <DeleteGoalModal
+          goal={goalToDelete}
+          isOpen={Boolean(goalToDelete)}
+          onClose={() => {
+            setGoalToDelete(null)
+          }}
+        />
+      ) : null}
     </>
   )
 }

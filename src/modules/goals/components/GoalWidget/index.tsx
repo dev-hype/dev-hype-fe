@@ -38,10 +38,11 @@ interface IGoalWidgetProps {
   topic: ITopic & {
     specialization: ISpecialization
   }
+  onDeleteClick: (goal: IGoal) => void
 }
 
 const GoalWidget: React.FC<IGoalWidgetProps> = (props) => {
-  const { goal, milestones, projects, topic } = props
+  const { goal, milestones, projects, topic, onDeleteClick } = props
 
   const [activeContent, setActiveContent] = useState<ExpandableContent | null>(
     null,
@@ -152,7 +153,7 @@ const GoalWidget: React.FC<IGoalWidgetProps> = (props) => {
                   console.log('Edit')
                 }}
                 onDeleteClick={() => {
-                  console.log('Delete')
+                  onDeleteClick(goal)
                 }}
               />
             </Box>

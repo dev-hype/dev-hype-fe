@@ -30,3 +30,11 @@ export const createGoal = async (data: ICreateGoalDto) => {
 
   return response.data
 }
+
+export const deleteGoal = async (goalId: number) => {
+  const response = await httpClient.delete<ISingleGoalResponse>(
+    `/goals/${goalId}`,
+  )
+
+  return response.data
+}
