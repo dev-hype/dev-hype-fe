@@ -9,6 +9,7 @@ import DefaultHead from 'src/modules/core/components/DefaultHead'
 import AuthProvider from 'src/modules/auth/providers/AuthProvider'
 
 import { theme } from 'src/modules/core/config/theme'
+import AppNav from 'src/modules/core/components/AppNav'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(
@@ -30,6 +31,8 @@ function MyApp({ Component, pageProps }: AppProps) {
           <DefaultHead />
 
           <ChakraProvider theme={theme}>
+            <AppNav />
+
             <Component {...pageProps} />
           </ChakraProvider>
         </AuthProvider>

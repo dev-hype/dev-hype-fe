@@ -26,6 +26,17 @@ const ProfileTabs: React.FC = () => {
               borderBottom: '1px solid',
             }}
           >
+            Tasks
+          </Tab>
+
+          <Tab
+            color="gray.500"
+            _selected={{
+              color: 'brand.500',
+              fontWeight: 'bold',
+              borderBottom: '1px solid',
+            }}
+          >
             Timeline
           </Tab>
 
