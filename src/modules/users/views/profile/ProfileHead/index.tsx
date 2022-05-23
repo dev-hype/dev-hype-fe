@@ -115,9 +115,11 @@ const ProfileHead: React.FC = () => {
         </VStack>
       </Container>
 
-      <Box>
-        <ProfileTabs />
-      </Box>
+      <Container maxW="container.lg" px="2">
+        <HStack>
+          <ProfileTabs />
+        </HStack>
+      </Container>
     </Box>
   )
 }

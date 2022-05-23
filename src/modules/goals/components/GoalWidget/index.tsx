@@ -8,17 +8,23 @@ import {
   Collapse,
   Heading,
   HStack,
-  IconButton,
   Progress,
   Text,
   VStack,
 } from '@chakra-ui/react'
-import { FaEllipsisV } from 'react-icons/fa'
 
 import Milestones from './Milestones'
 import Projects from './Projects'
 
-import { IGoal, IMilestone, IProject, ITopic } from '../../types/entities'
+import {
+  IGoal,
+  IMilestone,
+  IProject,
+  ISpecialization,
+  ITopic,
+} from '../../types/entities'
+
+import GoalDropdown from './GoalDropdown'
 
 enum ExpandableContent {
   Milestones,
@@ -29,7 +35,9 @@ interface IGoalWidgetProps {
   goal: IGoal
   milestones: IMilestone[]
   projects: IProject[]
-  topic: ITopic
+  topic: ITopic & {
+    specialization: ISpecialization
+  }
 }
 
 const GoalWidget: React.FC<IGoalWidgetProps> = (props) => {
@@ -57,7 +65,7 @@ const GoalWidget: React.FC<IGoalWidgetProps> = (props) => {
                 {goal.name}
               </Heading>
 
-              <Badge variant="solid">{topic.name}</Badge>
+              <Badge variant="solid">{topic.specialization.name}</Badge>
             </HStack>
 
             <Box display="flex">
@@ -139,18 +147,14 @@ const GoalWidget: React.FC<IGoalWidgetProps> = (props) => {
             </VStack>
 
             <Box>
-              <IconButton
-                colorScheme="black"
-                color="gray.500"
-                aria-label="options"
-                variant="ghost"
-                size="sm"
-                _hover={{
-                  bgColor: 'blackAlpha.100',
+              <GoalDropdown
+                onEditClick={() => {
+                  console.log('Edit')
                 }}
-              >
-                <FaEllipsisV size={16} />
-              </IconButton>
+                onDeleteClick={() => {
+                  console.log('Delete')
+                }}
+              />
             </Box>
           </HStack>
         </HStack>

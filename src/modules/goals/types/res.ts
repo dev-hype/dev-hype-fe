@@ -1,4 +1,12 @@
-import { IGoal, IMilestone, IProject, ITopic } from './entities'
+import {
+  IGoal,
+  IMilestone,
+  IMilestoneSchedule,
+  IProject,
+  IResource,
+  ISpecialization,
+  ITopic,
+} from './entities'
 
 export interface IUserGoalsResponse {
   count: number
@@ -6,9 +14,35 @@ export interface IUserGoalsResponse {
   limit: number
   goals: Array<
     IGoal & {
-      milestones: IMilestone[]
+      milestones: Array<
+        IMilestone & {
+          resource: IResource
+          milestoneSchedules: IMilestoneSchedule[]
+        }
+      >
       projects: IProject[]
-      topic: ITopic
+      topic: ITopic & {
+        specialization: ISpecialization
+      }
     }
   >
+}
+
+export interface ISingleGoalResponse {
+  goal: IGoal & {
+    milestones: Array<
+      IMilestone & {
+        resource: IResource
+        milestoneSchedules: IMilestoneSchedule[]
+      }
+    >
+    projects: IProject[]
+    topic: ITopic & {
+      specialization: ISpecialization
+    }
+  }
+}
+
+export interface ISpecializationsResponse {
+  specializations: ISpecialization[]
 }

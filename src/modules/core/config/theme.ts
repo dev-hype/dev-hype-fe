@@ -6,13 +6,6 @@ import {
 
 export const theme = extendTheme(
   {
-    styles: {
-      global: {
-        'html, body': {
-          minH: '100vh',
-        },
-      },
-    },
     fonts: {
       heading: "'Work Sans', sans-serif",
       body: "'Work Sans', sans-serif",

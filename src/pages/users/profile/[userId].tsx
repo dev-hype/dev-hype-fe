@@ -68,11 +68,11 @@ const Profile: NextPage = () => {
       <AppLayout disablePadding>
         <PageHeader title="Profile" />
 
-        <Box mb="6">
+        <Box>
           <ProfileHead />
         </Box>
 
-        <Box>
+        <Box py="6">
           <ProfileGoals userId={query.userId as string} />
         </Box>
       </AppLayout>

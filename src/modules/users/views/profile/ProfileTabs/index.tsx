@@ -5,7 +5,7 @@ import { Container, Tab, TabList, Tabs } from '@chakra-ui/react'
 const ProfileTabs: React.FC = () => {
   return (
     <Tabs variant="unstyled" colorScheme="brand">
-      <TabList px="6">
+      <TabList>
         <Container maxW="container.lg" display="flex">
           <Tab
             color="gray.500"

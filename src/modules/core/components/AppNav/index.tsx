@@ -11,12 +11,11 @@ import { useAuthUserQuery } from 'src/modules/users/hooks/queries/useAuthUserQue
 
 import { corePaths } from 'src/modules/core/constants/paths'
 import { usersPaths } from 'src/modules/users/constants/paths'
-// import { insightsPaths } from 'src/modules/insights/constants/paths'
 
 import Logo from 'public/images/logo.png'
 
 const AppNav: React.FC = () => {
-  const { pathname } = useRouter()
+  const { asPath } = useRouter()
 
   const { data: userData } = useAuthUserQuery()
 
@@ -89,7 +88,7 @@ const AppNav: React.FC = () => {
         justifyContent="center"
       >
         {navItems.map((item) => {
-          const isActive = pathname === item.href
+          const isActive = asPath === item.href
 
           return (
             <Link key={item.title} href={item.href} passHref>
