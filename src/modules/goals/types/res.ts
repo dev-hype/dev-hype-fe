@@ -46,3 +46,12 @@ export interface ISingleGoalResponse {
 export interface ISpecializationsResponse {
   specializations: ISpecialization[]
 }
+
+export interface ITodayTasksResponse {
+  milestones: Array<
+    IMilestone & {
+      milestoneSchedules: IMilestoneSchedule[]
+      resource: IResource
+    }
+  >
+}

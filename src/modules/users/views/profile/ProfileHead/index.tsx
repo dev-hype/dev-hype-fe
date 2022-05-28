@@ -1,5 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 import {
   Box,
@@ -18,11 +19,9 @@ import {
 
 import { MdOutlineLocationOn } from 'react-icons/md'
 
-import ProfileTabs from '../ProfileTabs'
 import Photo from 'src/modules/core/components/Photo'
 
 import { useUserQuery } from 'src/modules/users/hooks/queries/useUserQuery'
-import Link from 'next/link'
 import { usersPaths } from 'src/modules/users/constants/paths'
 
 const ProfileHead: React.FC = () => {
@@ -113,12 +112,6 @@ const ProfileHead: React.FC = () => {
             </Stat>
           </HStack>
         </VStack>
-      </Container>
-
-      <Container maxW="container.lg" px="2">
-        <HStack>
-          <ProfileTabs />
-        </HStack>
       </Container>
     </Box>
   )
