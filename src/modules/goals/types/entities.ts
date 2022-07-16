@@ -38,21 +38,21 @@ export interface IProject {
   name: string
   description: string
   url: string
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string
+  updatedAt: string
   goalId: number
 }
 
 export interface IMilestone {
   id: number
   name: string
-  startDate: Date
+  startDate: string
   durationInHours: number
-  estimatedEndDate: Date
-  actualEndDate: Date | null
+  estimatedEndDate: string
+  actualEndDate: string | null
   isActive: boolean
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string
+  updatedAt: string
   goalId: number
   resourceId: number
 }
@@ -67,12 +67,21 @@ export interface IMilestoneSchedule {
 export interface IGoal {
   id: number
   name: string
-  startDate: Date
-  estimatedEndDate: Date | null
-  actualEndDate: Date | null
+  startDate: string
+  estimatedEndDate: string | null
+  actualEndDate: string | null
   isActive: boolean
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string
+  updatedAt: string
   userId: string
   topicId: number
+}
+
+export interface IMilestoneNote {
+  id: number
+  title: string
+  note: string
+  createdAt: string
+  updatedAt: string
+  milestoneId: number
 }

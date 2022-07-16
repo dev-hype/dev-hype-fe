@@ -69,11 +69,11 @@ const Calendar: React.FC<CalendarProps> = (props) => {
   const { calendars, getBackProps, getDateProps, getForwardProps } = useDayzed({
     ...restProps,
     onDateSelected: ({ date }) => {
-      const timezoneDiff = date.getTimezoneOffset() * 60 * 1000
-      const utcDate = date.getTime() - timezoneDiff
-      const utcDateObj = new Date(utcDate)
+      // const timezoneDiff = date.getTimezoneOffset() * 60 * 1000
+      // const utcDate = date.getTime() - timezoneDiff
+      // const utcDateObj = new Date(utcDate)
 
-      onChange(utcDateObj.toISOString())
+      onChange(date.toISOString())
     },
     showOutsideDays: true,
   })

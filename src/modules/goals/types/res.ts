@@ -1,6 +1,7 @@
 import {
   IGoal,
   IMilestone,
+  IMilestoneNote,
   IMilestoneSchedule,
   IProject,
   IResource,
@@ -54,4 +55,8 @@ export interface ITodayTasksResponse {
       resource: IResource
     }
   >
+}
+
+export interface IMilestoneNotesResponse {
+  notes: IMilestoneNote[]
 }

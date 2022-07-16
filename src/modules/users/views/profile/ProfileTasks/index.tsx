@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { Box, Container, Spinner } from '@chakra-ui/react'
 
-import { useTodayTasksQuery } from 'src/modules/goals/hooks/queries/useTodayTasksQuery'
 import Task from './Task'
+import TaskNotesModal, {
+  MilestoneTask,
+} from 'src/modules/goals/components/TaskModal'
+
+import { useTodayTasksQuery } from 'src/modules/goals/hooks/queries/useTodayTasksQuery'
 
 const ProfileTasks: React.FC = () => {
   const { data, isLoading } = useTodayTasksQuery()
+
+  const [openTask, setOpenTask] = useState<MilestoneTask | null>(null)
 
   return (
     <Container maxW="container.lg" p="6" position="relative">
@@ -22,11 +28,22 @@ const ProfileTasks: React.FC = () => {
                   milestoneName={milestone.name}
                   resourceName={milestone.resource.name}
                   durationInHours={schedule.durationInHours}
+                  onStartClick={() => setOpenTask(milestone)}
                 />
               </Box>
             )
           })
         : null}
+
+      {openTask && (
+        <TaskNotesModal
+          isOpen
+          onClose={() => {
+            setOpenTask(null)
+          }}
+          task={openTask}
+        />
+      )}
     </Container>
   )
 }

@@ -1,6 +1,6 @@
 import { httpClient } from 'src/modules/core/config/httpClient'
 
-import { ISpecializationsResponse } from '../types/res'
+import { ISpecializationsResponse } from '../../goals/types/res'
 
 export const getSpecializations = async () => {
   const response = await httpClient.get<ISpecializationsResponse>(

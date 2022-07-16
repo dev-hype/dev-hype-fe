@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react'
 import { Controller, FormProvider } from 'react-hook-form'
-import { startOfToday } from 'date-fns'
+import { startOfDay, startOfToday } from 'date-fns'
 
 import {
   Box,
@@ -149,7 +149,7 @@ const AddMilestoneModal: React.FC<IAddMilestoneModalProps> = (props) => {
                         <DatePicker
                           value={field.value}
                           placeholder="Milestone Start Date..."
-                          minDate={goalStartDate}
+                          minDate={startOfDay(goalStartDate)}
                           maxDate={
                             estimatedEndDate
                               ? new Date(estimatedEndDate)

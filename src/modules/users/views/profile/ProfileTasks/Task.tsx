@@ -9,16 +9,17 @@ import {
   StatLabel,
   StatNumber,
 } from '@chakra-ui/react'
-import { FaArrowRight, FaPlay } from 'react-icons/fa'
+import { FaPlay } from 'react-icons/fa'
 
 interface ITaskProps {
   milestoneName: string
   resourceName: string
   durationInHours: number
+  onStartClick: () => void
 }
 
 const Task: React.FC<ITaskProps> = (props) => {
-  const { milestoneName, resourceName, durationInHours } = props
+  const { milestoneName, resourceName, durationInHours, onStartClick } = props
 
   return (
     <Box border="1px" borderColor="gray.200" px="6" py="3" borderRadius="4px">
@@ -32,7 +33,12 @@ const Task: React.FC<ITaskProps> = (props) => {
         </Stat>
 
         <Box>
-          <Button rightIcon={<FaPlay size={10} />} iconSpacing="4">
+          <Button
+            size="sm"
+            rightIcon={<FaPlay size={8} />}
+            iconSpacing="4"
+            onClick={onStartClick}
+          >
             Start
           </Button>
         </Box>
