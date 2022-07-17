@@ -23,6 +23,7 @@ const Home: NextPage = () => {
 
       <Box>
         <Heading>Home Again!!!!!!</Heading>
+        <Heading>Test</Heading>
 
         <Text>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa minima
