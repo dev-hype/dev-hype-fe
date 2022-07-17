@@ -22,7 +22,7 @@ const Home: NextPage = () => {
       <PageHeader title="Home" />
 
       <Box>
-        <Heading>Home</Heading>
+        <Heading>Home Again!!!!!!</Heading>
 
         <Text>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa minima
