@@ -1,0 +1,6 @@
+query timezones {
+  timezones {
+    name
+    offset
+  }
+}

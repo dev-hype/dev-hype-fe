@@ -14,10 +14,10 @@ import {
 
 import { useDeleteGoalMutation } from 'src/modules/goals/hooks/mutations/useDeleteGoalMutation'
 
-import { IGoal } from 'src/modules/goals/types/entities'
+import { GqlGoal } from 'src/generated/graphql'
 
 interface IDeleteGoalModalProps {
-  goal: IGoal
+  goal: GqlGoal
   isOpen: boolean
   onClose: () => void
 }
@@ -30,16 +30,19 @@ const DeleteGoalModal: React.FC<IDeleteGoalModalProps> = (props) => {
   const { mutate: deleteGoal } = useDeleteGoalMutation()
 
   const submitHandler = useCallback(() => {
-    deleteGoal(goal.id, {
-      onSuccess: () => {
-        onClose()
-        toast({
-          title: 'Success',
-          description: 'Goal is deleted',
-          status: 'success',
-        })
+    deleteGoal(
+      { id: goal.id },
+      {
+        onSuccess: () => {
+          onClose()
+          toast({
+            title: 'Success',
+            description: 'Goal is deleted',
+            status: 'success',
+          })
+        },
       },
-    })
+    )
   }, [deleteGoal, goal.id, onClose, toast])
 
   return (

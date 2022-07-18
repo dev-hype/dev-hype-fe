@@ -1,0 +1,19 @@
+mutation editProfile(
+  $firstName: String
+  $lastName: String
+  $bio: String
+  $avatar: String
+  $countryCode: String
+  $timezoneName: String
+) {
+  editProfile(
+    firstName: $firstName
+    lastName: $lastName
+    bio: $bio
+    avatar: $avatar
+    countryCode: $countryCode
+    timezoneName: $timezoneName
+  ) {
+    id
+  }
+}

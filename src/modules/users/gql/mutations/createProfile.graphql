@@ -1,0 +1,19 @@
+mutation createProfile(
+  $firstName: String!
+  $lastName: String!
+  $bio: String
+  $avatar: String
+  $countryCode: String!
+  $timezoneName: String!
+) {
+  createProfile(
+    firstName: $firstName
+    lastName: $lastName
+    bio: $bio
+    avatar: $avatar
+    countryCode: $countryCode
+    timezoneName: $timezoneName
+  ) {
+    id
+  }
+}

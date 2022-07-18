@@ -2,11 +2,15 @@ import { useMutation, useQueryClient } from 'react-query'
 
 import { useAuthUserQuery } from 'src/modules/users/hooks/queries/useAuthUserQuery'
 
-import { createGoal } from '../../api/goals'
-
 import { getSingleGoalQueryKey } from '../queries/useSingleGoalQuery'
 import { getTodayTasksQueryKey } from '../queries/useTodayTasksQuery'
-import { getUserGoalsQueryKey } from '../queries/useUserGoalsQuery'
+import { getGoalsQueryKey } from '../queries/useGoalsQuery'
+
+import { CreateGoalMutationVariables, getSdk } from 'src/generated/graphql'
+import { gqlClient } from 'src/modules/core/config/gqlClient'
+
+const mutationFn = (vars: CreateGoalMutationVariables) =>
+  getSdk(gqlClient()).createGoal(vars)
 
 export const useCreateGoalMutation = () => {
   const queryClient = useQueryClient()
@@ -14,11 +18,11 @@ export const useCreateGoalMutation = () => {
   const { data: userData } = useAuthUserQuery()
 
   const mutationResults = useMutation({
-    mutationFn: createGoal,
-    onSuccess: ({ goal }) => {
-      queryClient.invalidateQueries(getSingleGoalQueryKey(goal.id))
+    mutationFn,
+    onSuccess: ({ createGoal: { id } }) => {
+      queryClient.invalidateQueries(getSingleGoalQueryKey(id))
       queryClient.invalidateQueries(
-        getUserGoalsQueryKey(userData?.user?.id || ''),
+        getGoalsQueryKey({ userId: userData?.me?.id || '' }),
       )
       queryClient.invalidateQueries(getTodayTasksQueryKey())
     },

@@ -18,10 +18,9 @@ import GoalWidget from 'src/modules/goals/components/GoalWidget'
 import CreateGoalModal from 'src/modules/goals/components/CreateGoalModal'
 import DeleteGoalModal from './DeleteGoalModal'
 
-import { useUserGoalsQuery } from 'src/modules/goals/hooks/queries/useUserGoalsQuery'
+import { useGoalsQuery } from 'src/modules/goals/hooks/queries/useGoalsQuery'
 
-import { IUserGoalsResponse } from 'src/modules/goals/types/res'
-import { IGoal } from 'src/modules/goals/types/entities'
+import { GoalsQuery, GqlGoal } from 'src/generated/graphql'
 
 const ProfileGoals: React.FC<{ userId: string }> = (props) => {
   const { userId } = props
@@ -32,7 +31,7 @@ const ProfileGoals: React.FC<{ userId: string }> = (props) => {
     onClose: closeNewGoalModal,
   } = useDisclosure()
 
-  const [goalToDelete, setGoalToDelete] = useState<IGoal | null>(null)
+  const [goalToDelete, setGoalToDelete] = useState<GqlGoal | null>(null)
 
   const {
     data: goalsData,
@@ -41,7 +40,7 @@ const ProfileGoals: React.FC<{ userId: string }> = (props) => {
     hasNextPage,
     isFetchingNextPage,
     isError,
-  } = useUserGoalsQuery(userId)
+  } = useGoalsQuery({ userId })
 
   const [sentryRef] = useInfiniteScroll({
     onLoadMore: fetchNextPage,
@@ -53,8 +52,8 @@ const ProfileGoals: React.FC<{ userId: string }> = (props) => {
   const goals = useMemo(() => {
     if (goalsData) {
       return goalsData.pages.reduce(
-        (base, current) => [...base, ...current.goals],
-        [] as IUserGoalsResponse['goals'],
+        (base, current) => [...base, ...current.goals.list],
+        [] as GoalsQuery['goals']['list'],
       )
     }
 
@@ -93,16 +92,12 @@ const ProfileGoals: React.FC<{ userId: string }> = (props) => {
 
         {goalsData
           ? goals.map((goalData) => {
-              const { milestones, projects, topic, ...goal } = goalData
-
               return (
-                <Box key={goal.id} mb="4">
+                <Box key={goalData.id} mb="4">
                   <GoalWidget
-                    goal={goal}
-                    milestones={milestones}
+                    goal={goalData}
                     onDeleteClick={setGoalToDelete}
-                    projects={projects}
-                    topic={topic}
+                    // projects={projects}
                   />
                 </Box>
               )

@@ -22,12 +22,12 @@ import { useGoalQuery } from 'src/modules/goals/hooks/queries/useSingleGoalQuery
 import { goalModalSteps } from '../../constants'
 
 import { GoalModalStep } from '../../types'
-import { IGoal } from 'src/modules/goals/types/entities'
+import { GqlGoal } from 'src/generated/graphql'
 
 const milestonesStep = goalModalSteps[GoalModalStep.Milestones]
 
 interface IProps {
-  goal: IGoal
+  goal: GqlGoal
   onClose: () => void
 }
 
@@ -118,7 +118,6 @@ const CreateGoalMilestones: React.FC<IProps> = (props) => {
         isOpen={isAddMilestoneModalOpen}
         onClose={closeAddMilestoneModalOpen}
         goalId={goal.id}
-        goalStartDate={new Date(goal.startDate)}
       />
     </Flex>
   )

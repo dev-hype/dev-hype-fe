@@ -21,7 +21,7 @@ import { MdOutlineLocationOn } from 'react-icons/md'
 
 import Photo from 'src/modules/core/components/Photo'
 
-import { useUserQuery } from 'src/modules/users/hooks/queries/useUserQuery'
+import { useProfileQuery } from 'src/modules/users/hooks/queries/useProfileQuery'
 import { usersPaths } from 'src/modules/users/constants/paths'
 
 const ProfileHead: React.FC = () => {
@@ -29,9 +29,9 @@ const ProfileHead: React.FC = () => {
 
   const profileUserId = query.userId as string
 
-  const { data: profileUserData } = useUserQuery(profileUserId)
+  const { data: profileUserData } = useProfileQuery(profileUserId)
 
-  const profile = profileUserData?.user.profile
+  const profile = profileUserData?.profile
 
   return (
     <Box bgColor="gray.50">
@@ -52,7 +52,7 @@ const ProfileHead: React.FC = () => {
             bgColor="white"
           >
             <Photo
-              src={`https://avatars.dicebear.com/api/adventurer/${profileUserData?.user.id}.svg`}
+              src={`https://avatars.dicebear.com/api/adventurer/${profileUserData?.profile?.id}.svg`}
               alt="user"
               placeholder="blur"
               width={90}
@@ -80,7 +80,7 @@ const ProfileHead: React.FC = () => {
               </Icon>
 
               <Text fontSize="sm" color="gray.600">
-                {profile?.country.name}
+                {profile?.country.name} - {profile?.timezoneName}
               </Text>
             </HStack>
           </Box>
