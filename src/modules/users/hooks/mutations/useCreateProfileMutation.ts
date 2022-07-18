@@ -1,13 +1,17 @@
 import { useMutation } from 'react-query'
 import { useToast } from '@chakra-ui/react'
 
-import { createProfile } from '../../api/profile'
+import { CreateProfileMutationVariables, getSdk } from 'src/generated/graphql'
+import { gqlClient } from 'src/modules/core/config/gqlClient'
+
+const mutationFn = (args: CreateProfileMutationVariables) =>
+  getSdk(gqlClient()).createProfile(args)
 
 export const useCreateProfileMutation = () => {
   const toast = useToast()
 
   const mutationResults = useMutation({
-    mutationFn: createProfile,
+    mutationFn,
     onSuccess: () => {
       toast({
         title: 'Profile setup',

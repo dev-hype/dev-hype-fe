@@ -29,8 +29,8 @@ import { useAuthModal } from 'src/modules/auth/hooks/useAuthModal'
 import { useAuthContext } from 'src/modules/auth/providers/AuthProvider'
 import { useAuthUserQuery } from 'src/modules/users/hooks/queries/useAuthUserQuery'
 
-import { logout } from 'src/modules/auth/api/auth'
 import { corePaths } from '../../constants/paths'
+import { removeAuthCookie_client } from 'src/modules/auth/utils/authCookie'
 
 interface IPageHeaderProps {
   title: string
@@ -66,7 +66,7 @@ const PageHeader: React.FC<IPageHeaderProps> = (props) => {
         </Heading>
 
         <Box display="flex" alignItems="center">
-          {userData?.user ? (
+          {userData?.me ? (
             <>
               <CountBadge count={50} max={999}>
                 <Tooltip label="Notifications" hasArrow={false}>
@@ -102,9 +102,9 @@ const PageHeader: React.FC<IPageHeaderProps> = (props) => {
                   ml="4"
                 >
                   <Text fontSize="sm" textTransform="capitalize">
-                    {userData.user.profile
-                      ? `${userData.user.profile.firstName} ${userData.user.profile.lastName}`
-                      : userData.user.email}
+                    {userData.me.profile
+                      ? `${userData.me.profile.firstName} ${userData.me.profile.lastName}`
+                      : userData.me.email}
                   </Text>
                 </MenuButton>
 
@@ -118,7 +118,7 @@ const PageHeader: React.FC<IPageHeaderProps> = (props) => {
                       icon={<FaSignOutAlt size={14} />}
                       fontSize="sm"
                       onClick={() => {
-                        logout()
+                        removeAuthCookie_client()
                         setLoggedInFlagOff()
                         window.location.href = corePaths.home()
                       }}

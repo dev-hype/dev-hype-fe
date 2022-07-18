@@ -26,13 +26,13 @@ const AppNav: React.FC = () => {
         title: 'Home',
         href: corePaths.home(),
       },
-      ...(userData?.user
+      ...(userData?.me
         ? [
             {
               icon: <FaUserGraduate size={24} />,
               title: 'Profile',
-              href: userData.user.profile
-                ? usersPaths.profile(userData.user.id)
+              href: userData.me.profile
+                ? usersPaths.profile(userData.me.id)
                 : usersPaths.create_profile(),
             },
           ]

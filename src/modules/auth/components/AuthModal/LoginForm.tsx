@@ -18,7 +18,7 @@ import { FaExclamationCircle } from 'react-icons/fa'
 
 import { useLoginMutation } from '../../hooks/mutations/useLoginMutation'
 
-import { ILoginDto } from '../../types/dto'
+import { LoginMutationVariables } from 'src/generated/graphql'
 
 const schema = object().shape({
   email: string().email('Invalid email address').required('Email is required'),
@@ -43,7 +43,7 @@ const LoginForm: React.FC<ILoginFormProps> = (props) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ILoginDto>({
+  } = useForm<LoginMutationVariables>({
     defaultValues: {
       email: '',
       password: '',
@@ -54,7 +54,7 @@ const LoginForm: React.FC<ILoginFormProps> = (props) => {
   })
 
   const submitHandler = useCallback(
-    (formData: ILoginDto) => {
+    (formData: LoginMutationVariables) => {
       loginMutation(formData, { onSuccess })
     },
     [onSuccess, loginMutation],

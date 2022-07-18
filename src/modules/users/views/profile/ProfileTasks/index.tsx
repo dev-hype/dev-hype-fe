@@ -1,22 +1,22 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-import { Box, Container, Spinner } from '@chakra-ui/react'
+import { Container } from '@chakra-ui/react'
 
-import Task from './Task'
-import TaskNotesModal, {
-  MilestoneTask,
-} from 'src/modules/goals/components/TaskModal'
+// import Task from './Task'
+// import TaskNotesModal, {
+//   MilestoneTask,
+// } from 'src/modules/goals/components/TaskModal'
 
-import { useTodayTasksQuery } from 'src/modules/goals/hooks/queries/useTodayTasksQuery'
+// import { useTodayTasksQuery } from 'src/modules/goals/hooks/queries/useTodayTasksQuery'
 
 const ProfileTasks: React.FC = () => {
-  const { data, isLoading } = useTodayTasksQuery()
+  // const { data, isLoading } = useTodayTasksQuery()
 
-  const [openTask, setOpenTask] = useState<MilestoneTask | null>(null)
+  // const [openTask, setOpenTask] = useState<MilestoneTask | null>(null)
 
   return (
     <Container maxW="container.lg" p="6" position="relative">
-      {isLoading && <Spinner />}
+      {/* {isLoading && <Spinner />}
 
       {data
         ? data.milestones.map((milestone) => {
@@ -43,7 +43,7 @@ const ProfileTasks: React.FC = () => {
           }}
           task={openTask}
         />
-      )}
+      )} */}
     </Container>
   )
 }

@@ -1,17 +1,19 @@
 import { useMutation, useQueryClient } from 'react-query'
 
-import { deleteGoal } from '../../api/goals'
+import { DeleteGoalMutationVariables, getSdk } from 'src/generated/graphql'
+import { gqlClient } from 'src/modules/core/config/gqlClient'
 
-import { getUserGoalsQueryKey } from '../queries/useUserGoalsQuery'
+import { getGoalsQueryKey } from '../queries/useGoalsQuery'
 import { getTodayTasksQueryKey } from '../queries/useTodayTasksQuery'
 
 export const useDeleteGoalMutation = () => {
   const queryClient = useQueryClient()
 
   const mutationResults = useMutation({
-    mutationFn: deleteGoal,
-    onSuccess: ({ goal }) => {
-      queryClient.invalidateQueries(getUserGoalsQueryKey(goal.userId))
+    mutationFn: (vars: DeleteGoalMutationVariables) =>
+      getSdk(gqlClient()).deleteGoal(vars),
+    onSuccess: ({ deleteGoal: { userId } }) => {
+      queryClient.invalidateQueries(getGoalsQueryKey({ userId }))
       queryClient.invalidateQueries(getTodayTasksQueryKey())
     },
   })

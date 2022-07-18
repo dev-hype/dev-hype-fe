@@ -17,7 +17,7 @@ import { usersPaths } from 'src/modules/users/constants/paths'
 
 import { protectedRoute } from 'src/modules/core/routes/protectedRoute'
 
-import { IProfileFormDto } from 'src/modules/users/types/dto'
+import { CreateProfileMutationVariables } from 'src/generated/graphql'
 
 export const getServerSideProps = protectedRoute(async (ctx, queryClient) => {
   return {
@@ -35,15 +35,21 @@ const CreateProfile: NextPage = () => {
   const { mutate: createProfile, isLoading } = useCreateProfileMutation()
 
   const submitHandler = useCallback(
-    (formData: IProfileFormDto) => {
-      const userId = userData?.user?.id
+    (formData: CreateProfileMutationVariables) => {
+      const userId = userData?.me?.id
 
       if (userId) {
-        createProfile(formData, {
-          onSuccess: () => {
-            replace(usersPaths.profile(userId))
+        createProfile(
+          {
+            ...formData,
+            avatar: `https://avatars.dicebear.com/api/adventurer/${userData?.me?.id}.svg`,
           },
-        })
+          {
+            onSuccess: () => {
+              replace(usersPaths.profile(userId))
+            },
+          },
+        )
       }
     },
     [createProfile, replace, userData],
@@ -70,7 +76,7 @@ const CreateProfile: NextPage = () => {
               transform="translateY(50%)"
             >
               <Photo
-                src={`https://avatars.dicebear.com/api/adventurer/${userData?.user?.id}.svg`}
+                src={`https://avatars.dicebear.com/api/adventurer/${userData?.me?.id}.svg`}
                 alt="user"
                 placeholder="blur"
                 width={90}
@@ -85,7 +91,7 @@ const CreateProfile: NextPage = () => {
 
         <Container>
           <ProfileForm
-            userId={userData?.user?.id || ''}
+            userId={userData?.me?.id || ''}
             onSubmit={submitHandler}
             isSubmitting={isLoading}
           />

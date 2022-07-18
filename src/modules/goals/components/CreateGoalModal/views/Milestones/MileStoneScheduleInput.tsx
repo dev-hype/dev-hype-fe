@@ -7,12 +7,12 @@ import ScheduleItem from './ScheduleItem'
 
 import { weekdays } from 'src/modules/core/constants/dates'
 
-import { ICreateMilestoneDto } from 'src/modules/goals/types/dto'
+import { MilestoneFormState } from './useMilestoneForm'
 
 const MileStoneScheduleInput: React.FC = () => {
-  const { control, setValue } = useFormContext<ICreateMilestoneDto>()
+  const { control, setValue } = useFormContext<MilestoneFormState>()
 
-  const { fields, append, remove } = useFieldArray<ICreateMilestoneDto>({
+  const { fields, append, remove } = useFieldArray<MilestoneFormState>({
     name: 'schedules',
     control,
   })

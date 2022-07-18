@@ -1,0 +1,16 @@
+query me {
+  me {
+    id
+    email
+    profile {
+      id
+      firstName
+      lastName
+      bio
+      avatar
+      userId
+      countryCode
+      timezoneName
+    }
+  }
+}

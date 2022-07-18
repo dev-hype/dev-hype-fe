@@ -1,0 +1,44 @@
+mutation createGoal(
+  $name: String!
+  $topicName: String!
+  $specializationId: Int!
+) {
+  createGoal(
+    name: $name
+    topicName: $topicName
+    specializationId: $specializationId
+  ) {
+    id
+    name
+    startDate
+    estimatedEndDate
+    actualEndDate
+    isActive
+    createdAt
+    updatedAt
+    userId
+    topicId
+    topic {
+      id
+      name
+      specializationId
+      specialization {
+        id
+        name
+        fieldId
+      }
+    }
+    milestones {
+      id
+      name
+      startDate
+      durationInHours
+      estimatedEndDate
+      actualEndDate
+      isActive
+      createdAt
+      updatedAt
+      goalId
+    }
+  }
+}

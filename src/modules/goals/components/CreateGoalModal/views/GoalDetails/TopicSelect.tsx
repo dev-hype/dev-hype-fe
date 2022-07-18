@@ -4,7 +4,7 @@ import { Box, Flex, Heading, Text } from '@chakra-ui/react'
 
 import AutoSuggestInput from 'src/modules/core/components/AutoSuggestInput'
 
-import { ICreateGoalDto } from 'src/modules/goals/types/dto'
+import { GoalFormState } from './useGoalForm'
 
 interface ITopicSelectProps {
   isSubmitting?: boolean
@@ -13,7 +13,7 @@ interface ITopicSelectProps {
 const TopicSelect: React.FC<ITopicSelectProps> = (props) => {
   const { isSubmitting } = props
 
-  const { control, setValue } = useFormContext<ICreateGoalDto>()
+  const { control, setValue } = useFormContext<GoalFormState>()
 
   // const [searchTerm, setSearchTerm] = useState('')
 

@@ -1,4 +1,4 @@
-import { WeekDay } from 'src/modules/goals/types/entities'
+import { WeekDay } from 'src/generated/graphql'
 
 export const weekdays = [
   {
