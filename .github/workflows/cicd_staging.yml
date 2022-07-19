@@ -1,4 +1,4 @@
-name: Build Containers for Prod & Push to Dockerhub
+name: Build Containers for Staging & Push to Dockerhub
 
 on:
   push:
@@ -10,7 +10,7 @@ jobs:
     name: Build & Deploy
     runs-on: ubuntu-latest
     env:
-      NEXT_PUBLIC_API_URL: http://localhost:8001/graphql
+      NEXT_PUBLIC_API_URL: https://staging-api.dev-hype.com/graphql
     steps:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
