@@ -26,4 +26,4 @@ jobs:
           tags: devhype/dev-hype-fe:latest
           file: Dockerfile.prod
           build-args:
-            - api_url=https://api.dev-hype.com/graphql
+            - api_url: https://api.dev-hype.com/graphql
