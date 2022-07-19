@@ -10,7 +10,7 @@ import {
 
 import { corePaths } from '../constants/paths'
 
-const endpoint = process.env.NEXT_PUBLIC_API_URL
+const endpoint = `${process.env.NEXT_PUBLIC_API_URL}/graphql`
 
 export const gqlClient = (ctx?: GetServerSidePropsContext) => {
   const authToken = ctx ? getAuthCookie_server(ctx) : getAuthCookie_client()
