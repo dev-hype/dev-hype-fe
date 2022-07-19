@@ -13,6 +13,9 @@ RUN pnpm install
 
 COPY . .
 
+ARG api_url
+ENV NEXT_PUBLIC_API_URL=$api_url
+
 RUN pnpm build
 
 CMD [ "pnpm", "start" ]

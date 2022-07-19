@@ -21,9 +21,9 @@ jobs:
 
       - name: Build and push
         uses: docker/build-push-action@v3
-        env:
-          NEXT_PUBLIC_API_URL: https://staging-api.dev-hype.com/graphql
         with:
           push: true
           tags: devhype/dev-hype-fe:staging
           file: Dockerfile.prod
+          build-args:
+            - api_url=https://staging-api.dev-hype.com/graphql
