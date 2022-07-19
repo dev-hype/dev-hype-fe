@@ -13,8 +13,8 @@ RUN pnpm install
 
 COPY . .
 
-ARG api_url
-ENV NEXT_PUBLIC_API_URL=$api_url
+ARG API_URL
+ENV NEXT_PUBLIC_API_URL=$API_URL
 
 RUN pnpm build
 

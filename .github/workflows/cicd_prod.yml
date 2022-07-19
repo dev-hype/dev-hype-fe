@@ -8,6 +8,7 @@ on:
 jobs:
   build-and-deploy:
     name: Build & Deploy
+    environment: production
     runs-on: ubuntu-latest
     steps:
       - name: Set up Docker Buildx
@@ -25,5 +26,4 @@ jobs:
           push: true
           tags: devhype/dev-hype-fe:latest
           file: Dockerfile.prod
-          build-args:
-            api_url: https://api.dev-hype.com/graphql
+          build-args: API_URL={{ secrets.API_URL }}
