@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { DeleteGoalMutationVariables, getSdk } from 'src/generated/graphql'
 import { gqlClient } from 'src/modules/core/config/gqlClient'

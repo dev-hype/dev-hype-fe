@@ -1,4 +1,4 @@
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 
 import { getSdk, LoginMutationVariables } from 'src/generated/graphql'
 import { gqlClient } from 'src/modules/core/config/gqlClient'

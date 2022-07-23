@@ -1,15 +1,20 @@
 import { useState } from 'react'
-import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
-import { ReactQueryDevtools } from 'react-query/devtools'
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ChakraProvider } from '@chakra-ui/react'
 
 import type { AppProps } from 'next/app'
 
 import DefaultHead from 'src/modules/core/components/DefaultHead'
+import AppNav from 'src/modules/core/components/AppNav'
+
 import AuthProvider from 'src/modules/auth/providers/AuthProvider'
 
 import { theme } from 'src/modules/core/config/theme'
-import AppNav from 'src/modules/core/components/AppNav'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(

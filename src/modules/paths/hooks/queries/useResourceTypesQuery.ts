@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 import { getSdk, ResourceTypesQuery } from 'src/generated/graphql'
 import { gqlClient } from 'src/modules/core/config/gqlClient'
 

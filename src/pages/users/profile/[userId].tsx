@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Head from 'next/head'
 import { NextPage } from 'next'
-import { dehydrate } from 'react-query'
+import { dehydrate } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 
 import { Box, Container, HStack } from '@chakra-ui/react'

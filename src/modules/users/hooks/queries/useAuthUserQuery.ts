@@ -1,4 +1,4 @@
-import { QueryFunction, useQuery } from 'react-query'
+import { QueryFunction, useQuery } from '@tanstack/react-query'
 import { getSdk, MeQuery } from 'src/generated/graphql'
 
 import { useAuthContext } from 'src/modules/auth/providers/AuthProvider'

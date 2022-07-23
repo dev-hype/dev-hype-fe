@@ -20,7 +20,7 @@ export const gqlClient = (ctx?: GetServerSidePropsContext) => {
       ...request,
       headers: {
         ...request.headers,
-        Authorization: `Bearer ${authToken}`,
+        ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
       },
     }),
     responseMiddleware: (response) => {

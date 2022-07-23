@@ -5,7 +5,7 @@ import {
   PreviewData,
 } from 'next'
 import { ParsedUrlQuery } from 'querystring'
-import { QueryClient } from 'react-query'
+import { QueryClient } from '@tanstack/react-query'
 
 import { getSdk, MeQuery } from 'src/generated/graphql'
 import { gqlClient } from '../config/gqlClient'

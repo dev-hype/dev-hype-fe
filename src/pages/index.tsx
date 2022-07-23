@@ -1,4 +1,4 @@
-import { dehydrate } from 'react-query'
+import { dehydrate } from '@tanstack/react-query'
 import type { NextPage } from 'next'
 
 import { Box, Button, Heading, Text } from '@chakra-ui/react'

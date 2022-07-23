@@ -1,4 +1,4 @@
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useToast } from '@chakra-ui/react'
 
 import { EditProfileMutationVariables, getSdk } from 'src/generated/graphql'

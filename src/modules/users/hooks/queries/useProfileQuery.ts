@@ -1,4 +1,4 @@
-import { QueryFunction, useQuery } from 'react-query'
+import { QueryFunction, useQuery } from '@tanstack/react-query'
 
 import { gqlClient } from 'src/modules/core/config/gqlClient'
 

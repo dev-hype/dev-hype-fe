@@ -1,4 +1,4 @@
-import { QueryFunction, useInfiniteQuery } from 'react-query'
+import { QueryFunction, useInfiniteQuery } from '@tanstack/react-query'
 
 import { getSdk, GoalsQuery, GoalsQueryVariables } from 'src/generated/graphql'
 import { gqlClient } from 'src/modules/core/config/gqlClient'

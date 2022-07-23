@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { useRouter } from 'next/router'
-import { dehydrate } from 'react-query'
+import { dehydrate } from '@tanstack/react-query'
 import { NextPage } from 'next'
 import Head from 'next/head'
 
