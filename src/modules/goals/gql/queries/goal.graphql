@@ -31,6 +31,23 @@ query goal($id: Int!) {
       createdAt
       updatedAt
       goalId
+      resourceId
+      resource {
+        id
+        name
+        url
+        isFree
+        typeId
+        type {
+          id
+          name
+        }
+      }
+      milestoneSchedules {
+        id
+        weekDay
+        durationInHours
+      }
     }
   }
 }

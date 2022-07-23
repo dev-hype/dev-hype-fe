@@ -1,17 +1,14 @@
 import React from 'react'
 import { format } from 'date-fns'
 
-import { Box, Heading, HStack, Text } from '@chakra-ui/react'
+import { Box, Heading, HStack, Link, Tag, Text } from '@chakra-ui/react'
 
-// import { weekdays } from 'src/modules/core/constants/dates'
+import { weekdays } from 'src/modules/core/constants/dates'
 
 import { GqlMilestone } from 'src/generated/graphql'
 
 interface IMilestoneCardProps {
-  milestone: GqlMilestone & {
-    // resource: any
-    // milestoneSchedules: any[]
-  }
+  milestone: GqlMilestone
 }
 
 const MilestoneCard: React.FC<IMilestoneCardProps> = (props) => {
@@ -36,21 +33,21 @@ const MilestoneCard: React.FC<IMilestoneCardProps> = (props) => {
       </Box>
 
       <Box>
-        {/* <HStack mb="2">
+        <HStack mb="2">
           <Link href={milestone.resource.url}>{milestone.resource.name}</Link>
 
           <Tag variant="solid" bgColor="gray.700" size="sm">
             {milestone.resource.name}
           </Tag>
-        </HStack> */}
+        </HStack>
       </Box>
 
       <HStack>
-        {/* {milestone.milestoneSchedules.map((day) => {
+        {milestone.milestoneSchedules.map((day) => {
           const weekday = weekdays.find((item) => item.id === day.weekDay)
 
           return <Tag key={day.weekDay}>{weekday?.shortName}</Tag>
-        })} */}
+        })}
       </HStack>
     </Box>
   )

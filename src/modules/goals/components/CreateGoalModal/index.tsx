@@ -59,7 +59,7 @@ const CreateGoalModal: React.FC<ICreateGoalModalProps> = (props) => {
               )}
 
               {step === GoalModalStep.Milestones && goal ? (
-                <Milestones goal={goal} onClose={closeHandler} />
+                <Milestones goalId={goal.id} onClose={closeHandler} />
               ) : null}
             </Box>
           </ModalBody>

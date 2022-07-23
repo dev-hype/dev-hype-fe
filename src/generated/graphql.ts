@@ -75,9 +75,19 @@ export type GqlMilestone = {
   goalId: Scalars['Int'];
   id: Scalars['Int'];
   isActive: Scalars['Boolean'];
+  milestoneSchedules: Array<GqlMilestoneSchedule>;
   name: Scalars['String'];
+  resource: GqlResource;
+  resourceId: Scalars['Int'];
   startDate: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
+};
+
+export type GqlMilestoneSchedule = {
+  __typename?: 'GqlMilestoneSchedule';
+  durationInHours: Scalars['Int'];
+  id: Scalars['Int'];
+  weekDay: WeekDay;
 };
 
 export type GqlProfile = {
@@ -91,6 +101,16 @@ export type GqlProfile = {
   lastName: Scalars['String'];
   timezoneName: Scalars['String'];
   userId: Scalars['String'];
+};
+
+export type GqlResource = {
+  __typename?: 'GqlResource';
+  id: Scalars['Int'];
+  isFree: Scalars['Boolean'];
+  name: Scalars['String'];
+  type: GqlResourceType;
+  typeId: Scalars['Int'];
+  url: Scalars['String'];
 };
 
 export type GqlResourceType = {
@@ -239,8 +259,8 @@ export type Query = {
   milestone?: Maybe<GqlMilestone>;
   profile?: Maybe<GqlProfile>;
   resourceTypes: Array<GqlResourceType>;
-  specializationTopics: Array<GqlTopic>;
   timezones: Array<GqlTimezone>;
+  topics: Array<GqlTopic>;
 };
 
 
@@ -267,9 +287,9 @@ export type QueryProfileArgs = {
 };
 
 
-export type QuerySpecializationTopicsArgs = {
-  id: Scalars['Int'];
+export type QueryTopicsArgs = {
   search?: InputMaybe<Scalars['String']>;
+  specializationId?: InputMaybe<Scalars['Int']>;
 };
 
 export enum WeekDay {
@@ -315,7 +335,7 @@ export type CreateGoalMutationVariables = Exact<{
 }>;
 
 
-export type CreateGoalMutation = { __typename?: 'Mutation', createGoal: { __typename?: 'GqlGoal', id: number, name: string, startDate?: string | null, estimatedEndDate?: string | null, actualEndDate?: string | null, isActive: boolean, createdAt: string, updatedAt: string, userId: string, topicId: number, topic: { __typename?: 'GqlTopic', id: number, name: string, specializationId: number, specialization: { __typename?: 'GqlSpecialization', id: number, name: string, fieldId: number } }, milestones: Array<{ __typename?: 'GqlMilestone', id: number, name: string, startDate: string, durationInHours: number, estimatedEndDate: string, actualEndDate?: string | null, isActive: boolean, createdAt: string, updatedAt: string, goalId: number }> } };
+export type CreateGoalMutation = { __typename?: 'Mutation', createGoal: { __typename?: 'GqlGoal', id: number, name: string, startDate?: string | null, estimatedEndDate?: string | null, actualEndDate?: string | null, isActive: boolean, createdAt: string, updatedAt: string, userId: string, topicId: number, topic: { __typename?: 'GqlTopic', id: number, name: string, specializationId: number, specialization: { __typename?: 'GqlSpecialization', id: number, name: string, fieldId: number } }, milestones: Array<{ __typename?: 'GqlMilestone', id: number, name: string, startDate: string, durationInHours: number, estimatedEndDate: string, actualEndDate?: string | null, isActive: boolean, createdAt: string, updatedAt: string, goalId: number, resourceId: number, resource: { __typename?: 'GqlResource', id: number, name: string, url: string, isFree: boolean, typeId: number, type: { __typename?: 'GqlResourceType', id: number, name: string } }, milestoneSchedules: Array<{ __typename?: 'GqlMilestoneSchedule', id: number, weekDay: WeekDay, durationInHours: number }> }> } };
 
 export type CreateMilestoneMutationVariables = Exact<{
   name: Scalars['String'];
@@ -341,7 +361,7 @@ export type GoalQueryVariables = Exact<{
 }>;
 
 
-export type GoalQuery = { __typename?: 'Query', goal?: { __typename?: 'GqlGoal', id: number, name: string, startDate?: string | null, estimatedEndDate?: string | null, actualEndDate?: string | null, isActive: boolean, createdAt: string, updatedAt: string, userId: string, topicId: number, topic: { __typename?: 'GqlTopic', id: number, name: string, specializationId: number, specialization: { __typename?: 'GqlSpecialization', id: number, name: string, fieldId: number } }, milestones: Array<{ __typename?: 'GqlMilestone', id: number, name: string, startDate: string, durationInHours: number, estimatedEndDate: string, actualEndDate?: string | null, isActive: boolean, createdAt: string, updatedAt: string, goalId: number }> } | null };
+export type GoalQuery = { __typename?: 'Query', goal?: { __typename?: 'GqlGoal', id: number, name: string, startDate?: string | null, estimatedEndDate?: string | null, actualEndDate?: string | null, isActive: boolean, createdAt: string, updatedAt: string, userId: string, topicId: number, topic: { __typename?: 'GqlTopic', id: number, name: string, specializationId: number, specialization: { __typename?: 'GqlSpecialization', id: number, name: string, fieldId: number } }, milestones: Array<{ __typename?: 'GqlMilestone', id: number, name: string, startDate: string, durationInHours: number, estimatedEndDate: string, actualEndDate?: string | null, isActive: boolean, createdAt: string, updatedAt: string, goalId: number, resourceId: number, resource: { __typename?: 'GqlResource', id: number, name: string, url: string, isFree: boolean, typeId: number, type: { __typename?: 'GqlResourceType', id: number, name: string } }, milestoneSchedules: Array<{ __typename?: 'GqlMilestoneSchedule', id: number, weekDay: WeekDay, durationInHours: number }> }> } | null };
 
 export type GoalsQueryVariables = Exact<{
   userId?: InputMaybe<Scalars['String']>;
@@ -351,7 +371,7 @@ export type GoalsQueryVariables = Exact<{
 }>;
 
 
-export type GoalsQuery = { __typename?: 'Query', goals: { __typename?: 'GqlGoalsResponse', count: number, page: number, limit: number, list: Array<{ __typename?: 'GqlGoal', id: number, name: string, startDate?: string | null, estimatedEndDate?: string | null, actualEndDate?: string | null, isActive: boolean, createdAt: string, updatedAt: string, userId: string, topicId: number, topic: { __typename?: 'GqlTopic', id: number, name: string, specializationId: number, specialization: { __typename?: 'GqlSpecialization', id: number, name: string, fieldId: number } }, milestones: Array<{ __typename?: 'GqlMilestone', id: number, name: string, startDate: string, durationInHours: number, estimatedEndDate: string, actualEndDate?: string | null, isActive: boolean, createdAt: string, updatedAt: string, goalId: number }> }> } };
+export type GoalsQuery = { __typename?: 'Query', goals: { __typename?: 'GqlGoalsResponse', count: number, page: number, limit: number, list: Array<{ __typename?: 'GqlGoal', id: number, name: string, startDate?: string | null, estimatedEndDate?: string | null, actualEndDate?: string | null, isActive: boolean, createdAt: string, updatedAt: string, userId: string, topicId: number, topic: { __typename?: 'GqlTopic', id: number, name: string, specializationId: number, specialization: { __typename?: 'GqlSpecialization', id: number, name: string, fieldId: number } }, milestones: Array<{ __typename?: 'GqlMilestone', id: number, name: string, startDate: string, durationInHours: number, estimatedEndDate: string, actualEndDate?: string | null, isActive: boolean, createdAt: string, updatedAt: string, goalId: number, resourceId: number, resource: { __typename?: 'GqlResource', id: number, name: string, url: string, isFree: boolean, typeId: number, type: { __typename?: 'GqlResourceType', id: number, name: string } }, milestoneSchedules: Array<{ __typename?: 'GqlMilestoneSchedule', id: number, weekDay: WeekDay, durationInHours: number }> }> }> } };
 
 export type FieldsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -362,6 +382,14 @@ export type ResourceTypesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ResourceTypesQuery = { __typename?: 'Query', resourceTypes: Array<{ __typename?: 'GqlResourceType', id: number, name: string }> };
+
+export type TopicsQueryVariables = Exact<{
+  specializationId?: InputMaybe<Scalars['Int']>;
+  search?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type TopicsQuery = { __typename?: 'Query', topics: Array<{ __typename?: 'GqlTopic', id: number, name: string }> };
 
 export type CreateProfileMutationVariables = Exact<{
   firstName: Scalars['String'];
@@ -464,6 +492,23 @@ export const CreateGoalDocument = gql`
       createdAt
       updatedAt
       goalId
+      resourceId
+      resource {
+        id
+        name
+        url
+        isFree
+        typeId
+        type {
+          id
+          name
+        }
+      }
+      milestoneSchedules {
+        id
+        weekDay
+        durationInHours
+      }
     }
   }
 }
@@ -532,6 +577,23 @@ export const GoalDocument = gql`
       createdAt
       updatedAt
       goalId
+      resourceId
+      resource {
+        id
+        name
+        url
+        isFree
+        typeId
+        type {
+          id
+          name
+        }
+      }
+      milestoneSchedules {
+        id
+        weekDay
+        durationInHours
+      }
     }
   }
 }
@@ -574,6 +636,23 @@ export const GoalsDocument = gql`
         createdAt
         updatedAt
         goalId
+        resourceId
+        resource {
+          id
+          name
+          url
+          isFree
+          typeId
+          type {
+            id
+            name
+          }
+        }
+        milestoneSchedules {
+          id
+          weekDay
+          durationInHours
+        }
       }
     }
   }
@@ -594,6 +673,14 @@ export const FieldsDocument = gql`
 export const ResourceTypesDocument = gql`
     query resourceTypes {
   resourceTypes {
+    id
+    name
+  }
+}
+    `;
+export const TopicsDocument = gql`
+    query topics($specializationId: Int, $search: String) {
+  topics(specializationId: $specializationId, search: $search) {
     id
     name
   }
@@ -703,6 +790,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     resourceTypes(variables?: ResourceTypesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ResourceTypesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<ResourceTypesQuery>(ResourceTypesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'resourceTypes', 'query');
+    },
+    topics(variables?: TopicsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<TopicsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<TopicsQuery>(TopicsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'topics', 'query');
     },
     createProfile(variables: CreateProfileMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateProfileMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<CreateProfileMutation>(CreateProfileDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createProfile', 'mutation');

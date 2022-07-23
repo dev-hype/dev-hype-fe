@@ -24,6 +24,7 @@ export const useGoalQuery = (id: number) => {
     GoalQuery,
     SingleGoalQueryKey
   >({
+    enabled: typeof id === 'number',
     queryFn: userQueryFn,
     queryKey: getSingleGoalQueryKey(id),
   })
