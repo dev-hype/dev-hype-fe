@@ -172,7 +172,7 @@ const ProfileForm: React.FC<IProfileFormProps> = (props) => {
           control={control}
           name="countryCode"
           render={({ field: { value, onBlur }, fieldState: { error } }) => {
-            const selectedOption = [{ label: 'Iran', value: 'ir' }].find(
+            const selectedOption = countriesOptions.find(
               (option) => option.value === value,
             )
 
@@ -213,7 +213,7 @@ const ProfileForm: React.FC<IProfileFormProps> = (props) => {
           control={control}
           name="timezoneName"
           render={({ field: { value, onBlur }, fieldState: { error } }) => {
-            const selectedOption = [{ label: 'Iran', value: 'ir' }].find(
+            const selectedOption = timezonesOptions.find(
               (option) => option.value === value,
             )
 
