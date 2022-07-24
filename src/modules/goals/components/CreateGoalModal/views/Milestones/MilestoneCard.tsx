@@ -5,17 +5,10 @@ import { Box, Heading, HStack, Link, Tag, Text } from '@chakra-ui/react'
 
 import { weekdays } from 'src/modules/core/constants/dates'
 
-import {
-  IMilestone,
-  IMilestoneSchedule,
-  IResource,
-} from 'src/modules/goals/types/entities'
+import { GqlMilestone } from 'src/generated/graphql'
 
 interface IMilestoneCardProps {
-  milestone: IMilestone & {
-    resource: IResource
-    milestoneSchedules: IMilestoneSchedule[]
-  }
+  milestone: GqlMilestone
 }
 
 const MilestoneCard: React.FC<IMilestoneCardProps> = (props) => {

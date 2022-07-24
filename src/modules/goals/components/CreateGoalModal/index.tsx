@@ -14,7 +14,7 @@ import Milestones from './views/Milestones'
 import { useCreateGoalMutation } from '../../hooks/mutations/useCreateGoalMutation'
 
 import { GoalModalStep } from './types'
-import { IGoal } from '../../types/entities'
+import { GqlGoal } from 'src/generated/graphql'
 
 interface ICreateGoalModalProps {
   isOpen: boolean
@@ -25,7 +25,7 @@ const CreateGoalModal: React.FC<ICreateGoalModalProps> = (props) => {
   const { isOpen, onClose } = props
 
   const [step, setStep] = useState(GoalModalStep.Goal)
-  const [goal, setGoal] = useState<IGoal | null>(null)
+  const [goal, setGoal] = useState<GqlGoal | null>(null)
 
   const closeHandler = useCallback(() => {
     onClose()
@@ -49,7 +49,7 @@ const CreateGoalModal: React.FC<ICreateGoalModalProps> = (props) => {
                   onSubmit={(goal) => {
                     setStep(GoalModalStep.Milestones)
                     createGoal(goal, {
-                      onSuccess: ({ goal }) => {
+                      onSuccess: ({ createGoal: goal }) => {
                         setGoal(goal)
                       },
                     })
@@ -59,7 +59,7 @@ const CreateGoalModal: React.FC<ICreateGoalModalProps> = (props) => {
               )}
 
               {step === GoalModalStep.Milestones && goal ? (
-                <Milestones goal={goal} onClose={closeHandler} />
+                <Milestones goalId={goal.id} onClose={closeHandler} />
               ) : null}
             </Box>
           </ModalBody>

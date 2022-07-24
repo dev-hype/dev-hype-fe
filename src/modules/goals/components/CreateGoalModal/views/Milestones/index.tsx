@@ -22,24 +22,23 @@ import { useGoalQuery } from 'src/modules/goals/hooks/queries/useSingleGoalQuery
 import { goalModalSteps } from '../../constants'
 
 import { GoalModalStep } from '../../types'
-import { IGoal } from 'src/modules/goals/types/entities'
 
 const milestonesStep = goalModalSteps[GoalModalStep.Milestones]
 
 interface IProps {
-  goal: IGoal
+  goalId: number
   onClose: () => void
 }
 
 const CreateGoalMilestones: React.FC<IProps> = (props) => {
-  const { goal, onClose } = props
+  const { goalId, onClose } = props
 
   const [
     isAddMilestoneModalOpen,
     { on: openAddMilestoneModalOpen, off: closeAddMilestoneModalOpen },
   ] = useBoolean(false)
 
-  const { data: goalResponse } = useGoalQuery(goal.id)
+  const { data: goalResponse } = useGoalQuery(goalId)
 
   const milestones = useMemo(
     () => goalResponse?.goal?.milestones || [],
@@ -117,8 +116,7 @@ const CreateGoalMilestones: React.FC<IProps> = (props) => {
       <AddMilestoneModal
         isOpen={isAddMilestoneModalOpen}
         onClose={closeAddMilestoneModalOpen}
-        goalId={goal.id}
-        goalStartDate={new Date(goal.startDate)}
+        goalId={goalId}
       />
     </Flex>
   )

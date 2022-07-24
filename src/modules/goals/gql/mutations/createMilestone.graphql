@@ -1,0 +1,26 @@
+mutation createMilestone(
+  $name: String!
+  $startDate: String!
+  $estimatedEndDate: String!
+  $goalId: Int!
+  $resource: CreateResourceDto!
+  $schedules: [CreateMilestoneScheduleDto!]!
+) {
+  createMilestone(
+    name: $name
+    startDate: $startDate
+    estimatedEndDate: $estimatedEndDate
+    goalId: $goalId
+    resource: $resource
+    schedules: $schedules
+  ) {
+    id
+    name
+    startDate
+    estimatedEndDate
+    durationInHours
+    actualEndDate
+    isActive
+    goalId
+  }
+}

@@ -1,0 +1,6 @@
+query countries {
+  countries {
+    key
+    name
+  }
+}

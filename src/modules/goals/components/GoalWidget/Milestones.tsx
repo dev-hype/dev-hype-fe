@@ -10,10 +10,10 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
-import { IMilestone } from '../../types/entities'
+import { GqlMilestone } from 'src/generated/graphql'
 
 interface IMilestonesProps {
-  milestones: IMilestone[]
+  milestones: GqlMilestone[]
 }
 
 const Milestones: React.FC<IMilestonesProps> = (props) => {

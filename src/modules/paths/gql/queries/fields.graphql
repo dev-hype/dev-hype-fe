@@ -1,0 +1,10 @@
+query fields {
+  fields {
+    id
+    name
+    specializations {
+      id
+      name
+    }
+  }
+}

@@ -7,13 +7,11 @@ import {
   Text,
   useBoolean,
 } from '@chakra-ui/react'
-import produce from 'immer'
+import { produce } from 'immer'
 import React, { useCallback, useState } from 'react'
 
-import { IMilestoneNote } from 'src/modules/goals/types/entities'
-
 interface ILastSessionNotesProps {
-  notes: IMilestoneNote[]
+  notes: any[]
   skip: () => void
 }
 

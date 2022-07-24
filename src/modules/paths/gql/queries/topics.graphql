@@ -1,0 +1,6 @@
+query topics($specializationId: Int, $search: String) {
+  topics(specializationId: $specializationId, search: $search) {
+    id
+    name
+  }
+}

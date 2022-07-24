@@ -1,8 +1,6 @@
-import { useQuery } from 'react-query'
-
-import { getResourceTypes } from '../../api/resources'
-
-import { IResourceTypesResponse } from '../../types/res'
+import { useQuery } from '@tanstack/react-query'
+import { getSdk, ResourceTypesQuery } from 'src/generated/graphql'
+import { gqlClient } from 'src/modules/core/config/gqlClient'
 
 export type ResourceTypesQueryKey = [string]
 
@@ -12,12 +10,12 @@ export const getResourceTypesQueryKey = (): ResourceTypesQueryKey => [
 
 export const useResourceTypesQuery = () => {
   const queryResult = useQuery<
-    IResourceTypesResponse,
+    ResourceTypesQuery,
     unknown,
-    IResourceTypesResponse,
+    ResourceTypesQuery,
     ResourceTypesQueryKey
   >({
-    queryFn: getResourceTypes,
+    queryFn: () => getSdk(gqlClient()).resourceTypes(),
     queryKey: getResourceTypesQueryKey(),
   })
 

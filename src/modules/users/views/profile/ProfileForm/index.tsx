@@ -1,8 +1,7 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { IProfileFormDto } from 'src/modules/users/types/dto'
 import { profileFormSchema } from './schema'
 import {
   Box,
@@ -24,23 +23,53 @@ import SelectInput from 'src/modules/core/components/SelectInput'
 import { SelectOption } from 'src/modules/core/types/entities'
 import Link from 'next/link'
 import { usersPaths } from 'src/modules/users/constants/paths'
+import { CreateProfileMutationVariables } from 'src/generated/graphql'
+import { useCountriesQuery } from 'src/modules/core/hooks/queries/useCountriesQuery'
+import { useTimezonesQuery } from 'src/modules/core/hooks/queries/useTimezonesQuery'
 
 interface IProfileFormProps {
   userId: string
-  initialState?: IProfileFormDto | null
+  initialState?: CreateProfileMutationVariables | null
   isSubmitting?: boolean
   isEdit?: boolean
-  onSubmit: (profile: IProfileFormDto) => void
+  onSubmit: (profile: CreateProfileMutationVariables) => void
 }
 
-const defaultState: IProfileFormDto = {
+const defaultState: CreateProfileMutationVariables = {
   firstName: '',
   lastName: '',
   countryCode: '',
+  timezoneName: '',
+  avatar: '',
+  bio: '',
 }
 
 const ProfileForm: React.FC<IProfileFormProps> = (props) => {
   const { userId, initialState, isSubmitting, isEdit, onSubmit } = props
+
+  const { data: countriesData, isLoading: isLoadingCountries } =
+    useCountriesQuery()
+
+  const { data: timezonesData, isLoading: isLoadingTimezones } =
+    useTimezonesQuery()
+
+  const countriesOptions = useMemo(
+    (): SelectOption[] =>
+      countriesData?.countries.map((country) => ({
+        label: country.name,
+        value: country.key,
+      })) || [],
+    [countriesData],
+  )
+
+  const timezonesOptions = useMemo(
+    (): SelectOption[] =>
+      timezonesData?.timezones?.map((timezone) => ({
+        label: timezone.name,
+        value: timezone.name,
+      })) || [],
+    [timezonesData],
+  )
 
   const {
     control,
@@ -48,7 +77,7 @@ const ProfileForm: React.FC<IProfileFormProps> = (props) => {
     setValue,
     formState: { errors },
     handleSubmit,
-  } = useForm<IProfileFormDto>({
+  } = useForm<CreateProfileMutationVariables>({
     defaultValues: initialState || defaultState,
     mode: 'onSubmit',
     reValidateMode: 'onChange',
@@ -70,7 +99,6 @@ const ProfileForm: React.FC<IProfileFormProps> = (props) => {
               placeholder="First name..."
               fontSize="sm"
               isInvalid={false}
-              // disabled={isLoading}
               {...register('firstName')}
             />
 
@@ -98,7 +126,6 @@ const ProfileForm: React.FC<IProfileFormProps> = (props) => {
               placeholder="Last name..."
               fontSize="sm"
               isInvalid={false}
-              // disabled={isLoading}
               {...register('lastName')}
             />
 
@@ -126,7 +153,6 @@ const ProfileForm: React.FC<IProfileFormProps> = (props) => {
               placeholder="Bio..."
               fontSize="sm"
               isInvalid={false}
-              // disabled={isLoading}
               {...register('bio')}
             />
 
@@ -146,7 +172,7 @@ const ProfileForm: React.FC<IProfileFormProps> = (props) => {
           control={control}
           name="countryCode"
           render={({ field: { value, onBlur }, fieldState: { error } }) => {
-            const selectedOption = [{ label: 'Iran', value: 'ir' }].find(
+            const selectedOption = countriesOptions.find(
               (option) => option.value === value,
             )
 
@@ -158,12 +184,54 @@ const ProfileForm: React.FC<IProfileFormProps> = (props) => {
 
                 <SelectInput
                   value={selectedOption}
-                  options={[{ label: 'Iran', value: 'ir' }]}
+                  options={countriesOptions}
                   onBlur={onBlur}
+                  isLoading={isLoadingCountries}
                   isDisabled={isSubmitting}
                   onChange={(newValue) => {
                     setValue(
                       'countryCode',
+                      (newValue as SelectOption).value as string,
+                      {
+                        shouldDirty: true,
+                        shouldTouch: true,
+                        shouldValidate: true,
+                      },
+                    )
+                  }}
+                />
+
+                <FormErrorMessage fontSize="xs">
+                  {error?.message}
+                </FormErrorMessage>
+              </FormControl>
+            )
+          }}
+        />
+
+        <Controller
+          control={control}
+          name="timezoneName"
+          render={({ field: { value, onBlur }, fieldState: { error } }) => {
+            const selectedOption = timezonesOptions.find(
+              (option) => option.value === value,
+            )
+
+            return (
+              <FormControl mb="4" isInvalid={Boolean(error?.message)}>
+                <FormLabel htmlFor="country" mb="1" fontSize="sm">
+                  Timezone
+                </FormLabel>
+
+                <SelectInput
+                  value={selectedOption}
+                  options={timezonesOptions}
+                  onBlur={onBlur}
+                  isLoading={isLoadingTimezones}
+                  isDisabled={isSubmitting}
+                  onChange={(newValue) => {
+                    setValue(
+                      'timezoneName',
                       (newValue as SelectOption).value as string,
                       {
                         shouldDirty: true,

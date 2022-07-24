@@ -29,8 +29,8 @@ import { useAuthModal } from 'src/modules/auth/hooks/useAuthModal'
 import { useAuthContext } from 'src/modules/auth/providers/AuthProvider'
 import { useAuthUserQuery } from 'src/modules/users/hooks/queries/useAuthUserQuery'
 
-import { logout } from 'src/modules/auth/api/auth'
 import { corePaths } from '../../constants/paths'
+import { removeAuthCookie_client } from 'src/modules/auth/utils/authCookie'
 
 interface IPageHeaderProps {
   title: string
@@ -51,14 +51,14 @@ const PageHeader: React.FC<IPageHeaderProps> = (props) => {
         h="12"
         position="fixed"
         top="0"
-        left="24"
+        left={{ base: 0, md: '24' }}
         right="0"
         shadow="sm"
         bgColor="whiteAlpha.900"
         display="flex"
         alignItems="center"
         justifyContent="space-between"
-        px="8"
+        px={{ base: '3', sm: '4', md: '8' }}
         zIndex="banner"
       >
         <Heading as="h1" size="md" fontWeight={600}>
@@ -66,7 +66,7 @@ const PageHeader: React.FC<IPageHeaderProps> = (props) => {
         </Heading>
 
         <Box display="flex" alignItems="center">
-          {userData?.user ? (
+          {userData?.me ? (
             <>
               <CountBadge count={50} max={999}>
                 <Tooltip label="Notifications" hasArrow={false}>
@@ -102,9 +102,9 @@ const PageHeader: React.FC<IPageHeaderProps> = (props) => {
                   ml="4"
                 >
                   <Text fontSize="sm" textTransform="capitalize">
-                    {userData.user.profile
-                      ? `${userData.user.profile.firstName} ${userData.user.profile.lastName}`
-                      : userData.user.email}
+                    {userData.me.profile
+                      ? `${userData.me.profile.firstName} ${userData.me.profile.lastName}`
+                      : userData.me.email}
                   </Text>
                 </MenuButton>
 
@@ -118,7 +118,7 @@ const PageHeader: React.FC<IPageHeaderProps> = (props) => {
                       icon={<FaSignOutAlt size={14} />}
                       fontSize="sm"
                       onClick={() => {
-                        logout()
+                        removeAuthCookie_client()
                         setLoggedInFlagOff()
                         window.location.href = corePaths.home()
                       }}

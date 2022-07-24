@@ -5,46 +5,49 @@ import {
   PreviewData,
 } from 'next'
 import { ParsedUrlQuery } from 'querystring'
-import { QueryClient } from 'react-query'
+import { QueryClient } from '@tanstack/react-query'
 
-import { getAuthUser } from 'src/modules/users/api/users'
+import { getSdk, MeQuery } from 'src/generated/graphql'
+import { gqlClient } from '../config/gqlClient'
+
 import { getAuthUserQueryKey } from 'src/modules/users/hooks/queries/useAuthUserQuery'
-
-import { IAuthUser } from 'src/modules/users/types/entities'
-import { IAuthUserResponse } from 'src/modules/users/types/res'
+import {
+  getAuthCookie_server,
+  removeAuthCookie_server,
+} from 'src/modules/auth/utils/authCookie'
 
 type Callback<
-  P extends { [key: string]: any } = { [key: string]: any },
+  P extends Record<string, unknown> = Record<string, unknown>,
   Q extends ParsedUrlQuery = ParsedUrlQuery,
   D extends PreviewData = PreviewData,
 > = (
   context: GetServerSidePropsContext<Q, D>,
   queryClient: QueryClient,
-  user: IAuthUser | null,
+  user: MeQuery | null,
 ) => Promise<GetServerSidePropsResult<P>>
 
 export const hybridRoute =
   <
-    P extends { [key: string]: any } = { [key: string]: any },
+    P extends Record<string, unknown> = Record<string, unknown>,
     Q extends ParsedUrlQuery = ParsedUrlQuery,
     D extends PreviewData = PreviewData,
   >(
     callback: Callback<P, Q, D>,
   ): GetServerSideProps<P, Q, D> =>
   async (ctx) => {
+    const authToken = getAuthCookie_server(ctx)
+
     const queryClient = new QueryClient()
 
-    try {
+    if (authToken) {
       await queryClient.prefetchQuery(getAuthUserQueryKey(), () =>
-        getAuthUser(ctx),
+        getSdk(gqlClient(ctx)).me(),
       )
-
-      const userData = queryClient.getQueryData<IAuthUserResponse>(
-        getAuthUserQueryKey(),
-      )
-
-      return callback(ctx, queryClient, userData?.user || null)
-    } catch (error) {
-      return callback(ctx, queryClient, null)
     }
+
+    const userData = queryClient.getQueryData<MeQuery>(getAuthUserQueryKey())
+
+    if (!userData) removeAuthCookie_server(ctx)
+
+    return callback(ctx, queryClient, userData || null)
   }

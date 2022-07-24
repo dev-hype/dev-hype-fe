@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react'
 import { Controller, FormProvider } from 'react-hook-form'
-import { startOfDay, startOfToday } from 'date-fns'
+import { startOfToday } from 'date-fns'
 
 import {
   Box,
@@ -24,23 +24,20 @@ import DatePicker from 'src/modules/core/components/DatePicker'
 import SelectInput from 'src/modules/core/components/SelectInput'
 import MileStoneScheduleInput from './MileStoneScheduleInput'
 
-import { useMilestoneForm } from './useMilestoneForm'
+import { MilestoneFormState, useMilestoneForm } from './useMilestoneForm'
 import { useResourceTypesQuery } from 'src/modules/paths/hooks/queries/useResourceTypesQuery'
 import { useCreateMilestoneMutation } from 'src/modules/goals/hooks/mutations/useCreateMilestoneMutation'
 
 import { SelectOption } from 'src/modules/core/types/entities'
 
-import { ICreateMilestoneDto } from 'src/modules/goals/types/dto'
-
 interface IAddMilestoneModalProps {
   goalId: number
-  goalStartDate: Date
   isOpen: boolean
   onClose: () => void
 }
 
 const AddMilestoneModal: React.FC<IAddMilestoneModalProps> = (props) => {
-  const { goalId, goalStartDate, isOpen, onClose } = props
+  const { goalId, isOpen, onClose } = props
 
   const { data: resourceTypesData, isLoading: isLoadingResourceTypes } =
     useResourceTypesQuery()
@@ -80,14 +77,11 @@ const AddMilestoneModal: React.FC<IAddMilestoneModalProps> = (props) => {
   }, [onClose, reset])
 
   const submitHandler = useCallback(
-    async (formData: ICreateMilestoneDto) => {
-      console.log(goalId)
+    async (formData: MilestoneFormState) => {
       createMilestone(
         {
           goalId,
-          data: {
-            ...formData,
-          },
+          ...formData,
         },
         {
           onSuccess: () => {
@@ -149,7 +143,6 @@ const AddMilestoneModal: React.FC<IAddMilestoneModalProps> = (props) => {
                         <DatePicker
                           value={field.value}
                           placeholder="Milestone Start Date..."
-                          minDate={startOfDay(goalStartDate)}
                           maxDate={
                             estimatedEndDate
                               ? new Date(estimatedEndDate)

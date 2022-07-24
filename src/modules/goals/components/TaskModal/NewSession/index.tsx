@@ -1,12 +1,10 @@
 import React from 'react'
 
-import { IMilestoneNote } from 'src/modules/goals/types/entities'
-
 interface INewSessionProps {
   milestoneId: number
   milestoneName: string
   resourceName: string
-  notes: IMilestoneNote[]
+  notes: any[]
 }
 
 const NewSession: React.FC<INewSessionProps> = (props) => {

@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { useRouter } from 'next/router'
-import { dehydrate } from 'react-query'
+import { dehydrate } from '@tanstack/react-query'
 import { NextPage } from 'next'
 import Head from 'next/head'
 
@@ -17,7 +17,7 @@ import { usersPaths } from 'src/modules/users/constants/paths'
 
 import { protectedRoute } from 'src/modules/core/routes/protectedRoute'
 
-import { IProfileFormDto } from 'src/modules/users/types/dto'
+import { EditProfileMutationVariables } from 'src/generated/graphql'
 
 export const getServerSideProps = protectedRoute(async (ctx, queryClient) => {
   return {
@@ -35,8 +35,8 @@ const EditProfile: NextPage = () => {
   const { mutate: editProfile, isLoading } = useEditProfileMutation()
 
   const submitHandler = useCallback(
-    (formData: IProfileFormDto) => {
-      const userId = userData?.user?.id
+    (formData: EditProfileMutationVariables) => {
+      const userId = userData?.me?.id
 
       if (userId) {
         editProfile(formData, {
@@ -70,7 +70,7 @@ const EditProfile: NextPage = () => {
               transform="translateY(50%)"
             >
               <Photo
-                src={`https://avatars.dicebear.com/api/adventurer/${userData?.user?.id}.svg`}
+                src={`https://avatars.dicebear.com/api/adventurer/${userData?.me?.id}.svg`}
                 alt="user"
                 placeholder="blur"
                 width={90}
@@ -84,19 +84,20 @@ const EditProfile: NextPage = () => {
         </Box>
 
         <Container>
-          {userData?.user?.profile ? (
+          {userData?.me?.profile ? (
             <ProfileForm
-              userId={userData.user.id}
+              userId={userData.me.id}
               onSubmit={submitHandler}
               isSubmitting={isLoading}
               initialState={{
-                firstName: userData.user.profile.firstName,
-                lastName: userData.user.profile.lastName,
-                bio: userData.user.profile.bio || '',
-                ...(userData.user.profile.avatar
-                  ? { avatar: userData.user.profile.avatar }
+                firstName: userData.me.profile.firstName,
+                lastName: userData.me.profile.lastName,
+                bio: userData.me.profile.bio || '',
+                ...(userData.me.profile.avatar
+                  ? { avatar: userData.me.profile.avatar }
                   : {}),
-                countryCode: userData.user.profile.country.alpha2,
+                countryCode: userData.me.profile.countryCode,
+                timezoneName: userData.me.profile.timezoneName,
               }}
               isEdit
             />

@@ -1,34 +1,32 @@
-import { QueryFunction, useQuery } from 'react-query'
+import { QueryFunction, useQuery } from '@tanstack/react-query'
+import { getSdk, GoalQuery, GoalQueryVariables } from 'src/generated/graphql'
+import { gqlClient } from 'src/modules/core/config/gqlClient'
 
-import { getSingleGoal } from '../../api/goals'
+export type SingleGoalQueryKey = [string, GoalQueryVariables]
 
-import { ISingleGoalResponse } from '../../types/res'
-
-export type SingleGoalQueryKey = [string, { goalId: number }]
-
-export const getSingleGoalQueryKey = (goalId: number): SingleGoalQueryKey => [
+export const getSingleGoalQueryKey = (id: number): SingleGoalQueryKey => [
   '/goals/:id',
-  { goalId },
+  { id },
 ]
 
-export const userQueryFn: QueryFunction<
-  ISingleGoalResponse,
-  SingleGoalQueryKey
-> = ({ queryKey }) => {
-  const [, { goalId }] = queryKey
+export const userQueryFn: QueryFunction<GoalQuery, SingleGoalQueryKey> = ({
+  queryKey,
+}) => {
+  const [, { id }] = queryKey
 
-  return getSingleGoal(goalId)
+  return getSdk(gqlClient()).goal({ id })
 }
 
-export const useGoalQuery = (goalId: number) => {
+export const useGoalQuery = (id: number) => {
   const queryResult = useQuery<
-    ISingleGoalResponse,
+    GoalQuery,
     unknown,
-    ISingleGoalResponse,
+    GoalQuery,
     SingleGoalQueryKey
   >({
+    enabled: typeof id === 'number',
     queryFn: userQueryFn,
-    queryKey: getSingleGoalQueryKey(goalId),
+    queryKey: getSingleGoalQueryKey(id),
   })
 
   return queryResult

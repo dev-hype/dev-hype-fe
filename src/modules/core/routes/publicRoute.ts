@@ -5,17 +5,17 @@ import {
   PreviewData,
 } from 'next'
 import { ParsedUrlQuery } from 'querystring'
-import { QueryClient } from 'react-query'
+import { QueryClient } from '@tanstack/react-query'
+import { getSdk, MeQuery } from 'src/generated/graphql'
+import { getAuthCookie_server } from 'src/modules/auth/utils/authCookie'
 
-import { getAuthUser } from 'src/modules/users/api/users'
 import { getAuthUserQueryKey } from 'src/modules/users/hooks/queries/useAuthUserQuery'
-
-import { IAuthUserResponse } from 'src/modules/users/types/res'
+import { gqlClient } from '../config/gqlClient'
 
 import { corePaths } from '../constants/paths'
 
 type Callback<
-  P extends { [key: string]: any },
+  P extends Record<string, unknown>,
   Q extends ParsedUrlQuery = ParsedUrlQuery,
   D extends PreviewData = PreviewData,
 > = (
@@ -24,24 +24,25 @@ type Callback<
 
 export const publicRoute =
   <
-    P extends { [key: string]: any } = { [key: string]: any },
+    P extends Record<string, unknown> = Record<string, unknown>,
     Q extends ParsedUrlQuery = ParsedUrlQuery,
     D extends PreviewData = PreviewData,
   >(
     callback: Callback<P, Q, D>,
   ): GetServerSideProps<P, Q, D> =>
   async (ctx) => {
+    const authToken = getAuthCookie_server(ctx)
     const queryClient = new QueryClient()
 
-    await queryClient.prefetchQuery(getAuthUserQueryKey(), () =>
-      getAuthUser(ctx),
-    )
+    if (authToken) {
+      await queryClient.prefetchQuery(getAuthUserQueryKey(), () =>
+        getSdk(gqlClient(ctx)).me(),
+      )
+    }
 
-    const userData = queryClient.getQueryData<IAuthUserResponse>(
-      getAuthUserQueryKey(),
-    )
+    const userData = queryClient.getQueryData<MeQuery>(getAuthUserQueryKey())
 
-    if (userData?.user) {
+    if (userData?.me) {
       return {
         redirect: {
           destination: corePaths.home(),

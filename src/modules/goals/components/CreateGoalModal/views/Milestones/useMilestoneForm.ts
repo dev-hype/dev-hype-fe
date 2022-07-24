@@ -1,8 +1,9 @@
 import { useForm } from 'react-hook-form'
 import { object, string, number, boolean, array } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { MutationCreateMilestoneArgs } from 'src/generated/graphql'
 
-import { ICreateMilestoneDto } from 'src/modules/goals/types/dto'
+export type MilestoneFormState = Omit<MutationCreateMilestoneArgs, 'goalId'>
 
 const validationSchema = object().shape({
   name: string().required('Name is required'),
@@ -27,7 +28,7 @@ const validationSchema = object().shape({
 })
 
 export const useMilestoneForm = () => {
-  const formMethods = useForm<ICreateMilestoneDto>({
+  const formMethods = useForm<MilestoneFormState>({
     resolver: yupResolver(validationSchema),
     mode: 'all',
     reValidateMode: 'onChange',

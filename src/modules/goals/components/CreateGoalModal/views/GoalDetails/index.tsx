@@ -16,16 +16,15 @@ import { FaAngleRight } from 'react-icons/fa'
 import GoalForm from './GoalForm'
 import CreateGoalModalSteps from '../CreateGoalModalSteps'
 
-import { useGoalForm } from './useGoalForm'
+import { useGoalForm, GoalFormState } from './useGoalForm'
 
 import { goalModalSteps } from '../../constants'
 
 import { GoalModalStep } from '../../types'
-import { ICreateGoalDto } from 'src/modules/goals/types/dto'
 
 interface IGoalDetailsProps {
   isSubmitting?: boolean
-  onSubmit: (formData: ICreateGoalDto) => void
+  onSubmit: (formData: GoalFormState) => void
 }
 
 const goalDetailsStep = goalModalSteps[GoalModalStep.Goal]
@@ -36,7 +35,7 @@ const GoalDetails: React.FC<IGoalDetailsProps> = (props) => {
   const formMethods = useGoalForm()
 
   const submitHandler = useCallback(
-    async (formData: ICreateGoalDto) => {
+    async (formData: GoalFormState) => {
       onSubmit(formData)
     },
     [onSubmit],

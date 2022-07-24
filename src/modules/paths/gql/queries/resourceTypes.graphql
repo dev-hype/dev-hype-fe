@@ -1,0 +1,6 @@
+query resourceTypes {
+  resourceTypes {
+    id
+    name
+  }
+}

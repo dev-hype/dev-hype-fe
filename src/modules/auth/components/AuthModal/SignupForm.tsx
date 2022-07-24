@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { object, string, ref } from 'yup'
+import { object, string } from 'yup'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -17,8 +17,7 @@ import {
 import { FaExclamationCircle } from 'react-icons/fa'
 
 import { useSignupMutation } from '../../hooks/mutations/useSignupMutation'
-
-import { ISignupDto } from '../../types/dto'
+import { SignupMutationVariables } from 'src/generated/graphql'
 
 const schema = object().shape({
   email: string().email('Invalid email address').required('Email is required'),
@@ -28,10 +27,6 @@ const schema = object().shape({
       message:
         'Password must have at least 1 uppercase, 1 lowercase and 1 number',
     }),
-
-  password_confirm: string()
-    .oneOf([ref('password')], 'Passwords must match')
-    .required('Password confirmation is required'),
 })
 
 interface ISignupFormProps {
@@ -47,11 +42,10 @@ const SignupForm: React.FC<ISignupFormProps> = (props) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ISignupDto>({
+  } = useForm<SignupMutationVariables>({
     defaultValues: {
       email: '',
       password: '',
-      password_confirm: '',
     },
     resolver: yupResolver(schema),
     mode: 'all',
@@ -59,7 +53,7 @@ const SignupForm: React.FC<ISignupFormProps> = (props) => {
   })
 
   const submitHandler = useCallback(
-    (formData: ISignupDto) => {
+    (formData: SignupMutationVariables) => {
       signupMutation(formData, { onSuccess })
     },
     [onSuccess, signupMutation],
@@ -121,34 +115,6 @@ const SignupForm: React.FC<ISignupFormProps> = (props) => {
 
           <FormErrorMessage fontSize="xs">
             {errors.password?.message}
-          </FormErrorMessage>
-        </FormControl>
-
-        <FormControl mb="4" isInvalid={Boolean(errors.password_confirm)}>
-          <FormLabel htmlFor="password" mb="1" fontSize="sm">
-            Confirm Password
-          </FormLabel>
-
-          <InputGroup>
-            <Input
-              id="password-confirm"
-              type="password"
-              placeholder="Type password here..."
-              fontSize="sm"
-              isInvalid={false}
-              disabled={isLoading}
-              {...register('password_confirm')}
-            />
-
-            {Boolean(errors.password_confirm) && (
-              <InputRightElement color="red.500">
-                <FaExclamationCircle />
-              </InputRightElement>
-            )}
-          </InputGroup>
-
-          <FormErrorMessage fontSize="xs">
-            {errors.password_confirm?.message}
           </FormErrorMessage>
         </FormControl>
 

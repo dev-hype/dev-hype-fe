@@ -63,6 +63,7 @@ const AutoSuggestInput: React.FC<IAutoSuggestInputProps> = (props) => {
             border="1px"
             borderColor="gray.200"
             zIndex="popover"
+            maxH="36"
           >
             {items.map((item, index) => {
               const isHiglighted = highlightedIndex === index

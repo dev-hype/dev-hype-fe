@@ -18,4 +18,5 @@ export const profileFormSchema = object().shape({
   avatar: string().url('Invalid avatar URL'),
 
   countryCode: string().required('Country is required'),
+  timezoneName: string().required('Timezone is required'),
 })

@@ -1,17 +1,15 @@
 import React, { useMemo } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
-import { startOfToday } from 'date-fns'
 
 import { Box, Flex, Heading, Input, Text } from '@chakra-ui/react'
 
-import DatePicker from 'src/modules/core/components/DatePicker'
 import SelectInput from 'src/modules/core/components/SelectInput'
 import TopicSelect from './TopicSelect'
 
-import { useSpecializationsQuery } from 'src/modules/goals/hooks/queries/useSpecializationsQuery'
+import { useFieldsQuery } from 'src/modules/paths/hooks/queries/useFieldsQuery'
 
 import { SelectOption } from 'src/modules/core/types/entities'
-import { ICreateGoalDto } from 'src/modules/goals/types/dto'
+import { GoalFormState } from './useGoalForm'
 
 interface IGoalFormProps {
   isSubmitting?: boolean
@@ -20,24 +18,40 @@ interface IGoalFormProps {
 const GoalForm: React.FC<IGoalFormProps> = (props) => {
   const { isSubmitting } = props
 
-  const { control, register, formState, setValue } =
-    useFormContext<ICreateGoalDto>()
+  const { control, register, formState, setValue, watch } =
+    useFormContext<GoalFormState>()
 
   const { errors, touchedFields } = formState
 
-  const { data: specializationsData, isLoading: isLoadingSpecializationsData } =
-    useSpecializationsQuery()
+  const fieldId = watch('fieldId')
+
+  const { data: fieldsData, isLoading: isLoadingFieldsData } = useFieldsQuery()
+
+  const fieldsOptions: SelectOption[] = useMemo(() => {
+    if (fieldsData) {
+      return fieldsData.fields.map((field) => ({
+        label: field.name,
+        value: field.id,
+      }))
+    }
+
+    return []
+  }, [fieldsData])
 
   const specializationsOptions: SelectOption[] = useMemo(() => {
-    if (specializationsData) {
-      return specializationsData.specializations.map((specialization) => ({
+    if (fieldsData && fieldId) {
+      const specializations =
+        fieldsData.fields.find((field) => field.id === fieldId)
+          ?.specializations || []
+
+      return specializations.map((specialization) => ({
         label: specialization.name,
         value: specialization.id,
       }))
     }
 
     return []
-  }, [specializationsData])
+  }, [fieldId, fieldsData])
 
   return (
     <Box w="50%">
@@ -60,28 +74,37 @@ const GoalForm: React.FC<IGoalFormProps> = (props) => {
 
       <Controller
         control={control}
-        name="startDate"
+        name="fieldId"
         render={({ field, fieldState }) => {
+          const selectedOption = fieldsOptions.find(
+            (item) => item.value === field.value,
+          )
+
           return (
             <Box w="full" mb="6">
               <Flex w="full" justifyContent="space-between" mb="1">
-                <Heading size="xs">Start Date:</Heading>
+                <Heading size="xs">Field:</Heading>
 
                 <Text fontSize="sm" color="red.500" h="4">
                   {fieldState.error?.message}
                 </Text>
               </Flex>
 
-              <DatePicker
-                value={field.value}
-                placeholder="Select start date..."
-                minDate={startOfToday()}
+              <SelectInput
+                value={selectedOption}
+                isMulti={false}
+                isLoading={isLoadingFieldsData}
                 isDisabled={isSubmitting}
-                onChange={(date) => {
-                  setValue('startDate', date, {
-                    shouldTouch: true,
-                    shouldValidate: true,
-                  })
+                options={fieldsOptions}
+                onChange={(selection) => {
+                  setValue(
+                    'fieldId',
+                    (selection as SelectOption)?.value as number,
+                    {
+                      shouldTouch: true,
+                      shouldValidate: true,
+                    },
+                  )
                 }}
               />
             </Box>
@@ -110,8 +133,8 @@ const GoalForm: React.FC<IGoalFormProps> = (props) => {
               <SelectInput
                 value={selectedOption}
                 isMulti={false}
-                isLoading={isLoadingSpecializationsData}
-                isDisabled={isSubmitting}
+                isLoading={isLoadingFieldsData}
+                isDisabled={isSubmitting || !fieldId}
                 options={specializationsOptions}
                 onChange={(selection) => {
                   setValue(

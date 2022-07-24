@@ -26,13 +26,13 @@ const AppNav: React.FC = () => {
         title: 'Home',
         href: corePaths.home(),
       },
-      ...(userData?.user
+      ...(userData?.me
         ? [
             {
               icon: <FaUserGraduate size={24} />,
               title: 'Profile',
-              href: userData.user.profile
-                ? usersPaths.profile(userData.user.id)
+              href: userData.me.profile
+                ? usersPaths.profile(userData.me.id)
                 : usersPaths.create_profile(),
             },
           ]
@@ -49,43 +49,48 @@ const AppNav: React.FC = () => {
   return (
     <Box
       bgColor="black"
-      h="100vh"
-      w="24"
+      h={{ base: '16', md: '100vh' }}
+      w={{ base: '100vw', md: '24' }}
       position="fixed"
-      top={0}
+      top={{ md: 0 }}
       left={0}
+      right={{ base: 0, md: 'auto' }}
       bottom={0}
       zIndex="docked"
       shadow="lg"
+      flexWrap="nowrap"
+      as="nav"
     >
-      <Link href="/" passHref>
-        <ChakraLink
-          w="12"
-          h="12"
-          mx="auto"
-          mt="4"
-          borderRadius="4px"
-          bgColor="brand.50"
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Image
-            src={Logo}
-            alt="Dev Hype"
-            width={40}
-            height={40}
-            placeholder="blur"
-          />
-        </ChakraLink>
-      </Link>
+      <Box display={{ base: 'none', md: 'block' }}>
+        <Link href="/" passHref>
+          <ChakraLink
+            w="12"
+            h="12"
+            mx={{ md: 'auto' }}
+            mt={{ md: '4' }}
+            borderRadius="4px"
+            bgColor="brand.50"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Image
+              src={Logo}
+              alt="Dev Hype"
+              width={40}
+              height={40}
+              placeholder="blur"
+            />
+          </ChakraLink>
+        </Link>
+      </Box>
 
       <Box
-        h="calc(100vh - 74px)"
+        h={{ base: 'full', md: 'calc(100vh - 74px)' }}
         display="flex"
-        flexDir="column"
+        flexDir={{ md: 'column' }}
         alignItems="center"
-        justifyContent="center"
+        justifyContent={{ base: 'space-evenly', md: 'center' }}
       >
         {navItems.map((item) => {
           const isActive = asPath === item.href
@@ -105,7 +110,8 @@ const AppNav: React.FC = () => {
                 display="flex"
                 flexDir="column"
                 alignItems="center"
-                mb="8"
+                justifyContent="center"
+                mb={{ md: '8' }}
                 w="16"
                 h="14"
                 isActive={isActive}

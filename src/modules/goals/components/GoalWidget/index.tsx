@@ -16,15 +16,9 @@ import {
 import Milestones from './Milestones'
 import Projects from './Projects'
 
-import {
-  IGoal,
-  IMilestone,
-  IProject,
-  ISpecialization,
-  ITopic,
-} from '../../types/entities'
-
 import GoalDropdown from './GoalDropdown'
+
+import { GqlGoal } from 'src/generated/graphql'
 
 enum ExpandableContent {
   Milestones,
@@ -32,25 +26,24 @@ enum ExpandableContent {
 }
 
 interface IGoalWidgetProps {
-  goal: IGoal
-  milestones: IMilestone[]
-  projects: IProject[]
-  topic: ITopic & {
-    specialization: ISpecialization
-  }
-  onDeleteClick: (goal: IGoal) => void
+  goal: GqlGoal
+  // projects: GqlProject[]
+  onDeleteClick: (goal: GqlGoal) => void
 }
 
 const GoalWidget: React.FC<IGoalWidgetProps> = (props) => {
-  const { goal, milestones, projects, topic, onDeleteClick } = props
+  const { goal, onDeleteClick } = props
+
+  const { milestones, topic } = goal
 
   const [activeContent, setActiveContent] = useState<ExpandableContent | null>(
     null,
   )
 
-  const startDate = isValid(new Date(goal.startDate))
-    ? format(new Date(goal.startDate), 'MMM d')
-    : null
+  const startDate =
+    goal.startDate && isValid(new Date(goal.startDate))
+      ? format(new Date(goal.startDate), 'MMM d')
+      : null
   const endDate =
     goal.estimatedEndDate && isValid(new Date(goal.estimatedEndDate))
       ? format(new Date(goal.estimatedEndDate), 'MMM d')
@@ -121,7 +114,7 @@ const GoalWidget: React.FC<IGoalWidgetProps> = (props) => {
                   )
                 }
               >
-                {projects.length} Project
+                {/*projects.length*/} Project
               </Button>
             </Box>
           </Box>
