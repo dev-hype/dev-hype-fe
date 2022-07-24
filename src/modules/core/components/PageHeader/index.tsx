@@ -51,14 +51,14 @@ const PageHeader: React.FC<IPageHeaderProps> = (props) => {
         h="12"
         position="fixed"
         top="0"
-        left="24"
+        left={{ base: 0, md: '24' }}
         right="0"
         shadow="sm"
         bgColor="whiteAlpha.900"
         display="flex"
         alignItems="center"
         justifyContent="space-between"
-        px="8"
+        px={{ base: '3', sm: '4', md: '8' }}
         zIndex="banner"
       >
         <Heading as="h1" size="md" fontWeight={600}>

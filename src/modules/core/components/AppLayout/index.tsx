@@ -10,10 +10,12 @@ interface IAppLayoutProps {
 const AppLayout: React.FC<IAppLayoutProps> = ({ children, disablePadding }) => {
   return (
     <Box
-      ml="24"
+      ml={{ md: '24' }}
       mt="12"
+      mb={{ base: '18', md: '0' }}
       px={disablePadding ? 0 : '8'}
       py={disablePadding ? 0 : '4'}
+      as="main"
     >
       {children}
     </Box>

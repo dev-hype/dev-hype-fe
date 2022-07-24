@@ -14,7 +14,6 @@ import {
   StatHelpText,
   StatNumber,
   Text,
-  VStack,
 } from '@chakra-ui/react'
 
 import { MdOutlineLocationOn } from 'react-icons/md'
@@ -39,46 +38,68 @@ const ProfileHead: React.FC = () => {
 
   return (
     <Box bgColor="gray.50">
-      <Container
-        maxW="container.lg"
-        p="6"
-        display="flex"
-        justifyContent="space-between"
-      >
+      <Container maxW="container.lg" p={{ base: '3', sm: '4', md: '6' }}>
         <Box>
-          <Center
-            borderRadius="4px"
-            w="24"
-            h="24"
-            mr="4"
-            mb="2"
-            overflow="hidden"
-            bgColor="white"
+          <Box>
+            <HStack alignItems="flex-start" justifyContent="space-between">
+              <Center
+                borderRadius="4px"
+                w="24"
+                h="24"
+                mr="4"
+                mb="2"
+                overflow="hidden"
+                bgColor="white"
+              >
+                <Photo
+                  src={`https://avatars.dicebear.com/api/adventurer/${profileUserData?.profile?.id}.svg`}
+                  alt="user"
+                  placeholder="blur"
+                  width={90}
+                  height={90}
+                  objectFit="cover"
+                  objectPosition="top"
+                  borderRadius="4px"
+                />
+              </Center>
+
+              <HStack justifyContent="flex-end" mb="auto">
+                {authUserData?.me.id === profileUserId && (
+                  <Link href={usersPaths.edit_profile()} passHref>
+                    <Button
+                      as="a"
+                      size="xs"
+                      variant="outline"
+                      colorScheme="brand"
+                    >
+                      Edit Profile
+                    </Button>
+                  </Link>
+                )}
+              </HStack>
+            </HStack>
+
+            <Box maxW="96" py="2">
+              <Heading size="md" mb="3">
+                {profile
+                  ? `${profile.firstName} ${profile.lastName}`
+                  : 'Anonymous'}
+              </Heading>
+
+              <Text fontSize="sm" color="gray.600" mb="3">
+                {profile?.bio} Lorem ipsum dolor sit amet consectetur
+                adipisicing elit. Obcaecati aut sint ipsum voluptatum eveniet
+                quis esse? Delectus.
+              </Text>
+            </Box>
+          </Box>
+
+          <HStack
+            justifyContent={{ base: 'flex-start', md: 'space-between' }}
+            alignItems={{ base: 'flex-start', md: 'flex-end' }}
+            flexDir={{ base: 'column', md: 'row' }}
           >
-            <Photo
-              src={`https://avatars.dicebear.com/api/adventurer/${profileUserData?.profile?.id}.svg`}
-              alt="user"
-              placeholder="blur"
-              width={90}
-              height={90}
-              objectFit="cover"
-              objectPosition="top"
-              borderRadius="4px"
-            />
-          </Center>
-
-          <Box w="96" py="2">
-            <Heading size="md" mb="2">
-              {profile
-                ? `${profile.firstName} ${profile.lastName}`
-                : 'Anonymous'}
-            </Heading>
-
-            <Text fontSize="sm" color="gray.600" mb="8">
-              {profile?.bio}
-            </Text>
-
-            <HStack spacing="0">
+            <HStack spacing="0" mb={{ base: '8', md: 0 }}>
               <Icon color="gray.700" fontSize="xl" mr="0.5">
                 <MdOutlineLocationOn size="inherit" />
               </Icon>
@@ -87,37 +108,35 @@ const ProfileHead: React.FC = () => {
                 {profile?.country.name} - {profile?.timezoneName}
               </Text>
             </HStack>
-          </Box>
+
+            <HStack spacing={8}>
+              <Stat flexGrow={0}>
+                <StatNumber fontSize={{ base: 'lg', md: '2xl' }}>4</StatNumber>
+                <StatHelpText whiteSpace="nowrap" m={0}>
+                  Goals
+                </StatHelpText>
+              </Stat>
+
+              <Stat flexGrow={0}>
+                <StatNumber fontSize={{ base: 'lg', md: '2xl' }}>
+                  60%
+                </StatNumber>
+                <StatHelpText whiteSpace="nowrap" m={0}>
+                  Overall Progress
+                </StatHelpText>
+              </Stat>
+
+              <Stat flexGrow={0}>
+                <StatNumber fontSize={{ base: 'lg', md: '2xl' }}>
+                  50%
+                </StatNumber>
+                <StatHelpText whiteSpace="nowrap" m={0}>
+                  Success Rate
+                </StatHelpText>
+              </Stat>
+            </HStack>
+          </HStack>
         </Box>
-
-        <VStack alignItems="flex-end">
-          <HStack justifyContent="flex-end" mb="auto">
-            {authUserData?.me.id === profileUserId && (
-              <Link href={usersPaths.edit_profile()} passHref>
-                <Button as="a" size="sm" variant="outline" colorScheme="brand">
-                  Update Profile
-                </Button>
-              </Link>
-            )}
-          </HStack>
-
-          <HStack spacing={8}>
-            <Stat flexGrow={0}>
-              <StatNumber>4</StatNumber>
-              <StatHelpText whiteSpace="nowrap">Goals</StatHelpText>
-            </Stat>
-
-            <Stat flexGrow={0}>
-              <StatNumber>60%</StatNumber>
-              <StatHelpText whiteSpace="nowrap">Overall Progress</StatHelpText>
-            </Stat>
-
-            <Stat flexGrow={0}>
-              <StatNumber>50%</StatNumber>
-              <StatHelpText whiteSpace="nowrap">Success Rate</StatHelpText>
-            </Stat>
-          </HStack>
-        </VStack>
       </Container>
     </Box>
   )
