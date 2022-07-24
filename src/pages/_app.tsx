@@ -14,9 +14,13 @@ import AppNav from 'src/modules/core/components/AppNav'
 
 import AuthProvider from 'src/modules/auth/providers/AuthProvider'
 
+import { useNProgress } from 'src/modules/core/hooks/useNProgress'
+
 import { theme } from 'src/modules/core/config/theme'
 
 function MyApp({ Component, pageProps }: AppProps) {
+  useNProgress()
+
   const [queryClient] = useState(
     () =>
       new QueryClient({

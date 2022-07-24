@@ -13,6 +13,7 @@ specifiers:
   '@tanstack/react-query-devtools': ^4.0.10
   '@types/debounce': ^1.2.1
   '@types/node': 18.0.6
+  '@types/nprogress': ^0.2.0
   '@types/react': 18.0.15
   '@types/react-dom': 18.0.6
   '@typescript-eslint/eslint-plugin': ^5.30.7
@@ -31,6 +32,7 @@ specifiers:
   immer: ^9.0.15
   next: 12.2.3
   nookies: ^2.5.2
+  nprogress: ^0.2.0
   prettier: ^2.7.1
   query-string: ^7.1.1
   react: 18.2.0
@@ -61,6 +63,7 @@ dependencies:
   immer: 9.0.15
   next: 12.2.3_biqbaboplfbrettd7655fr4n2y
   nookies: 2.5.2
+  nprogress: 0.2.0
   query-string: 7.1.1
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -78,6 +81,7 @@ devDependencies:
   '@graphql-codegen/typescript-operations': 2.5.2_graphql@16.5.0
   '@types/debounce': 1.2.1
   '@types/node': 18.0.6
+  '@types/nprogress': 0.2.0
   '@types/react': 18.0.15
   '@types/react-dom': 18.0.6
   '@typescript-eslint/eslint-plugin': 5.30.7_he2ccbldppg44uulnyq4rwocfa
@@ -2438,6 +2442,10 @@ packages:
 
   /@types/node/18.0.6:
     resolution: {integrity: sha512-/xUq6H2aQm261exT6iZTMifUySEt4GR5KX8eYyY+C4MSNPqSh9oNIP7tz2GLKTlFaiBbgZNxffoR3CVRG+cljw==}
+    dev: true
+
+  /@types/nprogress/0.2.0:
+    resolution: {integrity: sha512-1cYJrqq9GezNFPsWTZpFut/d4CjpZqA0vhqDUPFWYKF1oIyBz5qnoYMzR+0C/T96t3ebLAC1SSnwrVOm5/j74A==}
     dev: true
 
   /@types/parse-json/4.0.0:
@@ -4955,6 +4963,10 @@ packages:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
     engines: {node: '>=0.10.0'}
     dev: true
+
+  /nprogress/0.2.0:
+    resolution: {integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==}
+    dev: false
 
   /nullthrows/1.1.1:
     resolution: {integrity: sha512-2vPPEi+Z7WqML2jZYddDIfy5Dqb0r2fze2zTxNNknZaFpVHU3mFB3R+DWeJWGVx0ecvttSGlJTI+WG+8Z4cDWw==}

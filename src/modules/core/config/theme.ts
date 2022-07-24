@@ -15,6 +15,13 @@ export const theme = extendTheme(
         html: {
           overflowY: 'scroll',
         },
+        '#nprogress .bar': {
+          background: 'primary.400',
+          zIndex: 'toast',
+        },
+        '#nprogress .peg': {
+          boxShadow: 'lg',
+        },
       },
     },
     colors: {
