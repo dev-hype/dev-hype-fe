@@ -7,7 +7,6 @@ import { useRouter } from 'next/router'
 import { Box, Container, HStack } from '@chakra-ui/react'
 
 import AppLayout from 'src/modules/core/components/AppLayout'
-import PageHeader from 'src/modules/core/components/PageHeader'
 import ProfileHead from 'src/modules/users/views/profile/ProfileHead'
 import ProfileGoals from 'src/modules/users/views/profile/ProfileGoals'
 import ProfileTabs, {
@@ -71,9 +70,7 @@ const Profile: NextPage = () => {
         <title>Profile - Dev Hype</title>
       </Head>
 
-      <AppLayout disablePadding>
-        <PageHeader title="Profile" />
-
+      <AppLayout headerTitle="Profile">
         <Box>
           <ProfileHead />
 

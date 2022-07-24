@@ -10,7 +10,6 @@ import { ChakraProvider } from '@chakra-ui/react'
 import type { AppProps } from 'next/app'
 
 import DefaultHead from 'src/modules/core/components/DefaultHead'
-import AppNav from 'src/modules/core/components/AppNav'
 
 import AuthProvider from 'src/modules/auth/providers/AuthProvider'
 
@@ -40,8 +39,6 @@ function MyApp({ Component, pageProps }: AppProps) {
           <DefaultHead />
 
           <ChakraProvider theme={theme}>
-            <AppNav />
-
             <Component {...pageProps} />
           </ChakraProvider>
         </AuthProvider>

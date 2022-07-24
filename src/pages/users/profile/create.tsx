@@ -7,7 +7,6 @@ import Head from 'next/head'
 import { Box, Container } from '@chakra-ui/react'
 
 import AppLayout from 'src/modules/core/components/AppLayout'
-import PageHeader from 'src/modules/core/components/PageHeader'
 import ProfileForm from 'src/modules/users/views/profile/ProfileForm'
 import Photo from 'src/modules/core/components/Photo'
 
@@ -61,9 +60,7 @@ const CreateProfile: NextPage = () => {
         <title>Setup Your Profile - Dev Hype</title>
       </Head>
 
-      <AppLayout disablePadding>
-        <PageHeader title="Setup Your Profile" />
-
+      <AppLayout headerTitle="Create Profile">
         <Box bgColor="gray.50" mb="24">
           <Container>
             <Box

@@ -1,10 +1,9 @@
 import { dehydrate } from '@tanstack/react-query'
 import type { NextPage } from 'next'
 
-import { Box, Button, Heading, Text } from '@chakra-ui/react'
+import { Button, Container, Heading, Text } from '@chakra-ui/react'
 
 import AppLayout from 'src/modules/core/components/AppLayout'
-import PageHeader from 'src/modules/core/components/PageHeader'
 
 import { hybridRoute } from 'src/modules/core/routes/hybridRoute'
 
@@ -18,10 +17,8 @@ export const getServerSideProps = hybridRoute(async (ctx, queryClient) => {
 
 const Home: NextPage = () => {
   return (
-    <AppLayout>
-      <PageHeader title="Home" />
-
-      <Box>
+    <AppLayout headerTitle="Home">
+      <Container>
         <Heading>Home Again!!!!!!</Heading>
         <Heading>Test</Heading>
 
@@ -33,7 +30,7 @@ const Home: NextPage = () => {
         </Text>
 
         <Button colorScheme="brand">Hello</Button>
-      </Box>
+      </Container>
     </AppLayout>
   )
 }
