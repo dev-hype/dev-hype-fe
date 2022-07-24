@@ -22,6 +22,8 @@ import { MdOutlineLocationOn } from 'react-icons/md'
 import Photo from 'src/modules/core/components/Photo'
 
 import { useProfileQuery } from 'src/modules/users/hooks/queries/useProfileQuery'
+import { useAuthUserQuery } from 'src/modules/users/hooks/queries/useAuthUserQuery'
+
 import { usersPaths } from 'src/modules/users/constants/paths'
 
 const ProfileHead: React.FC = () => {
@@ -30,6 +32,8 @@ const ProfileHead: React.FC = () => {
   const profileUserId = query.userId as string
 
   const { data: profileUserData } = useProfileQuery(profileUserId)
+
+  const { data: authUserData } = useAuthUserQuery()
 
   const profile = profileUserData?.profile
 
@@ -88,11 +92,13 @@ const ProfileHead: React.FC = () => {
 
         <VStack alignItems="flex-end">
           <HStack justifyContent="flex-end" mb="auto">
-            <Link href={usersPaths.edit_profile()} passHref>
-              <Button as="a" size="sm" variant="outline" colorScheme="brand">
-                Update Profile
-              </Button>
-            </Link>
+            {authUserData?.me.id === profileUserId && (
+              <Link href={usersPaths.edit_profile()} passHref>
+                <Button as="a" size="sm" variant="outline" colorScheme="brand">
+                  Update Profile
+                </Button>
+              </Link>
+            )}
           </HStack>
 
           <HStack spacing={8}>

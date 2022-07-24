@@ -10,6 +10,13 @@ export const theme = extendTheme(
       heading: "'Work Sans', sans-serif",
       body: "'Work Sans', sans-serif",
     },
+    styles: {
+      global: {
+        html: {
+          overflowY: 'scroll',
+        },
+      },
+    },
     colors: {
       white: '#fefefe',
       black: '#050505',

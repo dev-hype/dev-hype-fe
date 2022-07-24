@@ -19,6 +19,7 @@ import CreateGoalModal from 'src/modules/goals/components/CreateGoalModal'
 import DeleteGoalModal from './DeleteGoalModal'
 
 import { useGoalsQuery } from 'src/modules/goals/hooks/queries/useGoalsQuery'
+import { useAuthUserQuery } from 'src/modules/users/hooks/queries/useAuthUserQuery'
 
 import { GoalsQuery, GqlGoal } from 'src/generated/graphql'
 
@@ -32,6 +33,8 @@ const ProfileGoals: React.FC<{ userId: string }> = (props) => {
   } = useDisclosure()
 
   const [goalToDelete, setGoalToDelete] = useState<GqlGoal | null>(null)
+
+  const { data: authUserData } = useAuthUserQuery()
 
   const {
     data: goalsData,
@@ -65,20 +68,22 @@ const ProfileGoals: React.FC<{ userId: string }> = (props) => {
   return (
     <>
       <Container maxW="container.lg" p="6" position="relative">
-        <Tooltip label="New Goal">
-          <IconButton
-            size="lg"
-            aria-label="add new goal"
-            borderRadius="full"
-            position="absolute"
-            top={0}
-            right={0}
-            transform="translate(-24px, -50px)"
-            onClick={openNewGoalModal}
-          >
-            <FaPlus />
-          </IconButton>
-        </Tooltip>
+        {authUserData?.me.id === userId && (
+          <Tooltip label="New Goal">
+            <IconButton
+              size="lg"
+              aria-label="add new goal"
+              borderRadius="full"
+              position="absolute"
+              top={0}
+              right={0}
+              transform="translate(-24px, -50px)"
+              onClick={openNewGoalModal}
+            >
+              <FaPlus />
+            </IconButton>
+          </Tooltip>
+        )}
 
         {isLoading && <Spinner />}
 
