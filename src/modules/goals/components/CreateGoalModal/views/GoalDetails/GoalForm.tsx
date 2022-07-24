@@ -54,7 +54,7 @@ const GoalForm: React.FC<IGoalFormProps> = (props) => {
   }, [fieldId, fieldsData])
 
   return (
-    <Box w="50%">
+    <Box w={{ lg: '65%' }}>
       <Box w="full" mb="6">
         <Flex w="full" justifyContent="space-between" mb="1">
           <Heading size="xs">Goal Name:</Heading>

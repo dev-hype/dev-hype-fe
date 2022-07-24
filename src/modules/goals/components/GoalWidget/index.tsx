@@ -5,12 +5,15 @@ import {
   Badge,
   Box,
   Button,
+  CircularProgress,
+  CircularProgressLabel,
   Collapse,
+  Flex,
   Heading,
   HStack,
   Progress,
+  Show,
   Text,
-  VStack,
 } from '@chakra-ui/react'
 
 import Milestones from './Milestones'
@@ -50,17 +53,29 @@ const GoalWidget: React.FC<IGoalWidgetProps> = (props) => {
       : null
 
   return (
-    <Box>
+    <Box boxShadow="sm">
       <Box>
         <HStack p="4" bgColor="brand.50" justifyContent="space-between">
           <Box>
-            <HStack mb="4">
+            <HStack mb={{ base: '1.5', md: '4' }}>
               <Heading size="sm" mr="1.5">
                 {goal.name}
               </Heading>
 
               <Badge variant="solid">{topic.specialization.name}</Badge>
             </HStack>
+
+            <Show below="md">
+              <Text
+                fontSize="xs"
+                color="gray.300"
+                fontWeight="semibold"
+                mb="4"
+                lineHeight={1}
+              >
+                {startDate} - {endDate}
+              </Text>
+            </Show>
 
             <Box display="flex">
               <Button
@@ -120,25 +135,45 @@ const GoalWidget: React.FC<IGoalWidgetProps> = (props) => {
           </Box>
 
           <HStack spacing={4}>
-            <VStack alignItems="flex-end" spacing="0">
-              <Text
-                fontSize="sm"
-                color="gray.500"
-                fontWeight="semibold"
-                mb="1"
-                lineHeight={1}
-              >
-                {startDate} - {endDate}
-              </Text>
+            <Flex
+              flexDir={{ md: 'column' }}
+              alignItems={{ base: 'center', md: 'flex-end' }}
+            >
+              <Show above="md">
+                <Text
+                  fontSize="sm"
+                  color="gray.500"
+                  fontWeight="semibold"
+                  mb={{ md: '1' }}
+                  lineHeight={1}
+                >
+                  {startDate} - {endDate}
+                </Text>
+              </Show>
 
-              <HStack>
-                <Text fontWeight="semibold">20%</Text>
+              <Show above="md">
+                <HStack>
+                  <Text fontWeight="semibold">20%</Text>
 
-                <Box w="36" ml="1">
-                  <Progress colorScheme="brand" size="sm" value={20} />
-                </Box>
-              </HStack>
-            </VStack>
+                  <Box w="36" ml="1">
+                    <Progress colorScheme="brand" size="sm" value={20} />
+                  </Box>
+                </HStack>
+              </Show>
+
+              <Show below="md">
+                <CircularProgress
+                  value={20}
+                  color="brand.400"
+                  trackColor="brand.200"
+                  size="40px"
+                >
+                  <CircularProgressLabel fontWeight="semibold" fontSize="xs">
+                    20%
+                  </CircularProgressLabel>
+                </CircularProgress>
+              </Show>
+            </Flex>
 
             <Box>
               <GoalDropdown

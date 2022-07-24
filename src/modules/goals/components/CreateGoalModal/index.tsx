@@ -38,7 +38,11 @@ const CreateGoalModal: React.FC<ICreateGoalModalProps> = (props) => {
 
   return (
     <div>
-      <Modal isOpen={isOpen} onClose={closeHandler} size="6xl">
+      <Modal
+        isOpen={isOpen}
+        onClose={closeHandler}
+        size={['sm', 'md', '3xl', '4xl']}
+      >
         <ModalOverlay />
 
         <ModalContent h="2xl" maxH="80vh">

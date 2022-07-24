@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
-import { Box, Button, Link as ChakraLink, Text } from '@chakra-ui/react'
+import { Box, Button, Link as ChakraLink, Show, Text } from '@chakra-ui/react'
 
 import { FaChartPie, FaHome, FaUserGraduate } from 'react-icons/fa'
 
@@ -61,7 +61,7 @@ const AppNav: React.FC = () => {
       flexWrap="nowrap"
       as="nav"
     >
-      <Box display={{ base: 'none', md: 'block' }}>
+      <Show above="md">
         <Link href="/" passHref>
           <ChakraLink
             w="12"
@@ -83,7 +83,7 @@ const AppNav: React.FC = () => {
             />
           </ChakraLink>
         </Link>
-      </Box>
+      </Show>
 
       <Box
         h={{ base: 'full', md: 'calc(100vh - 74px)' }}
