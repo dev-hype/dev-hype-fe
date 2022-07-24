@@ -67,7 +67,11 @@ const ProfileGoals: React.FC<{ userId: string }> = (props) => {
 
   return (
     <>
-      <Container maxW="container.lg" p="6" position="relative">
+      <Container
+        maxW="container.lg"
+        p={{ base: '3', sm: '4', md: '6' }}
+        position="relative"
+      >
         {authUserData?.me.id === userId && (
           <Tooltip label="New Goal">
             <IconButton

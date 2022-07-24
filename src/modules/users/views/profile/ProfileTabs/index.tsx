@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Box, Container, Tab, TabList, Tabs, Text } from '@chakra-ui/react'
+import { Box, Container, Show, Tab, TabList, Tabs } from '@chakra-ui/react'
 import { FaBullseye, FaChartPie, FaTasks } from 'react-icons/fa'
 import { GiProgression } from 'react-icons/gi'
 import { GoPulse } from 'react-icons/go'
@@ -75,7 +75,7 @@ const ProfileTabs: React.FC<IProfileTabsProps> = (props) => {
             >
               <Box mr={{ md: '1.5' }}>{tab.icon}</Box>
 
-              <Text display={{ base: 'none', md: 'block' }}>{tab.label}</Text>
+              <Show above="md">{tab.label}</Show>
             </Tab>
           ))}
         </Container>

@@ -87,9 +87,7 @@ const ProfileHead: React.FC = () => {
               </Heading>
 
               <Text fontSize="sm" color="gray.600" mb="3">
-                {profile?.bio} Lorem ipsum dolor sit amet consectetur
-                adipisicing elit. Obcaecati aut sint ipsum voluptatum eveniet
-                quis esse? Delectus.
+                {profile?.bio}
               </Text>
             </Box>
           </Box>

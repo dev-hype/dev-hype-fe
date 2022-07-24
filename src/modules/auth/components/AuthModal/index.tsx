@@ -36,34 +36,49 @@ const AuthModal: React.FC = () => {
   const { isAuthModalOpen, closeAuthModal } = useAuthModal()
 
   return (
-    <Modal isOpen={isAuthModalOpen} onClose={closeAuthModal} size="4xl">
+    <Modal
+      isOpen={isAuthModalOpen}
+      onClose={closeAuthModal}
+      size={['sm', 'md', '3xl', '4xl']}
+    >
       <ModalOverlay />
 
-      <ModalContent h="lg" maxH="80vh">
-        <ModalCloseButton zIndex="modal" />
-
+      <ModalContent h="lg" maxH="80vh" overflow="hidden">
         <ModalBody p={0}>
-          <Flex h="full">
-            <Center h="full" w="50%" bgColor="gray.900" p="8" flexDir="column">
-              <Box>
-                <Heading size="md" color="whiteAlpha.800" mb="1">
+          <Flex h="full" flexDir={{ base: 'column', md: 'row' }}>
+            <Center
+              h={{ md: 'full' }}
+              w={{ md: '50%' }}
+              bgColor="gray.900"
+              p={{ base: '1', md: '8' }}
+              flexDir="column"
+            >
+              <Flex flexDir={{ md: 'column' }} alignItems="baseline">
+                <Heading
+                  size="md"
+                  color="whiteAlpha.800"
+                  mb={{ md: '1' }}
+                  mr={{ base: '2', md: 0 }}
+                >
                   {activeView} to
                 </Heading>
 
                 <Heading size="lg" color="brand.500">
                   Dev Hype
                 </Heading>
-              </Box>
+              </Flex>
             </Center>
 
             <Center
-              h="full"
+              h={{ md: 'full' }}
               p="10"
-              w="50%"
+              w={{ md: '50%' }}
               position="relative"
               flexDir="column"
               bgColor="white"
             >
+              <ModalCloseButton zIndex="modal" />
+
               <Box mb="6">
                 <Image
                   src={Logo.src}

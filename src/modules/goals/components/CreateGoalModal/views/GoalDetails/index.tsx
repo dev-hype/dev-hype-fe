@@ -7,6 +7,7 @@ import {
   Center,
   Flex,
   Heading,
+  Show,
   Text,
   VStack,
 } from '@chakra-ui/react'
@@ -48,14 +49,20 @@ const GoalDetails: React.FC<IGoalDetailsProps> = (props) => {
         as="form"
         onSubmit={formMethods.handleSubmit(submitHandler)}
       >
-        <Box h="full" w="30%" bgColor="gray.900" p="8">
-          <CreateGoalModalSteps
-            activeStepKey={GoalModalStep.Goal}
-            completedStepsKeys={[]}
-          />
-        </Box>
+        <Show above="md">
+          <Box h="full" w="30%" bgColor="gray.900" p="8">
+            <CreateGoalModalSteps
+              activeStepKey={GoalModalStep.Goal}
+              completedStepsKeys={[]}
+            />
+          </Box>
+        </Show>
 
-        <VStack p="8" h="full" w="70%">
+        <VStack
+          p={{ base: '4', md: '8' }}
+          h="full"
+          w={{ base: 'full', md: '70%' }}
+        >
           <Box flexGrow={0} flexShrink={0} w="full">
             <Heading size="lg" mb="1">
               {goalDetailsStep.title}
