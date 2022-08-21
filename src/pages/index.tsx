@@ -9,6 +9,7 @@ import Button from 'src/modules/core/components/Button'
 import AppLayout from 'src/modules/core/components/AppLayout'
 
 import { hybridRoute } from 'src/modules/core/routes/hybridRoute'
+import Avatar from 'src/modules/core/components/Avatar'
 
 export const getServerSideProps = hybridRoute(async (ctx, queryClient) => {
   return {
@@ -87,6 +88,20 @@ const Home: NextPage = () => {
           >
             Hello
           </Button>
+
+          <Avatar src="" name="John Doe" size="large" />
+          <Avatar size="large" />
+
+          <Avatar
+            src="https://avatars.dicebear.com/api/adventurer/a8s7.svg"
+            name="John Doe"
+          />
+
+          <Avatar
+            src="https://avatars.dicebear.com/api/adventurer/a8s7.svg"
+            name="John Doe"
+            size="small"
+          />
         </div>
       </Container>
     </AppLayout>

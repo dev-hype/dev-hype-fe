@@ -44,7 +44,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         </AuthProvider>
       </Hydrate>
 
-      <ReactQueryDevtools />
+      <ReactQueryDevtools position="bottom-right" />
     </QueryClientProvider>
   )
 }
