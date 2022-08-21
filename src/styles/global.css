@@ -6,6 +6,10 @@ html {
   overflow-y: scroll;
 }
 
+#root {
+  @apply text-gray-800 bg-white dark:text-gray-200 dark:bg-black;
+}
+
 #nprogress .bar {
   @apply bg-gold-400 z-tooltip;
 }

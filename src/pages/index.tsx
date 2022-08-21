@@ -10,6 +10,8 @@ import AppLayout from 'src/modules/core/components/AppLayout'
 
 import { hybridRoute } from 'src/modules/core/routes/hybridRoute'
 import Avatar from 'src/modules/core/components/Avatar'
+import { useAtom } from 'jotai'
+import { colorModeAtom } from 'src/modules/core/hooks/useColorMode'
 
 export const getServerSideProps = hybridRoute(async (ctx, queryClient) => {
   return {
@@ -20,6 +22,8 @@ export const getServerSideProps = hybridRoute(async (ctx, queryClient) => {
 })
 
 const Home: NextPage = () => {
+  const [, setColorMode] = useAtom(colorModeAtom)
+
   return (
     <AppLayout headerTitle="Home">
       <Container>
@@ -34,7 +38,14 @@ const Home: NextPage = () => {
         </Text>
 
         <div className="m-3 flex flex-col items-start gap-2">
-          <Button color="gold" size="small" variant="outlined">
+          <Button
+            color="gold"
+            size="small"
+            variant="outlined"
+            onPress={() => {
+              setColorMode('light')
+            }}
+          >
             Hello
           </Button>
 
