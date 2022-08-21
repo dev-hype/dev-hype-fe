@@ -9,13 +9,14 @@ import { useBoolean } from '../../hooks/useBoolean'
 type AvatarSize = 'small' | 'medium' | 'large'
 
 interface IAvatarProps {
+  className?: string
   name?: string
   size?: AvatarSize
   src?: string
 }
 
 const Avatar: React.FC<IAvatarProps> = (props) => {
-  const { name, size = 'medium', src } = props
+  const { className, name, size = 'medium', src } = props
 
   const [error, { toggle: toggleError }] = useBoolean(false)
 
@@ -40,9 +41,17 @@ const Avatar: React.FC<IAvatarProps> = (props) => {
     <div
       className={clsx(
         [
-          'bg-gray-200 flex items-center justify-center rounded-full text-gray-500',
+          'bg-gray-200',
+          'flex',
+          'items-center',
+          'justify-center',
+          'rounded-full',
+          'text-gray-500',
+          'dark:bg-gray-500',
+          'dark:text-gray-800',
         ],
         sizeClassName[size],
+        className,
       )}
     >
       {src && !error ? (
