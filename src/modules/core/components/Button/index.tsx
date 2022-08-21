@@ -50,16 +50,6 @@ function _Button(
     domRef as RefObject<Element>,
   )
 
-  const iconClassName = useMemo(
-    () =>
-      clsx('leading-none', {
-        '[font-size: 16px]': size === 'small',
-        '[font-size: 18px]': size === 'medium',
-        '[font-size: 20px]': size === 'large',
-      }),
-    [size],
-  )
-
   const baseClassName = useMemo(
     () => [
       'border',
@@ -77,9 +67,9 @@ function _Button(
 
   const sizeClassName: Record<ButtonSize, string> = useMemo(
     () => ({
-      small: 'gap-1 h-8 px-2',
-      medium: 'gap-2 h-10 px-4',
-      large: 'gap-3 h-12 px-7',
+      small: 'gap-1 h-8 px-2 text-sm',
+      medium: 'gap-2 h-10 px-4 text-base',
+      large: 'gap-3 h-12 px-7 text-lg',
     }),
     [],
   )
@@ -149,11 +139,11 @@ function _Button(
       ref={domRef}
       {...mergeProps(buttonProps, hoverProps, focusProps)}
     >
-      {startIcon ? <span className={iconClassName}>{startIcon}</span> : null}
+      {startIcon ? <span className={'leading-none'}>{startIcon}</span> : null}
 
       {children}
 
-      {endIcon ? <span className={iconClassName}>{endIcon}</span> : null}
+      {endIcon ? <span className={'leading-none'}>{endIcon}</span> : null}
     </Component>
   )
 }
