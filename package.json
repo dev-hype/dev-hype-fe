@@ -18,6 +18,7 @@
     "@hookform/resolvers": "^2.9.6",
     "@tanstack/react-query": "^4.0.10",
     "@tanstack/react-query-devtools": "^4.0.10",
+    "clsx": "^1.2.1",
     "date-fns": "^2.29.1",
     "dayzed": "^3.2.3",
     "debounce": "^1.2.1",
@@ -32,11 +33,13 @@
     "nprogress": "^0.2.0",
     "query-string": "^7.1.1",
     "react": "18.2.0",
+    "react-aria": "^3.18.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.33.1",
     "react-icons": "^4.4.0",
     "react-infinite-scroll-hook": "^4.0.3",
     "react-select": "^5.4.0",
+    "react-stately": "^3.16.0",
     "xstate": "^4.32.1",
     "yup": "^0.32.11"
   },
@@ -51,11 +54,14 @@
     "@types/react": "18.0.15",
     "@types/react-dom": "18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.30.7",
+    "autoprefixer": "^10.4.8",
     "eslint": "8.20.0",
     "eslint-config-next": "12.2.3",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "postcss": "^8.4.16",
     "prettier": "^2.7.1",
+    "tailwindcss": "^3.1.8",
     "typescript": "4.7.4"
   }
 }

@@ -5,7 +5,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { ChakraProvider } from '@chakra-ui/react'
+import { SSRProvider } from 'react-aria'
 
 import type { AppProps } from 'next/app'
 
@@ -15,7 +15,7 @@ import AuthProvider from 'src/modules/auth/providers/AuthProvider'
 
 import { useNProgress } from 'src/modules/core/hooks/useNProgress'
 
-import { theme } from 'src/modules/core/config/theme'
+import '../styles/global.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
   useNProgress()
@@ -38,9 +38,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         <AuthProvider>
           <DefaultHead />
 
-          <ChakraProvider theme={theme}>
+          <SSRProvider>
             <Component {...pageProps} />
-          </ChakraProvider>
+          </SSRProvider>
         </AuthProvider>
       </Hydrate>
 

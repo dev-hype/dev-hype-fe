@@ -1,3 +1,4 @@
 node_modules
 *.typegen.ts
 src/generated/*.ts
+*.js
