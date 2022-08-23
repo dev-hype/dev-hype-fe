@@ -56,6 +56,7 @@ function _Button(
       'border-transparent',
       'flex',
       'items-center',
+      'justify-center',
       'rounded-sm',
       'transition',
       'disabled:opacity-50',
