@@ -54,7 +54,7 @@ const EditProfile: NextPage = () => {
         <title>Edit Profile - Dev Hype</title>
       </Head>
 
-      <AppLayout headerTitle="Edit Profile">
+      <AppLayout>
         <Box bgColor="gray.50" mb="24">
           <Container>
             <Box

@@ -1,5 +1,6 @@
 import React, { createContext, ReactNode, useContext, useMemo } from 'react'
-import { useBoolean } from '@chakra-ui/react'
+
+import { useBoolean } from 'src/modules/core/hooks/useBoolean'
 
 import { getAuthCookie_client } from '../utils/authCookie'
 

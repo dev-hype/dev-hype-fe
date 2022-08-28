@@ -7,7 +7,6 @@ import UserCard from 'src/modules/users/components/UserCard'
 
 import { useAuthUserQuery } from 'src/modules/users/hooks/queries/useAuthUserQuery'
 
-import { usersPaths } from 'src/modules/users/constants/paths'
 import { useAuthModal } from 'src/modules/auth/hooks/useAuthModal'
 
 const LeftSide: React.FC = () => {

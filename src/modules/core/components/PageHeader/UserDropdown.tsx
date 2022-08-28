@@ -11,11 +11,9 @@ import {
   DropdownTrigger,
 } from '../Dropdown'
 
-interface IUserDropdownProps {}
+// interface IUserDropdownProps {}
 
-const UserDropdown: React.FC<IUserDropdownProps> = (props) => {
-  const {} = props
-
+const UserDropdown: React.FC = () => {
   return (
     <Dropdown>
       <DropdownTrigger asChild>

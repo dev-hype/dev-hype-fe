@@ -60,7 +60,7 @@ const CreateProfile: NextPage = () => {
         <title>Setup Your Profile - Dev Hype</title>
       </Head>
 
-      <AppLayout headerTitle="Create Profile">
+      <AppLayout>
         <Box bgColor="gray.50" mb="24">
           <Container>
             <Box
