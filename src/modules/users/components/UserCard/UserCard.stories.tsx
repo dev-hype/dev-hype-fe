@@ -4,7 +4,6 @@ export const Default = () => (
   <div className="w-[350px]">
     <UserCard
       email="example@asd.com"
-      userId="1"
       bio="Dolor sit amet consectetur adipisicing elit. Sint fugit reprehenderit reiciendis."
       followers={100}
       following={1270}

@@ -19,7 +19,7 @@ const Paper: React.FC<IPaperProps> = (props) => {
           'p-6',
           'rounded-sm',
           'shadow-sm',
-          'shadow-gray-100',
+          'shadow-gray-50',
           'dark:bg-gray-800',
           'dark:border-gray-900',
           'dark:shadow-gray-900',

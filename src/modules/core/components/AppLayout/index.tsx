@@ -15,7 +15,7 @@ const AppLayout: React.FC<IAppLayoutProps> = (props) => {
       <PageHeader />
 
       <div className="gap-8 grid grid-cols-[2fr_4fr_3fr] p-9">
-        <aside>
+        <aside className="flex flex-col gap-5">
           <LeftSide />
         </aside>
 
