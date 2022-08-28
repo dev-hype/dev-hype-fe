@@ -23,7 +23,7 @@ const Tooltip: React.FC<ITooltipProps> = (props) => {
             side={side}
             className={clsx(
               [
-                'bg-black',
+                'bg-gray-900',
                 'backdrop-opacity-25',
                 'py-1',
                 'px-2',
@@ -31,7 +31,6 @@ const Tooltip: React.FC<ITooltipProps> = (props) => {
                 'text-gray-50',
                 'text-sm',
                 'tracking-wide',
-                'dark:bg-gray-800',
                 'dark:text-gray-200',
               ],
               className,

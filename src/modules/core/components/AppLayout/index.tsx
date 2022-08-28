@@ -1,7 +1,8 @@
 import React, { ReactNode } from 'react'
-import PageHeader from '../PageHeader'
-import Paper from '../Paper'
+
 import LeftSide from './LeftSide'
+import PageHeader from '../PageHeader'
+import RightSide from './RightSide'
 
 interface IAppLayoutProps {
   children: ReactNode
@@ -14,7 +15,7 @@ const AppLayout: React.FC<IAppLayoutProps> = (props) => {
     <>
       <PageHeader />
 
-      <div className="gap-8 grid grid-cols-[2fr_4fr_3fr] p-9">
+      <div className="gap-8 grid grid-cols-[2fr_4fr_2fr] p-9">
         <aside className="flex flex-col gap-5">
           <LeftSide />
         </aside>
@@ -22,7 +23,7 @@ const AppLayout: React.FC<IAppLayoutProps> = (props) => {
         <main>{children}</main>
 
         <aside>
-          <Paper>Hello</Paper>
+          <RightSide />
         </aside>
       </div>
     </>
