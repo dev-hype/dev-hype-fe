@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const colors = require('tailwindcss/colors')
+const plugin = require('tailwindcss/plugin')
 
 module.exports = {
   content: ['./src/**/*.tsx'],
@@ -40,5 +41,57 @@ module.exports = {
       },
     },
   },
-  plugins: [require('@tailwindcss/line-clamp')],
+  plugins: [
+    require('@tailwindcss/line-clamp'),
+    plugin(function (helpers) {
+      // variants that help styling Radix-UI components
+      dataStateVariant('open', helpers)
+      dataStateVariant('closed', helpers)
+      dataStateVariant('on', helpers)
+      dataStateVariant('checked', helpers)
+      dataStateVariant('unchecked', helpers)
+      dataStateVariant('disabled', helpers)
+
+      // disabled
+      helpers.addVariant(`data-disabled`, ({ modifySelectors, separator }) => {
+        modifySelectors(({ className }) => {
+          return `.${helpers.e(
+            `data-disabled${separator}${className}`,
+          )}[data-disabled]`
+        })
+      })
+    }),
+  ],
+}
+
+function dataStateVariant(
+  state,
+  {
+    addVariant, // for registering custom variants
+    e, // for manually escaping strings meant to be used in class names
+  },
+) {
+  addVariant(`data-state-${state}`, ({ modifySelectors, separator }) => {
+    modifySelectors(({ className }) => {
+      return `.${e(
+        `data-state-${state}${separator}${className}`,
+      )}[data-state='${state}']`
+    })
+  })
+
+  addVariant(`group-data-state-${state}`, ({ modifySelectors, separator }) => {
+    modifySelectors(({ className }) => {
+      return `.group[data-state='${state}'] .${e(
+        `group-data-state-${state}${separator}${className}`,
+      )}`
+    })
+  })
+
+  addVariant(`peer-data-state-${state}`, ({ modifySelectors, separator }) => {
+    modifySelectors(({ className }) => {
+      return `.peer[data-state='${state}'] ~ .${e(
+        `peer-data-state-${state}${separator}${className}`,
+      )}`
+    })
+  })
 }

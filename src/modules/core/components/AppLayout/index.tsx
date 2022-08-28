@@ -1,31 +1,30 @@
 import React, { ReactNode } from 'react'
-
-import { Box } from '@chakra-ui/react'
-import { SkipNavContent, SkipNavLink } from '@chakra-ui/skip-nav'
-import AppNav from '../AppNav'
 import PageHeader from '../PageHeader'
+import Paper from '../Paper'
+import LeftSide from './LeftSide'
 
 interface IAppLayoutProps {
   children: ReactNode
-  headerTitle: string
 }
 
 const AppLayout: React.FC<IAppLayoutProps> = (props) => {
-  const { children, headerTitle } = props
+  const { children } = props
 
   return (
     <>
-      <SkipNavLink zIndex="tooltip">Skip to Content</SkipNavLink>
+      <PageHeader />
 
-      <AppNav />
+      <div className="gap-8 grid grid-cols-[2fr_4fr_3fr] p-9">
+        <aside>
+          <LeftSide />
+        </aside>
 
-      <PageHeader title={headerTitle} />
+        <main>{children}</main>
 
-      <SkipNavContent>
-        <Box ml={{ md: '24' }} mt="12" mb={{ base: '28', md: '0' }} as="main">
-          {children}
-        </Box>
-      </SkipNavContent>
+        <aside>
+          <Paper>Hello</Paper>
+        </aside>
+      </div>
     </>
   )
 }

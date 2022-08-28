@@ -8,30 +8,33 @@ import Avatar from 'src/modules/core/components/Avatar'
 import Button from 'src/modules/core/components/Button'
 import Paper from 'src/modules/core/components/Paper'
 
-import { usersPaths } from 'src/modules/users/constants/paths'
-
 interface IUserCardProps {
-  bio?: string
+  bio?: string | null
   email: string
-  followers?: number
-  following?: number
-  userId: string
-  userImage?: string
-  userName?: string
+  followers?: number | null
+  following?: number | null
+  profileLink: string
+  userImage?: string | null
+  userName?: string | null
 }
 
 const UserCard: React.FC<IUserCardProps> = (props) => {
-  const { email, userId, bio, followers, following, userImage, userName } =
+  const { email, bio, followers, following, userImage, userName, profileLink } =
     props
 
   return (
     <Paper className="p-0">
       <div className="flex flex-col items-center p-8 pb-0">
-        <Avatar className="mb-4" name={userName} size="large" src={userImage} />
+        <Avatar
+          className="mb-4"
+          name={userName || ''}
+          size="large"
+          src={userImage || ''}
+        />
 
         {userName && <h5 className="text-xl mb-1">{userName}</h5>}
 
-        <p className="text-sm text-gray-500 max-w-xs truncate mb-4">{email}</p>
+        <p className="text-sm text-gray-500 truncate mb-4">{email}</p>
 
         {bio && <p className="mb-6 text-center">{bio}</p>}
       </div>
@@ -50,7 +53,7 @@ const UserCard: React.FC<IUserCardProps> = (props) => {
         </div>
       </div>
 
-      <Link href={usersPaths.profile(userId)} passHref>
+      <Link href={profileLink} passHref>
         <Button
           className="!h-16"
           elementType="a"

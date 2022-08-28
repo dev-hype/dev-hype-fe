@@ -1,19 +1,11 @@
-import React, { ForwardedRef, memo, RefObject, useMemo, useRef } from 'react'
+import React, { ForwardedRef, HTMLAttributes, memo, useMemo } from 'react'
 import { clsx } from 'clsx'
-import {
-  AriaButtonProps,
-  mergeProps,
-  useButton,
-  useFocusRing,
-  useHover,
-} from 'react-aria'
 
 type ButtonSize = 'small' | 'medium' | 'large'
 type ButtonVariant = 'solid' | 'outlined' | 'ghost'
-type ButtonColor = 'gold'
-type ElementType = 'button' | 'a'
+type ButtonColor = 'gold' | 'gray'
 
-export interface IIconButtonProps extends AriaButtonProps<ElementType> {
+export interface IIconButtonProps extends HTMLAttributes<HTMLButtonElement> {
   className?: string
   color?: ButtonColor
   size?: ButtonSize
@@ -28,29 +20,16 @@ const sizeClassName: Record<ButtonSize, string> = {
 
 function _IconButton(
   props: IIconButtonProps,
-  ref: ForwardedRef<HTMLButtonElement | HTMLAnchorElement>,
+  ref: ForwardedRef<HTMLButtonElement>,
 ) {
   const {
     children,
     className = '',
     color = 'gold',
-    elementType: Component = 'button',
-    isDisabled,
     size = 'medium',
     variant = 'solid',
     ...restProps
   } = props
-
-  const fallbackRef = useRef<HTMLButtonElement | HTMLAnchorElement>(null)
-
-  const domRef = ref || fallbackRef
-
-  const { focusProps, isFocusVisible } = useFocusRing()
-  const { hoverProps, isHovered } = useHover({ isDisabled })
-  const { buttonProps, isPressed } = useButton(
-    { ...restProps, elementType: Component, isDisabled },
-    domRef as RefObject<Element>,
-  )
 
   const baseClassName = useMemo(
     () => [
@@ -63,9 +42,10 @@ function _IconButton(
       'transition',
       'disabled:opacity-50',
       'focus:outline-none',
-      ...(isFocusVisible ? ['ring', 'ring-gold-300'] : []),
+      'focus-visible:ring',
+      'focus-visible:ring-gray-300',
     ],
-    [isFocusVisible],
+    [],
   )
 
   const variantColorClassName: Record<
@@ -76,32 +56,49 @@ function _IconButton(
       ghost: {
         gold: [
           'text-gold',
-          ...(isHovered
-            ? [
-                'enabled:text-gold-600',
-                'enabled:bg-gray-50',
-                'enabled:border-gray-50',
-              ]
-            : []),
-          ...(isPressed
-            ? ['enabled:bg-gray-100', 'enabled:border-gray-100']
-            : []),
+          'hover:enabled:text-gold-600',
+          'hover:enabled:bg-gray-50',
+          'hover:enabled:border-gray-50',
+          'hover:dark:enabled:border-gray-900',
+          'hover:dark:enabled:bg-gray-900',
+          'active:enabled:bg-gray-100',
+          'active:enabled:border-gray-100',
+          'active:dark:enabled:bg-gray-800',
+          'active:dark:enabled:border-gray-800',
+        ],
+        gray: [
+          'text-gray-400',
+          'hover:enabled:text-gray-600',
+          'hover:enabled:bg-gray-50',
+          'hover:enabled:border-gray-50',
+          'hover:dark:enabled:border-gray-900',
+          'hover:dark:enabled:bg-gray-900',
+          'active:enabled:bg-gray-100',
+          'active:enabled:border-gray-100',
+          'active:dark:enabled:bg-gray-800',
+          'active:dark:enabled:border-gray-800',
         ],
       },
       outlined: {
         gold: [
-          '!border-gold',
+          'border-gold',
           'text-gold',
-          ...(isHovered
-            ? [
-                'enabled:border-gold-600',
-                'enabled:text-gold-600',
-                'enabled:bg-gold-50',
-              ]
-            : []),
-          ...(isPressed
-            ? ['enabled:border-gold-700', 'enabled:text-gold-700']
-            : []),
+          'hover:enabled:border-gold-600',
+          'hover:enabled:text-gold-600',
+          'hover:enabled:bg-gold-50',
+          'hover:dark:enabled:bg-gold-900',
+          'active:enabled:border-gold-700',
+          'active:enabled:text-gold-700',
+        ],
+        gray: [
+          '!border-gray',
+          'text-gray',
+          'hover:enabled:border-gray-600',
+          'hover:enabled:text-gray-600',
+          'hover:enabled:bg-gray-50',
+          'hover:dark:enabled:bg-gray-900',
+          'active:enabled:border-gray-700',
+          'active:enabled:text-gray-700',
         ],
       },
       solid: {
@@ -109,32 +106,39 @@ function _IconButton(
           'bg-gold',
           ' border-gold',
           ' text-white',
-          ...(isHovered
-            ? ['enabled:bg-gold-600', 'enabled:border-gold-600']
-            : []),
-
-          ...(isPressed
-            ? [' enabled:bg-gold-700', ' enabled:border-gold-700']
-            : []),
+          'hover:enabled:bg-gold-600',
+          'hover:enabled:border-gold-600',
+          'active:enabled:bg-gold-700',
+          'active:enabled:border-gold-700',
+        ],
+        gray: [
+          'bg-gray-500',
+          'dark:bg-gray-600',
+          ' border-gray',
+          ' text-gray-50',
+          'hover:enabled:bg-gray-600',
+          'hover:enabled:border-gray-600',
+          'active:enabled:bg-gray-700',
+          'active:enabled:border-gray-700',
         ],
       },
     }),
-    [isHovered, isPressed],
+    [],
   )
 
   return (
-    <Component
+    <button
       className={clsx(
         baseClassName,
         sizeClassName[size],
         variantColorClassName[variant][color],
         className,
       )}
-      ref={domRef}
-      {...mergeProps(buttonProps, hoverProps, focusProps)}
+      ref={ref}
+      {...restProps}
     >
       <span className="leading-none">{children}</span>
-    </Component>
+    </button>
   )
 }
 

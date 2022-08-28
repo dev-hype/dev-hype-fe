@@ -1,20 +1,11 @@
-import React, { ForwardedRef, memo, RefObject, useMemo, useRef } from 'react'
+import React, { ForwardedRef, memo, useMemo, HTMLAttributes } from 'react'
 import { clsx } from 'clsx'
-import {
-  AriaButtonProps,
-  mergeProps,
-  useButton,
-  useFocusRing,
-  useHover,
-} from 'react-aria'
 
 type ButtonSize = 'small' | 'medium' | 'large'
 type ButtonVariant = 'solid' | 'outlined' | 'ghost'
-type ButtonColor = 'gold'
-type ElementType = 'button' | 'a'
+type ButtonColor = 'gold' | 'gray'
 
-export interface IButtonProps extends AriaButtonProps<ElementType> {
-  className?: string
+export interface IButtonProps extends HTMLAttributes<HTMLButtonElement> {
   color?: ButtonColor
   endIcon?: React.ReactNode
   size?: ButtonSize
@@ -22,33 +13,17 @@ export interface IButtonProps extends AriaButtonProps<ElementType> {
   variant?: ButtonVariant
 }
 
-function _Button(
-  props: IButtonProps,
-  ref: ForwardedRef<HTMLButtonElement | HTMLAnchorElement>,
-) {
+function _Button(props: IButtonProps, ref: ForwardedRef<HTMLButtonElement>) {
   const {
     children,
     className = '',
     color = 'gold',
-    elementType: Component = 'button',
     endIcon,
-    isDisabled,
     size = 'medium',
     startIcon,
     variant = 'solid',
     ...restProps
   } = props
-
-  const fallbackRef = useRef<HTMLButtonElement | HTMLAnchorElement>(null)
-
-  const domRef = ref || fallbackRef
-
-  const { focusProps, isFocusVisible } = useFocusRing()
-  const { hoverProps, isHovered } = useHover({ isDisabled })
-  const { buttonProps, isPressed } = useButton(
-    { ...restProps, elementType: Component, isDisabled },
-    domRef as RefObject<Element>,
-  )
 
   const baseClassName = useMemo(
     () => [
@@ -61,9 +36,11 @@ function _Button(
       'transition',
       'disabled:opacity-50',
       'focus:outline-none',
-      ...(isFocusVisible ? ['ring', 'ring-gold-300'] : []),
+      'focus-visible:ring',
+      'focus-visible:ring-gold-300',
+      'focus-visible:dark:ring-gold-700',
     ],
-    [isFocusVisible],
+    [],
   )
 
   const sizeClassName: Record<ButtonSize, string> = useMemo(
@@ -83,32 +60,49 @@ function _Button(
       ghost: {
         gold: [
           'text-gold',
-          ...(isHovered
-            ? [
-                'enabled:text-gold-600',
-                'enabled:bg-gray-50',
-                'enabled:border-gray-50',
-              ]
-            : []),
-          ...(isPressed
-            ? ['enabled:bg-gray-100', 'enabled:border-gray-100']
-            : []),
+          'hover:enabled:text-gold-600',
+          'hover:enabled:bg-gray-50',
+          'hover:enabled:border-gray-50',
+          'hover:dark:enabled:border-gray-900',
+          'hover:dark:enabled:bg-gray-900',
+          'active:enabled:bg-gray-100',
+          'active:enabled:border-gray-100',
+          'active:dark:enabled:bg-gray-800',
+          'active:dark:enabled:border-gray-800',
+        ],
+        gray: [
+          'text-gray-400',
+          'hover:enabled:text-gray-600',
+          'hover:enabled:bg-gray-50',
+          'hover:enabled:border-gray-50',
+          'hover:dark:enabled:border-gray-900',
+          'hover:dark:enabled:bg-gray-900',
+          'active:enabled:bg-gray-100',
+          'active:enabled:border-gray-100',
+          'active:dark:enabled:bg-gray-800',
+          'active:dark:enabled:border-gray-800',
         ],
       },
       outlined: {
         gold: [
-          '!border-gold',
+          'border-gold',
           'text-gold',
-          ...(isHovered
-            ? [
-                'enabled:border-gold-600',
-                'enabled:text-gold-600',
-                'enabled:bg-gold-50',
-              ]
-            : []),
-          ...(isPressed
-            ? ['enabled:border-gold-700', 'enabled:text-gold-700']
-            : []),
+          'hover:enabled:border-gold-600',
+          'hover:enabled:text-gold-600',
+          'hover:enabled:bg-gold-50',
+          'hover:dark:enabled:bg-gold-900',
+          'active:enabled:border-gold-700',
+          'active:enabled:text-gold-700',
+        ],
+        gray: [
+          '!border-gray',
+          'text-gray',
+          'hover:enabled:border-gray-600',
+          'hover:enabled:text-gray-600',
+          'hover:enabled:bg-gray-50',
+          'hover:dark:enabled:bg-gray-900',
+          'active:enabled:border-gray-700',
+          'active:enabled:text-gray-700',
         ],
       },
       solid: {
@@ -116,36 +110,43 @@ function _Button(
           'bg-gold',
           ' border-gold',
           ' text-white',
-          ...(isHovered
-            ? ['enabled:bg-gold-600', 'enabled:border-gold-600']
-            : []),
-
-          ...(isPressed
-            ? [' enabled:bg-gold-700', ' enabled:border-gold-700']
-            : []),
+          'hover:enabled:bg-gold-600',
+          'hover:enabled:border-gold-600',
+          'active:enabled:bg-gold-700',
+          'active:enabled:border-gold-700',
+        ],
+        gray: [
+          'bg-gray-500',
+          'dark:bg-gray-600',
+          ' border-gray',
+          ' text-gray-50',
+          'hover:enabled:bg-gray-600',
+          'hover:enabled:border-gray-600',
+          'active:enabled:bg-gray-700',
+          'active:enabled:border-gray-700',
         ],
       },
     }),
-    [isHovered, isPressed],
+    [],
   )
 
   return (
-    <Component
+    <button
       className={clsx(
         baseClassName,
         sizeClassName[size],
         variantColorClassName[variant][color],
         className,
       )}
-      ref={domRef}
-      {...mergeProps(buttonProps, hoverProps, focusProps)}
+      ref={ref}
+      {...restProps}
     >
       {startIcon ? <span className={'leading-none'}>{startIcon}</span> : null}
 
       {children}
 
       {endIcon ? <span className={'leading-none'}>{endIcon}</span> : null}
-    </Component>
+    </button>
   )
 }
 

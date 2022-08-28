@@ -10,6 +10,7 @@ export const Default = () => (
       following={1270}
       userImage="https://avatars.dicebear.com/api/adventurer/a8s7.svg"
       userName="John Doe"
+      profileLink="#"
     />
   </div>
 )

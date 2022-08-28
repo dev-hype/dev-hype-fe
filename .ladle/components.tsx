@@ -7,9 +7,7 @@ import '../src/styles/global.css'
 import type { GlobalProvider } from '@ladle/react'
 
 export const Provider: GlobalProvider = ({ children, globalState }) => (
-  <div className={globalState.theme}>
-    <div id="root">{children}</div>
-  </div>
+  <div className={globalState.theme}>{children}</div>
 )
 
 const OriginalNextImage = NextImage.default

@@ -1,26 +1,23 @@
-import { useCallback } from 'react'
-import { atom, useAtom } from 'jotai'
-import { useHydrateAtoms } from 'jotai/utils'
-import { setCookie } from 'nookies'
+import { useCallback, useState } from 'react'
+import nookies from 'nookies'
 
 export type ColorMode = 'light' | 'dark'
 
 export const COLOR_MODE_COOKIE_KEY = 'dev-hype-color-scheme'
 
-export const colorModeAtom = atom<ColorMode>('light')
-
-export const useColorMode = (initialColorMode?: ColorMode) => {
-  useHydrateAtoms([[colorModeAtom, initialColorMode]] as const)
-
-  const [colorMode, setColorMode] = useAtom(colorModeAtom)
-
-  const changeHandler = useCallback(
-    (mode: ColorMode) => {
-      setColorMode(mode)
-      setCookie(null, COLOR_MODE_COOKIE_KEY, mode, { path: '/' })
-    },
-    [setColorMode],
+export const useColorMode = () => {
+  const [colorMode, setColorMode] = useState(
+    () => nookies.get(null)[COLOR_MODE_COOKIE_KEY] as ColorMode,
   )
+
+  const changeHandler = useCallback((mode: ColorMode) => {
+    document.documentElement.classList.remove('light', 'dark')
+    document.documentElement.classList.add(mode)
+
+    nookies.set(null, COLOR_MODE_COOKIE_KEY, mode, { path: '/' })
+
+    setColorMode(mode)
+  }, [])
 
   return { colorMode, setColorMode: changeHandler }
 }

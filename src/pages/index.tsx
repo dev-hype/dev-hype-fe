@@ -7,11 +7,10 @@ import { FaHeart } from 'react-icons/fa'
 
 import Button from 'src/modules/core/components/Button'
 import AppLayout from 'src/modules/core/components/AppLayout'
+import Avatar from 'src/modules/core/components/Avatar'
 
 import { hybridRoute } from 'src/modules/core/routes/hybridRoute'
-import Avatar from 'src/modules/core/components/Avatar'
-import { useAtom } from 'jotai'
-import { colorModeAtom } from 'src/modules/core/hooks/useColorMode'
+import { useColorMode } from 'src/modules/core/hooks/useColorMode'
 
 export const getServerSideProps = hybridRoute(async (ctx, queryClient) => {
   return {
@@ -22,10 +21,10 @@ export const getServerSideProps = hybridRoute(async (ctx, queryClient) => {
 })
 
 const Home: NextPage = () => {
-  const [, setColorMode] = useAtom(colorModeAtom)
+  const { setColorMode } = useColorMode()
 
   return (
-    <AppLayout headerTitle="Home">
+    <AppLayout>
       <Container>
         <Heading>Home Again!!!!!!</Heading>
         <Heading>Test</Heading>
@@ -42,14 +41,14 @@ const Home: NextPage = () => {
             color="gold"
             size="small"
             variant="outlined"
-            onPress={() => {
+            onClick={() => {
               setColorMode('light')
             }}
           >
             Hello
           </Button>
 
-          <Button isDisabled color="gold" size="small">
+          <Button color="gold" size="small">
             Hello
           </Button>
 
@@ -77,31 +76,9 @@ const Home: NextPage = () => {
         </div>
 
         <div className="m-3 flex flex-col items-start gap-2">
-          <Button
-            elementType="a"
-            href="https://google.com"
-            color="gold"
-            size="large"
-          >
+          <Button color="gold" size="large">
             Hello
           </Button>
-
-          <Button color="gold" size="large" variant="outlined">
-            Hello
-          </Button>
-
-          <Button
-            elementType="a"
-            href="https://google.com"
-            color="gold"
-            size="large"
-            variant="ghost"
-          >
-            Hello
-          </Button>
-
-          <Avatar src="" name="John Doe" size="large" />
-          <Avatar size="large" />
 
           <Avatar
             src="https://avatars.dicebear.com/api/adventurer/a8s7.svg"
