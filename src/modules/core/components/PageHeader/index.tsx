@@ -15,6 +15,7 @@ import Logo from 'public/images/logo.png'
 import Button from '../Button'
 import IconButton from '../IconButton'
 import UserDropdown from './UserDropdown'
+import Tooltip from '../Tooltip'
 
 const PageHeader: React.FC = () => {
   const { openAuthModal } = useAuthModal()
@@ -39,13 +40,17 @@ const PageHeader: React.FC = () => {
       </Link>
 
       <div className="flex items-center">
-        <IconButton variant="ghost" color="gray" className="mr-2">
-          <TbMessageCircle2 size={24} />
-        </IconButton>
+        <Tooltip title="Messages">
+          <IconButton variant="ghost" color="gray" className="mr-2">
+            <TbMessageCircle2 size={24} />
+          </IconButton>
+        </Tooltip>
 
-        <IconButton variant="ghost" color="gray" className="mr-6">
-          <TbBell size={24} />
-        </IconButton>
+        <Tooltip title="Notifications">
+          <IconButton variant="ghost" color="gray" className="mr-6">
+            <TbBell size={24} />
+          </IconButton>
+        </Tooltip>
 
         <UserDropdown />
       </div>

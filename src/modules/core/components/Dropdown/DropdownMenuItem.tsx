@@ -25,7 +25,7 @@ const DropdownMenuItem: React.FC<IDropdownMenuItemProps> = (props) => {
           'focus-visible:bg-gray-100',
           'dark:focus-visible:bg-gray-700',
           'cursor-pointer',
-          'text-gray-600',
+          'text-gray-500',
           'dark:text-gray-300',
           'text-sm',
           'data-disabled:cursor-default',
