@@ -34,7 +34,7 @@ interface IGoalWidgetProps {
   onDeleteClick: (goal: GqlGoal) => void
 }
 
-const GoalWidget: React.FC<IGoalWidgetProps> = (props) => {
+const GoalWidget: React.FC<IGoalWidgetProps> = props => {
   const { goal, onDeleteClick } = props
 
   const { milestones, topic } = goal
@@ -95,7 +95,7 @@ const GoalWidget: React.FC<IGoalWidgetProps> = (props) => {
                 }}
                 isActive={activeContent === ExpandableContent.Milestones}
                 onClick={() =>
-                  setActiveContent((current) =>
+                  setActiveContent(current =>
                     current === ExpandableContent.Milestones
                       ? null
                       : ExpandableContent.Milestones,
@@ -122,7 +122,7 @@ const GoalWidget: React.FC<IGoalWidgetProps> = (props) => {
                 }}
                 isActive={activeContent === ExpandableContent.Projects}
                 onClick={() =>
-                  setActiveContent((current) =>
+                  setActiveContent(current =>
                     current === ExpandableContent.Projects
                       ? null
                       : ExpandableContent.Projects,

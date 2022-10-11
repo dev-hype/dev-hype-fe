@@ -13,7 +13,7 @@ interface ITopicSelectProps {
   isSubmitting?: boolean
 }
 
-const TopicSelect: React.FC<ITopicSelectProps> = (props) => {
+const TopicSelect: React.FC<ITopicSelectProps> = props => {
   const { isSubmitting } = props
 
   const { control, setValue, watch } = useFormContext<GoalFormState>()
@@ -30,7 +30,7 @@ const TopicSelect: React.FC<ITopicSelectProps> = (props) => {
   })
 
   const topics = useMemo(() => {
-    return topicsData?.topics.map((topic) => topic.name) || []
+    return topicsData?.topics.map(topic => topic.name) || []
   }, [topicsData])
 
   const updateSearchTerm = debounce(
@@ -59,7 +59,7 @@ const TopicSelect: React.FC<ITopicSelectProps> = (props) => {
               value={value ?? ''}
               isDisabled={isSubmitting || !specializationId}
               items={topics}
-              onInputValueChange={(value) => {
+              onInputValueChange={value => {
                 updateSearchTerm(value ?? '')
 
                 setValue('topicName', value ?? '', {

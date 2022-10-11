@@ -4,7 +4,7 @@ import {
   DropdownMenuTriggerProps,
 } from '@radix-ui/react-dropdown-menu'
 
-const DropdownTrigger: React.FC<DropdownMenuTriggerProps> = (props) => {
+const DropdownTrigger: React.FC<DropdownMenuTriggerProps> = props => {
   return <DropdownMenuTrigger {...props} />
 }
 

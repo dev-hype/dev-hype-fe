@@ -10,7 +10,7 @@ interface ITooltipProps {
   side?: 'top' | 'right' | 'bottom' | 'left'
 }
 
-const Tooltip: React.FC<ITooltipProps> = (props) => {
+const Tooltip: React.FC<ITooltipProps> = props => {
   const { children, className, title, arrow, side = 'bottom' } = props
 
   return (

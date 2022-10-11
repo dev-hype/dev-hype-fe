@@ -17,7 +17,7 @@ interface IAutoSuggestInputProps extends Omit<InputProps, 'onChange'> {
   onInputValueChange: (value?: string) => void
 }
 
-const AutoSuggestInput: React.FC<IAutoSuggestInputProps> = (props) => {
+const AutoSuggestInput: React.FC<IAutoSuggestInputProps> = props => {
   const { value, items, onInputValueChange, ...restProps } = props
 
   const inputValueChangeHandler = debounce(onInputValueChange, 300)

@@ -10,7 +10,7 @@ interface ISuggestedFollowsCardProps {
   users: GqlUser[]
 }
 
-const SuggestedFollowsCard: React.FC<ISuggestedFollowsCardProps> = (props) => {
+const SuggestedFollowsCard: React.FC<ISuggestedFollowsCardProps> = props => {
   const { users } = props
 
   return (
@@ -21,7 +21,7 @@ const SuggestedFollowsCard: React.FC<ISuggestedFollowsCardProps> = (props) => {
         </h2>
 
         <div className="flex flex-col gap-4">
-          {users.map((user) => (
+          {users.map(user => (
             <div key={user.id} className="flex items-center gap-3">
               <Avatar
                 name={`${user.profile?.firstName} ${user.profile?.lastName}`}

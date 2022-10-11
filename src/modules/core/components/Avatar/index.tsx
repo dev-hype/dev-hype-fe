@@ -15,7 +15,7 @@ interface IAvatarProps {
   src?: string
 }
 
-const Avatar: React.FC<IAvatarProps> = (props) => {
+const Avatar: React.FC<IAvatarProps> = props => {
   const { className, name, size = 'medium', src } = props
 
   const [error, { toggle: toggleError }] = useBoolean(false)

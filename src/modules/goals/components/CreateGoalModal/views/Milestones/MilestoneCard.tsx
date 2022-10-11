@@ -11,7 +11,7 @@ interface IMilestoneCardProps {
   milestone: GqlMilestone
 }
 
-const MilestoneCard: React.FC<IMilestoneCardProps> = (props) => {
+const MilestoneCard: React.FC<IMilestoneCardProps> = props => {
   const { milestone } = props
 
   return (
@@ -43,8 +43,8 @@ const MilestoneCard: React.FC<IMilestoneCardProps> = (props) => {
       </Box>
 
       <HStack>
-        {milestone.milestoneSchedules.map((day) => {
-          const weekday = weekdays.find((item) => item.id === day.weekDay)
+        {milestone.milestoneSchedules.map(day => {
+          const weekday = weekdays.find(item => item.id === day.weekDay)
 
           return <Tag key={day.weekDay}>{weekday?.shortName}</Tag>
         })}

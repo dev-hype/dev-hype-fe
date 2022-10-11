@@ -7,7 +7,7 @@ interface INewSessionProps {
   notes: any[]
 }
 
-const NewSession: React.FC<INewSessionProps> = (props) => {
+const NewSession: React.FC<INewSessionProps> = props => {
   const { milestoneId, milestoneName, resourceName, notes } = props
 
   return (
@@ -16,7 +16,7 @@ const NewSession: React.FC<INewSessionProps> = (props) => {
       <div>{milestoneName}</div>
 
       <div>{resourceName}</div>
-      <div>{notes.map((note) => note.note)}</div>
+      <div>{notes.map(note => note.note)}</div>
     </div>
   )
 }

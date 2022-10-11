@@ -18,7 +18,7 @@ interface IUserCardProps {
   userName?: string | null
 }
 
-const UserCard: React.FC<IUserCardProps> = (props) => {
+const UserCard: React.FC<IUserCardProps> = props => {
   const { email, bio, followers, following, userImage, userName, profileLink } =
     props
 

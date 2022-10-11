@@ -15,7 +15,7 @@ interface IGoalDropdownProps {
   onDeleteClick: () => void
 }
 
-const GoalDropdown: React.FC<IGoalDropdownProps> = (props) => {
+const GoalDropdown: React.FC<IGoalDropdownProps> = props => {
   const { onEditClick, onDeleteClick } = props
 
   return (

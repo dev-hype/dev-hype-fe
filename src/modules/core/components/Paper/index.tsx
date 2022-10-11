@@ -6,7 +6,7 @@ interface IPaperProps {
   className?: string
 }
 
-const Paper: React.FC<IPaperProps> = (props) => {
+const Paper: React.FC<IPaperProps> = props => {
   const { children, className } = props
 
   return (

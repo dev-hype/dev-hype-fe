@@ -30,7 +30,7 @@ interface IGoalDetailsProps {
 
 const goalDetailsStep = goalModalSteps[GoalModalStep.Goal]
 
-const GoalDetails: React.FC<IGoalDetailsProps> = (props) => {
+const GoalDetails: React.FC<IGoalDetailsProps> = props => {
   const { onSubmit, isSubmitting } = props
 
   const formMethods = useGoalForm()

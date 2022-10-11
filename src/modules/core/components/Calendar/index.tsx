@@ -49,7 +49,7 @@ const GridHead: React.FC<{ month: number; year: number }> = ({
   year,
 }) => (
   <HStack spacing={2} px="2" py="1" wrap="nowrap">
-    {weekdayNamesShort.map((weekday) => (
+    {weekdayNamesShort.map(weekday => (
       <Box key={`${month}${year}${weekday}`} w="40px" textAlign="center">
         <Text color="brand.400" fontSize="sm">
           {weekday}
@@ -63,7 +63,7 @@ type CalendarProps = Omit<Props, 'onDateSelected'> & {
   onChange: (date: string) => void
 }
 
-const Calendar: React.FC<CalendarProps> = (props) => {
+const Calendar: React.FC<CalendarProps> = props => {
   const { onChange, ...restProps } = props
 
   const { calendars, getBackProps, getDateProps, getForwardProps } = useDayzed({
@@ -108,7 +108,7 @@ const Calendar: React.FC<CalendarProps> = (props) => {
           <FaAngleRight />
         </Button>
 
-        {calendars.map((calendar) => {
+        {calendars.map(calendar => {
           return (
             <Box key={`${calendar.month}${calendar.year}`}>
               <Flex p="2" justifyContent="center" alignItems="center">

@@ -11,7 +11,7 @@ interface IDropdownMenuProps extends MenuContentProps {
   portalProps?: DropdownMenuPortalProps
 }
 
-const DropdownMenu: React.FC<IDropdownMenuProps> = (props) => {
+const DropdownMenu: React.FC<IDropdownMenuProps> = props => {
   const { portalProps, ...contentProps } = props
 
   return (

@@ -23,7 +23,7 @@ import { useAuthUserQuery } from 'src/modules/users/hooks/queries/useAuthUserQue
 
 import { GoalsQuery, GqlGoal } from 'src/generated/graphql'
 
-const ProfileGoals: React.FC<{ userId: string }> = (props) => {
+const ProfileGoals: React.FC<{ userId: string }> = props => {
   const { userId } = props
 
   const {
@@ -100,7 +100,7 @@ const ProfileGoals: React.FC<{ userId: string }> = (props) => {
         )}
 
         {goalsData
-          ? goals.map((goalData) => {
+          ? goals.map(goalData => {
               return (
                 <Box key={goalData.id} mb="4">
                   <GoalWidget

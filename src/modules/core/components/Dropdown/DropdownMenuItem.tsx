@@ -8,7 +8,7 @@ interface IDropdownMenuItemProps extends MenuItemProps {
   endIcon?: React.ReactNode
 }
 
-const DropdownMenuItem: React.FC<IDropdownMenuItemProps> = (props) => {
+const DropdownMenuItem: React.FC<IDropdownMenuItemProps> = props => {
   const { children, startIcon, endIcon, ...restProps } = props
 
   return (

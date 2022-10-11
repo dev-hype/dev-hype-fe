@@ -16,7 +16,7 @@ type AuthContextValue = {
 
 const AuthContext = createContext<AuthContextValue>({} as AuthContextValue)
 
-const AuthProvider: React.FC<IAuthProviderProps> = (props) => {
+const AuthProvider: React.FC<IAuthProviderProps> = props => {
   const { children } = props
 
   const [isLoggedIn, { on: setLoggedInFlagOn, off: setLoggedInFlagOff }] =

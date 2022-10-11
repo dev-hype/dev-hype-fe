@@ -6,7 +6,7 @@ interface ISideProps {
   className?: string
 }
 
-const Side: React.FC<ISideProps> = (props) => {
+const Side: React.FC<ISideProps> = props => {
   const { children, className } = props
 
   return (

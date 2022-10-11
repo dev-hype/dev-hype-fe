@@ -7,22 +7,22 @@ export const reactSelectStylesConfig: StylesConfig = {
   indicatorSeparator: () => ({
     display: 'none',
   }),
-  dropdownIndicator: (base) => ({
+  dropdownIndicator: base => ({
     ...base,
     color: theme.colors.brand[400],
   }),
-  control: (base) => ({
+  control: base => ({
     ...base,
     height: 40,
     borderRadius: 3,
   }),
-  valueContainer: (base) => ({
+  valueContainer: base => ({
     ...base,
     padding: '0 16px',
   }),
 }
 
-export const reactSelectThemeConfig: ThemeConfig = (rsTheme) => ({
+export const reactSelectThemeConfig: ThemeConfig = rsTheme => ({
   ...rsTheme,
   colors: {
     ...rsTheme.colors,
@@ -33,7 +33,7 @@ export const reactSelectThemeConfig: ThemeConfig = (rsTheme) => ({
   },
 })
 
-const SelectInput: React.FC<Props> = (props) => {
+const SelectInput: React.FC<Props> = props => {
   return (
     <Select
       theme={reactSelectThemeConfig}

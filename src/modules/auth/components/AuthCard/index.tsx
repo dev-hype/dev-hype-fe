@@ -8,7 +8,7 @@ interface IAuthCardProps {
   openAuthModal: () => void
 }
 
-const AuthCard: React.FC<IAuthCardProps> = (props) => {
+const AuthCard: React.FC<IAuthCardProps> = props => {
   const { openAuthModal } = props
 
   return (

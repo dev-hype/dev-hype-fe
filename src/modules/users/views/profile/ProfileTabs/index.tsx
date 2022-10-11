@@ -46,7 +46,7 @@ interface IProfileTabsProps {
   onChange: (tab: ProfileTab) => void
 }
 
-const ProfileTabs: React.FC<IProfileTabsProps> = (props) => {
+const ProfileTabs: React.FC<IProfileTabsProps> = props => {
   const { selectedTab, onChange } = props
 
   return (
@@ -54,13 +54,13 @@ const ProfileTabs: React.FC<IProfileTabsProps> = (props) => {
       variant="enclosed"
       isFitted
       colorScheme="brand"
-      onChange={(index) => {
+      onChange={index => {
         onChange(Object.values(ProfileTab)[index])
       }}
     >
       <TabList>
         <Container maxW="container.lg" display="flex">
-          {tabs.map((tab) => (
+          {tabs.map(tab => (
             <Tab
               key={tab.value}
               color="gray.500"

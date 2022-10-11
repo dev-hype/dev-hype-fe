@@ -25,7 +25,7 @@ const getRandomIndex = (length: number, exclude: number[]) => {
   return result
 }
 
-const LastSessionNotes: React.FC<ILastSessionNotesProps> = (props) => {
+const LastSessionNotes: React.FC<ILastSessionNotesProps> = props => {
   const { notes, skip } = props
 
   const [randomNoteIndex, setRandomNoteIndex] = useState<number>(() =>
@@ -41,7 +41,7 @@ const LastSessionNotes: React.FC<ILastSessionNotesProps> = (props) => {
 
   const showNextNote = useCallback(() => {
     setReviewedNotesIndices(
-      produce((draft) => {
+      produce(draft => {
         draft.push(randomNoteIndex)
       }),
     )
