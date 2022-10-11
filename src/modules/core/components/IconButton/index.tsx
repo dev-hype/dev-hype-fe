@@ -1,16 +1,21 @@
-import React, { ForwardedRef, HTMLAttributes, memo, useMemo } from 'react'
+import React, { ForwardedRef, memo, useMemo } from 'react'
 import { clsx } from 'clsx'
 
 type ButtonSize = 'small' | 'medium' | 'large'
 type ButtonVariant = 'solid' | 'outlined' | 'ghost'
 type ButtonColor = 'gold' | 'gray'
 
-export interface IIconButtonProps extends HTMLAttributes<HTMLButtonElement> {
+type BaseProps = {
   className?: string
   color?: ButtonColor
   size?: ButtonSize
   variant?: ButtonVariant
 }
+
+type ButtonProps = JSX.IntrinsicElements['button'] & { as?: 'button' }
+type AnchorProps = JSX.IntrinsicElements['a'] & { as?: 'a' }
+
+export type IconButtonProps = BaseProps & (ButtonProps | AnchorProps)
 
 const sizeClassName: Record<ButtonSize, string> = {
   small: 'h-8 text-sm w-8',
@@ -19,8 +24,8 @@ const sizeClassName: Record<ButtonSize, string> = {
 }
 
 function _IconButton(
-  props: IIconButtonProps,
-  ref: ForwardedRef<HTMLButtonElement>,
+  props: IconButtonProps,
+  ref: ForwardedRef<HTMLButtonElement | HTMLAnchorElement>,
 ) {
   const {
     children,
@@ -28,6 +33,7 @@ function _IconButton(
     color = 'gold',
     size = 'medium',
     variant = 'solid',
+    as: Component = 'button',
     ...restProps
   } = props
 
@@ -59,8 +65,8 @@ function _IconButton(
           'hover:enabled:text-gold-600',
           'hover:enabled:bg-gray-50',
           'hover:enabled:border-gray-50',
-          'hover:dark:enabled:border-gray-900',
-          'hover:dark:enabled:bg-gray-900',
+          'hover:dark:enabled:border-gray-800',
+          'hover:dark:enabled:bg-gray-800',
           'active:enabled:bg-gray-100',
           'active:enabled:border-gray-100',
           'active:dark:enabled:bg-gray-800',
@@ -71,8 +77,8 @@ function _IconButton(
           'hover:enabled:text-gray-600',
           'hover:enabled:bg-gray-50',
           'hover:enabled:border-gray-50',
-          'hover:dark:enabled:border-gray-900',
-          'hover:dark:enabled:bg-gray-900',
+          'hover:dark:enabled:border-gray-800',
+          'hover:dark:enabled:bg-gray-800',
           'active:enabled:bg-gray-100',
           'active:enabled:border-gray-100',
           'active:dark:enabled:bg-gray-800',
@@ -127,18 +133,18 @@ function _IconButton(
   )
 
   return (
-    <button
+    <Component
       className={clsx(
         baseClassName,
         sizeClassName[size],
         variantColorClassName[variant][color],
         className,
       )}
-      ref={ref}
-      {...restProps}
+      ref={ref as any}
+      {...(restProps as any)}
     >
       <span className="leading-none">{children}</span>
-    </button>
+    </Component>
   )
 }
 

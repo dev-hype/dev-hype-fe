@@ -1,6 +1,7 @@
 import React from 'react'
+import clsx from 'clsx'
 
-import { TbBell, TbMessageCircle2 } from 'react-icons/tb'
+import { TbArrowNarrowLeft, TbBell, TbMessageCircle2 } from 'react-icons/tb'
 
 // import { useAuthModal } from 'src/modules/auth/hooks/useAuthModal'
 // import { useAuthContext } from 'src/modules/auth/providers/AuthProvider'
@@ -15,36 +16,70 @@ import IconButton from '../IconButton'
 import UserDropdown from './UserDropdown'
 import Tooltip from '../Tooltip'
 
-const PageHeader: React.FC = () => {
+interface IPageHeaderProps {
+  title: string
+  backUrl?: string
+}
+
+const PageHeader: React.FC<IPageHeaderProps> = props => {
+  const { backUrl, title } = props
+
   return (
-    <header className="h-20 col-span-3 flex items-center justify-between px-9">
-      <Link href={corePaths.home()}>
-        <a className="leading-none">
-          <Image
-            src={Logo.src}
-            alt="Dev Hype"
-            width={50}
-            height={50}
-            objectFit="contain"
-            objectPosition="center"
-          />
-        </a>
-      </Link>
+    <header
+      className={clsx([
+        'h-16',
+        'col-span-3',
+        'px-8',
+        'sm:px-9',
+        'sticky',
+        'top-0',
+        'z-appBar',
+        'bg-white/70',
+        'dark:bg-black/70',
+        'backdrop-blur',
+      ])}
+    >
+      <div className="hidden lg:flex items-center justify-between h-full">
+        <Link href={corePaths.home()}>
+          <a className="leading-none">
+            <Image
+              src={Logo.src}
+              alt="Dev Hype"
+              width={48}
+              height={48}
+              objectFit="contain"
+              objectPosition="center"
+            />
+          </a>
+        </Link>
 
-      <div className="flex items-center">
-        <Tooltip title="Messages">
-          <IconButton variant="ghost" color="gray" className="mr-2">
-            <TbMessageCircle2 size={24} />
-          </IconButton>
-        </Tooltip>
+        <div className="flex items-center">
+          <Tooltip title="Messages">
+            <IconButton variant="ghost" color="gray" className="mr-2">
+              <TbMessageCircle2 size={24} />
+            </IconButton>
+          </Tooltip>
 
-        <Tooltip title="Notifications">
-          <IconButton variant="ghost" color="gray" className="mr-6">
-            <TbBell size={24} />
-          </IconButton>
-        </Tooltip>
+          <Tooltip title="Notifications">
+            <IconButton variant="ghost" color="gray" className="mr-6">
+              <TbBell size={24} />
+            </IconButton>
+          </Tooltip>
 
-        <UserDropdown />
+          <UserDropdown />
+        </div>
+      </div>
+
+      <div className="flex items-center h-full lg:hidden">
+        {backUrl ? (
+          <Link href={backUrl} passHref>
+            <IconButton as="a">
+              <TbArrowNarrowLeft />
+            </IconButton>
+          </Link>
+        ) : null}
+
+        <h1 className="text-md font-bold">{title}</h1>
       </div>
     </header>
   )

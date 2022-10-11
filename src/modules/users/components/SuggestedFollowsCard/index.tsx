@@ -48,7 +48,7 @@ const SuggestedFollowsCard: React.FC<ISuggestedFollowsCardProps> = (props) => {
         </div>
       </div>
 
-      <Button size="small" variant="ghost" className="w-full">
+      <Button size="small" variant="ghost" className="w-full rounded-b-3xl">
         See more
       </Button>
     </Paper>

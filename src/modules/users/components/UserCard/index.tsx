@@ -55,8 +55,7 @@ const UserCard: React.FC<IUserCardProps> = (props) => {
 
       <Link href={profileLink} passHref>
         <Button
-          className="!h-16 w-full"
-          size="large"
+          className="!h-14 w-full rounded-b-3xl"
           startIcon={<FaUserGraduate />}
           variant="ghost"
         >

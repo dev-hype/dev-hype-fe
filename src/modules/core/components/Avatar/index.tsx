@@ -30,8 +30,8 @@ const Avatar: React.FC<IAvatarProps> = (props) => {
 
   const sizeClassName = useMemo(
     (): Record<AvatarSize, string[]> => ({
-      large: ['h-20 text-2xl w-20'],
-      medium: ['h-16 text-xl w-16'],
+      large: ['h-16 text-2xl w-16'],
+      medium: ['h-12 text-xl w-12'],
       small: ['h-10 text-base w-10'],
     }),
     [],

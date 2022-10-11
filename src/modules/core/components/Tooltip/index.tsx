@@ -29,7 +29,7 @@ const Tooltip: React.FC<ITooltipProps> = (props) => {
                 'px-2',
                 'rounded-sm',
                 'text-gray-50',
-                'text-sm',
+                'text-xs',
                 'tracking-wide',
                 'dark:text-gray-200',
               ],

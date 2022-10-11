@@ -66,7 +66,7 @@ const TrendsCard: React.FC<ITrendsCardProps> = (props) => {
         ))}
       </div>
 
-      <Button size="small" variant="ghost" className="w-full">
+      <Button size="small" variant="ghost" className="w-full rounded-b-3xl">
         See more
       </Button>
     </Paper>

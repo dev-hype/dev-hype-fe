@@ -28,6 +28,7 @@ const DropdownMenu: React.FC<IDropdownMenuProps> = (props) => {
             'border-gray-100',
             'dark:border-gray-700',
             'dark:bg-gray-800',
+            'z-tooltip',
           ],
           contentProps.className,
         )}
