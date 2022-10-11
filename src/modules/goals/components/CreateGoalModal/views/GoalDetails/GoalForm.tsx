@@ -15,7 +15,7 @@ interface IGoalFormProps {
   isSubmitting?: boolean
 }
 
-const GoalForm: React.FC<IGoalFormProps> = (props) => {
+const GoalForm: React.FC<IGoalFormProps> = props => {
   const { isSubmitting } = props
 
   const { control, register, formState, setValue, watch } =
@@ -29,7 +29,7 @@ const GoalForm: React.FC<IGoalFormProps> = (props) => {
 
   const fieldsOptions: SelectOption[] = useMemo(() => {
     if (fieldsData) {
-      return fieldsData.fields.map((field) => ({
+      return fieldsData.fields.map(field => ({
         label: field.name,
         value: field.id,
       }))
@@ -41,10 +41,10 @@ const GoalForm: React.FC<IGoalFormProps> = (props) => {
   const specializationsOptions: SelectOption[] = useMemo(() => {
     if (fieldsData && fieldId) {
       const specializations =
-        fieldsData.fields.find((field) => field.id === fieldId)
+        fieldsData.fields.find(field => field.id === fieldId)
           ?.specializations || []
 
-      return specializations.map((specialization) => ({
+      return specializations.map(specialization => ({
         label: specialization.name,
         value: specialization.id,
       }))
@@ -77,7 +77,7 @@ const GoalForm: React.FC<IGoalFormProps> = (props) => {
         name="fieldId"
         render={({ field, fieldState }) => {
           const selectedOption = fieldsOptions.find(
-            (item) => item.value === field.value,
+            item => item.value === field.value,
           )
 
           return (
@@ -96,7 +96,7 @@ const GoalForm: React.FC<IGoalFormProps> = (props) => {
                 isLoading={isLoadingFieldsData}
                 isDisabled={isSubmitting}
                 options={fieldsOptions}
-                onChange={(selection) => {
+                onChange={selection => {
                   setValue(
                     'fieldId',
                     (selection as SelectOption)?.value as number,
@@ -117,7 +117,7 @@ const GoalForm: React.FC<IGoalFormProps> = (props) => {
         name="specializationId"
         render={({ field, fieldState }) => {
           const selectedOption = specializationsOptions.find(
-            (item) => item.value === field.value,
+            item => item.value === field.value,
           )
 
           return (
@@ -136,7 +136,7 @@ const GoalForm: React.FC<IGoalFormProps> = (props) => {
                 isLoading={isLoadingFieldsData}
                 isDisabled={isSubmitting || !fieldId}
                 options={specializationsOptions}
-                onChange={(selection) => {
+                onChange={selection => {
                   setValue(
                     'specializationId',
                     (selection as SelectOption)?.value as number,

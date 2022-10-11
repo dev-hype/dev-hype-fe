@@ -21,7 +21,7 @@ interface IDatePicker
   onChange: (value: string) => void
 }
 
-const DatePicker: React.FC<IDatePicker> = (props) => {
+const DatePicker: React.FC<IDatePicker> = props => {
   const { value, onChange, minDate, maxDate, ...restProps } = props
 
   const [isOpen, { on, off }] = useBoolean(false)
@@ -50,7 +50,7 @@ const DatePicker: React.FC<IDatePicker> = (props) => {
           selected={value ? new Date(value) : undefined}
           minDate={minDate}
           maxDate={maxDate}
-          onChange={(date) => {
+          onChange={date => {
             onChange(date)
             off()
           }}

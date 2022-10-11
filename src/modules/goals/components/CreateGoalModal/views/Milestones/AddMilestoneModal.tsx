@@ -36,7 +36,7 @@ interface IAddMilestoneModalProps {
   onClose: () => void
 }
 
-const AddMilestoneModal: React.FC<IAddMilestoneModalProps> = (props) => {
+const AddMilestoneModal: React.FC<IAddMilestoneModalProps> = props => {
   const { goalId, isOpen, onClose } = props
 
   const { data: resourceTypesData, isLoading: isLoadingResourceTypes } =
@@ -62,7 +62,7 @@ const AddMilestoneModal: React.FC<IAddMilestoneModalProps> = (props) => {
 
   const resourceTypesOptions = useMemo(() => {
     if (resourceTypesData) {
-      return resourceTypesData.resourceTypes.map((type) => ({
+      return resourceTypesData.resourceTypes.map(type => ({
         label: type.name,
         value: type.id,
       }))
@@ -148,7 +148,7 @@ const AddMilestoneModal: React.FC<IAddMilestoneModalProps> = (props) => {
                               ? new Date(estimatedEndDate)
                               : undefined
                           }
-                          onChange={(date) => {
+                          onChange={date => {
                             setValue('startDate', date, {
                               shouldDirty: true,
                               shouldTouch: true,
@@ -181,7 +181,7 @@ const AddMilestoneModal: React.FC<IAddMilestoneModalProps> = (props) => {
                           minDate={
                             startDate ? new Date(startDate) : startOfToday()
                           }
-                          onChange={(date) => {
+                          onChange={date => {
                             setValue('estimatedEndDate', date, {
                               shouldDirty: true,
                               shouldTouch: true,
@@ -207,7 +207,7 @@ const AddMilestoneModal: React.FC<IAddMilestoneModalProps> = (props) => {
                   name="resource.typeId"
                   render={({ field, fieldState }) => {
                     const selectedOption = resourceTypesOptions.find(
-                      (opt) => opt.value === field.value,
+                      opt => opt.value === field.value,
                     )
 
                     return (
@@ -227,7 +227,7 @@ const AddMilestoneModal: React.FC<IAddMilestoneModalProps> = (props) => {
                           options={resourceTypesOptions}
                           placeholder="Select source type..."
                           onBlur={field.onBlur}
-                          onChange={(selection) => {
+                          onChange={selection => {
                             setValue(
                               'resource.typeId',
                               (selection as SelectOption)?.value as number,

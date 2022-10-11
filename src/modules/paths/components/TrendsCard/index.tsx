@@ -20,7 +20,7 @@ interface ITrendsCardProps {
   }>
 }
 
-const TrendsCard: React.FC<ITrendsCardProps> = (props) => {
+const TrendsCard: React.FC<ITrendsCardProps> = props => {
   const { specializations } = props
 
   return (
@@ -36,14 +36,14 @@ const TrendsCard: React.FC<ITrendsCardProps> = (props) => {
           </Tooltip>
         </div>
 
-        {specializations.map((specialization) => (
+        {specializations.map(specialization => (
           <div key={specialization.id}>
             <h3 className="font-semibold mb-3 text-md">
               {specialization.name}
             </h3>
 
             <div className="flex flex-col gap-2">
-              {specialization.topics.map((topic) => (
+              {specialization.topics.map(topic => (
                 <div
                   key={topic.id}
                   className="flex items-center justify-between"

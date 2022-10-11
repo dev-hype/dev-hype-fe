@@ -30,7 +30,7 @@ interface IProps {
   onClose: () => void
 }
 
-const CreateGoalMilestones: React.FC<IProps> = (props) => {
+const CreateGoalMilestones: React.FC<IProps> = props => {
   const { goalId, onClose } = props
 
   const [
@@ -68,7 +68,7 @@ const CreateGoalMilestones: React.FC<IProps> = (props) => {
         {milestones.length > 0 ? (
           <Box flexGrow={1} flexShrink={1} w="full">
             <Box mb="4">
-              {milestones.map((milestone) => {
+              {milestones.map(milestone => {
                 return (
                   <Box key={milestone.id} mb="3">
                     <MilestoneCard milestone={milestone} />

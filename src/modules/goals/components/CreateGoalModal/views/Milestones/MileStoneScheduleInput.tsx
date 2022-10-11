@@ -19,8 +19,8 @@ const MileStoneScheduleInput: React.FC = () => {
 
   return (
     <Box>
-      {weekdays.map((day) => {
-        const dayIndex = fields.findIndex((field) => field.weekDay === day.id)
+      {weekdays.map(day => {
+        const dayIndex = fields.findIndex(field => field.weekDay === day.id)
 
         const isSelected = dayIndex >= 0
 
@@ -36,7 +36,7 @@ const MileStoneScheduleInput: React.FC = () => {
                     isSelected={isSelected}
                     label={day.shortName}
                     invalidDuration={Boolean(fieldState.error?.message)}
-                    onDurationChange={(duration) => {
+                    onDurationChange={duration => {
                       setValue(
                         `schedules.${dayIndex}.durationInHours`,
                         duration,
@@ -47,7 +47,7 @@ const MileStoneScheduleInput: React.FC = () => {
                         },
                       )
                     }}
-                    onSelectionChange={(selected) => {
+                    onSelectionChange={selected => {
                       if (selected) {
                         append({ weekDay: day.id, durationInHours: 0 })
                       } else {

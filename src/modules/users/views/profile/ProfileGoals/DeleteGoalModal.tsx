@@ -22,7 +22,7 @@ interface IDeleteGoalModalProps {
   onClose: () => void
 }
 
-const DeleteGoalModal: React.FC<IDeleteGoalModalProps> = (props) => {
+const DeleteGoalModal: React.FC<IDeleteGoalModalProps> = props => {
   const { goal, isOpen, onClose } = props
 
   const toast = useToast()

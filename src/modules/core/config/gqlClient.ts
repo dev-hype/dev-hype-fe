@@ -16,14 +16,14 @@ export const gqlClient = (ctx?: GetServerSidePropsContext) => {
   const authToken = ctx ? getAuthCookie_server(ctx) : getAuthCookie_client()
 
   return new GraphQLClient(endpoint as string, {
-    requestMiddleware: (request) => ({
+    requestMiddleware: request => ({
       ...request,
       headers: {
         ...request.headers,
         ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
       },
     }),
-    responseMiddleware: (response) => {
+    responseMiddleware: response => {
       if (response.status === 401) {
         ctx ? removeAuthCookie_server(ctx) : removeAuthCookie_client()
         if (window) window.location.href = corePaths.home()

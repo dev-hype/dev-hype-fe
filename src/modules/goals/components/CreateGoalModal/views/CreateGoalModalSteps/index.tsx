@@ -13,7 +13,7 @@ interface ICreateGoalModalStepsProps {
   completedStepsKeys: GoalModalStep[]
 }
 
-const CreateGoalModalSteps: React.FC<ICreateGoalModalStepsProps> = (props) => {
+const CreateGoalModalSteps: React.FC<ICreateGoalModalStepsProps> = props => {
   const { activeStepKey, completedStepsKeys } = props
 
   const activeStep = useMemo(
@@ -34,7 +34,7 @@ const CreateGoalModalSteps: React.FC<ICreateGoalModalStepsProps> = (props) => {
       </Box>
 
       <Box>
-        {Object.values(goalModalSteps).map((step) => {
+        {Object.values(goalModalSteps).map(step => {
           const isActive = step.key === activeStepKey
           const isCompleted = completedStepsKeys.includes(step.key)
 

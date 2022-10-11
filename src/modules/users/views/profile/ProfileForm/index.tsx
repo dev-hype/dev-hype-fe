@@ -44,7 +44,7 @@ const defaultState: CreateProfileMutationVariables = {
   bio: '',
 }
 
-const ProfileForm: React.FC<IProfileFormProps> = (props) => {
+const ProfileForm: React.FC<IProfileFormProps> = props => {
   const { userId, initialState, isSubmitting, isEdit, onSubmit } = props
 
   const { data: countriesData, isLoading: isLoadingCountries } =
@@ -55,7 +55,7 @@ const ProfileForm: React.FC<IProfileFormProps> = (props) => {
 
   const countriesOptions = useMemo(
     (): SelectOption[] =>
-      countriesData?.countries.map((country) => ({
+      countriesData?.countries.map(country => ({
         label: country.name,
         value: country.key,
       })) || [],
@@ -64,7 +64,7 @@ const ProfileForm: React.FC<IProfileFormProps> = (props) => {
 
   const timezonesOptions = useMemo(
     (): SelectOption[] =>
-      timezonesData?.timezones?.map((timezone) => ({
+      timezonesData?.timezones?.map(timezone => ({
         label: timezone.name,
         value: timezone.name,
       })) || [],
@@ -173,7 +173,7 @@ const ProfileForm: React.FC<IProfileFormProps> = (props) => {
           name="countryCode"
           render={({ field: { value, onBlur }, fieldState: { error } }) => {
             const selectedOption = countriesOptions.find(
-              (option) => option.value === value,
+              option => option.value === value,
             )
 
             return (
@@ -188,7 +188,7 @@ const ProfileForm: React.FC<IProfileFormProps> = (props) => {
                   onBlur={onBlur}
                   isLoading={isLoadingCountries}
                   isDisabled={isSubmitting}
-                  onChange={(newValue) => {
+                  onChange={newValue => {
                     setValue(
                       'countryCode',
                       (newValue as SelectOption).value as string,
@@ -214,7 +214,7 @@ const ProfileForm: React.FC<IProfileFormProps> = (props) => {
           name="timezoneName"
           render={({ field: { value, onBlur }, fieldState: { error } }) => {
             const selectedOption = timezonesOptions.find(
-              (option) => option.value === value,
+              option => option.value === value,
             )
 
             return (
@@ -229,7 +229,7 @@ const ProfileForm: React.FC<IProfileFormProps> = (props) => {
                   onBlur={onBlur}
                   isLoading={isLoadingTimezones}
                   isDisabled={isSubmitting}
-                  onChange={(newValue) => {
+                  onChange={newValue => {
                     setValue(
                       'timezoneName',
                       (newValue as SelectOption).value as string,

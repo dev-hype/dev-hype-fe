@@ -16,12 +16,12 @@ interface IMilestonesProps {
   milestones: GqlMilestone[]
 }
 
-const Milestones: React.FC<IMilestonesProps> = (props) => {
+const Milestones: React.FC<IMilestonesProps> = props => {
   const { milestones } = props
 
   return (
     <VStack p="4" spacing="5" alignItems="flex-start">
-      {milestones.map((milestone) => {
+      {milestones.map(milestone => {
         const startDate = isValid(new Date(milestone.startDate))
           ? format(new Date(milestone.startDate), 'MMM d')
           : null

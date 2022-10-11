@@ -10,7 +10,8 @@
     "check-types": "tsc --project tsconfig.json --noEmit",
     "codegen": "graphql-codegen --config codegen.yml",
     "ladle:dev": "ladle serve",
-    "analyze": "ANALYZE=true yarn build"
+    "analyze": "ANALYZE=true yarn build",
+    "format": "prettier --config .prettierrc -w ./src"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.2.4",

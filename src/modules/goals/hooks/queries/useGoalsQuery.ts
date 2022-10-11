@@ -38,7 +38,7 @@ export const useGoalsQuery = (
     queryFn: goalsQueryFn,
     queryKey: getGoalsQueryKey(vars),
     keepPreviousData: true,
-    getNextPageParam: (lastPage) => {
+    getNextPageParam: lastPage => {
       return lastPage.goals.page * lastPage.goals.limit < lastPage.goals.count
         ? lastPage.goals.page + 1
         : undefined

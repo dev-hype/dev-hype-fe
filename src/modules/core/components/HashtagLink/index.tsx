@@ -7,7 +7,7 @@ interface IHashtagLinkProps {
   className?: string
 }
 
-const HashtagLink: React.FC<IHashtagLinkProps> = (props) => {
+const HashtagLink: React.FC<IHashtagLinkProps> = props => {
   const { title, className } = props
 
   return (

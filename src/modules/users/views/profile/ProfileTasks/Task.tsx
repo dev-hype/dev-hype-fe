@@ -18,7 +18,7 @@ interface ITaskProps {
   onStartClick: () => void
 }
 
-const Task: React.FC<ITaskProps> = (props) => {
+const Task: React.FC<ITaskProps> = props => {
   const { milestoneName, resourceName, durationInHours, onStartClick } = props
 
   return (

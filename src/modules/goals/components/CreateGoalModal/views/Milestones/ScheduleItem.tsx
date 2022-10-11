@@ -21,7 +21,7 @@ interface IScheduleItemProps {
   onDurationChange: (duration: number) => void
 }
 
-const ScheduleItem: React.FC<IScheduleItemProps> = (props) => {
+const ScheduleItem: React.FC<IScheduleItemProps> = props => {
   const {
     label,
     isSelected,
@@ -45,7 +45,7 @@ const ScheduleItem: React.FC<IScheduleItemProps> = (props) => {
 
         <Switch
           checked={isSelected}
-          onChange={(e) => {
+          onChange={e => {
             onSelectionChange(e.target.checked)
           }}
         />
@@ -59,7 +59,7 @@ const ScheduleItem: React.FC<IScheduleItemProps> = (props) => {
           isInvalid={invalidDuration}
           placeholder="Duration in Hours..."
           value={durationInHours}
-          onChange={(value) => {
+          onChange={value => {
             onDurationChange(Number(value))
           }}
         >

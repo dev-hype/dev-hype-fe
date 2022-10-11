@@ -21,7 +21,7 @@ interface ICreateGoalModalProps {
   onClose: () => void
 }
 
-const CreateGoalModal: React.FC<ICreateGoalModalProps> = (props) => {
+const CreateGoalModal: React.FC<ICreateGoalModalProps> = props => {
   const { isOpen, onClose } = props
 
   const [step, setStep] = useState(GoalModalStep.Goal)
@@ -50,7 +50,7 @@ const CreateGoalModal: React.FC<ICreateGoalModalProps> = (props) => {
             <Box h="full">
               {step === GoalModalStep.Goal && (
                 <GoalDetails
-                  onSubmit={(goal) => {
+                  onSubmit={goal => {
                     setStep(GoalModalStep.Milestones)
                     createGoal(goal, {
                       onSuccess: ({ createGoal: goal }) => {

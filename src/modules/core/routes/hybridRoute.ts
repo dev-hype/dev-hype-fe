@@ -34,7 +34,7 @@ export const hybridRoute =
   >(
     callback: Callback<P, Q, D>,
   ): GetServerSideProps<P, Q, D> =>
-  async (ctx) => {
+  async ctx => {
     const authToken = getAuthCookie_server(ctx)
 
     const queryClient = new QueryClient()
