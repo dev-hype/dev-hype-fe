@@ -1,9 +1,8 @@
 import { dehydrate } from '@tanstack/react-query'
 import type { NextPage } from 'next'
 
-import { Button, Container, Heading, Text } from '@chakra-ui/react'
-
 import AppLayout from 'src/modules/core/components/AppLayout'
+import { GoalCreatedPost } from 'src/modules/paths/components/Post'
 
 import { hybridRoute } from 'src/modules/core/routes/hybridRoute'
 
@@ -17,20 +16,16 @@ export const getServerSideProps = hybridRoute(async (ctx, queryClient) => {
 
 const Home: NextPage = () => {
   return (
-    <AppLayout headerTitle="Home">
-      <Container>
-        <Heading>Home Again!!!!!!</Heading>
-        <Heading>Test</Heading>
+    <AppLayout pageTitle="Home">
+      <div className="flex flex-col gap-5">
+        <GoalCreatedPost />
 
-        <Text>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa minima
-          maxime totam in ad doloribus nesciunt perferendis, ex blanditiis nobis
-          a hic sunt fugiat voluptates amet distinctio dignissimos facilis
-          suscipit?
-        </Text>
-
-        <Button colorScheme="brand">Hello</Button>
-      </Container>
+        <GoalCreatedPost />
+        <GoalCreatedPost />
+        <GoalCreatedPost />
+        <GoalCreatedPost />
+        <GoalCreatedPost />
+      </div>
     </AppLayout>
   )
 }

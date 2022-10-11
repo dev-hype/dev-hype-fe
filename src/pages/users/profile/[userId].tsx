@@ -70,7 +70,7 @@ const Profile: NextPage = () => {
         <title>Profile - Dev Hype</title>
       </Head>
 
-      <AppLayout headerTitle="Profile">
+      <AppLayout pageTitle="Profile" backUrl={corePaths.home()}>
         <Box>
           <ProfileHead />
 

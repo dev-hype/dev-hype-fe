@@ -1,32 +1,54 @@
 import React, { ReactNode } from 'react'
+import clsx from 'clsx'
 
-import { Box } from '@chakra-ui/react'
-import { SkipNavContent, SkipNavLink } from '@chakra-ui/skip-nav'
-import AppNav from '../AppNav'
+import LeftSide from './LeftSide'
 import PageHeader from '../PageHeader'
+import RightSide from './RightSide'
+import Side from './Side'
+import MobileNav from '../MobileNav'
 
 interface IAppLayoutProps {
   children: ReactNode
-  headerTitle: string
+  pageTitle: string
+  backUrl?: string
 }
 
-const AppLayout: React.FC<IAppLayoutProps> = (props) => {
-  const { children, headerTitle } = props
+const AppLayout: React.FC<IAppLayoutProps> = props => {
+  const { children, pageTitle, backUrl } = props
 
   return (
-    <>
-      <SkipNavLink zIndex="tooltip">Skip to Content</SkipNavLink>
+    <div className="max-w-[1400px] mx-auto">
+      <PageHeader title={pageTitle} backUrl={backUrl} />
 
-      <AppNav />
+      <div
+        className={clsx(
+          'gap-5',
+          'grid',
+          'grid-cols-1',
+          'lg:grid-cols-[minmax(300px,_2fr)_minmax(500px,_4fr)]',
+          'xl:grid-cols-[minmax(300px,_2fr)_minmax(500px,_4fr)_minmax(300px,_2fr)]',
+          'items-start',
+          'p-2',
+          'sm:p-4',
+          'md:p-9',
+          'pt-4',
+          'pb-20',
+          'lg:pb-0',
+        )}
+      >
+        <Side className="hidden lg:flex">
+          <LeftSide />
+        </Side>
 
-      <PageHeader title={headerTitle} />
+        <main>{children}</main>
 
-      <SkipNavContent>
-        <Box ml={{ md: '24' }} mt="12" mb={{ base: '28', md: '0' }} as="main">
-          {children}
-        </Box>
-      </SkipNavContent>
-    </>
+        <Side className="hidden xl:flex">
+          <RightSide />
+        </Side>
+      </div>
+
+      <MobileNav />
+    </div>
   )
 }
 

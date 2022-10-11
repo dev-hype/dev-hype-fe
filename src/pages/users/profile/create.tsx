@@ -15,6 +15,7 @@ import { useCreateProfileMutation } from 'src/modules/users/hooks/mutations/useC
 import { usersPaths } from 'src/modules/users/constants/paths'
 
 import { protectedRoute } from 'src/modules/core/routes/protectedRoute'
+import { corePaths } from 'src/modules/core/constants/paths'
 
 import { CreateProfileMutationVariables } from 'src/generated/graphql'
 
@@ -60,7 +61,7 @@ const CreateProfile: NextPage = () => {
         <title>Setup Your Profile - Dev Hype</title>
       </Head>
 
-      <AppLayout headerTitle="Create Profile">
+      <AppLayout pageTitle="Profile" backUrl={corePaths.home()}>
         <Box bgColor="gray.50" mb="24">
           <Container>
             <Box

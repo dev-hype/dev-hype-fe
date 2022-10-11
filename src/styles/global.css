@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  @apply [font-family:_'Work_Sans',_sans-serif];
+}
+
+body {
+  @apply !m-0 text-gray-800 bg-white dark:text-gray-200 dark:bg-black;
+}
+
+#nprogress .bar {
+  @apply bg-gold-400 z-tooltip;
+}
+
+#nprogress .peg {
+  @apply shadow-lg;
+}
+
+@layer utilities {
+  @responsive {
+    .no-scrollbar {
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* Edge */
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera*/
+    }
+  }
+}

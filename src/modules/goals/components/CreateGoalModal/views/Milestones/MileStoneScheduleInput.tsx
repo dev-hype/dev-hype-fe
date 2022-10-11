@@ -49,7 +49,7 @@ const MileStoneScheduleInput: React.FC = () => {
                     }}
                     onSelectionChange={(selected) => {
                       if (selected) {
-                        append({ weekDay: day.id })
+                        append({ weekDay: day.id, durationInHours: 0 })
                       } else {
                         remove(dayIndex)
                       }

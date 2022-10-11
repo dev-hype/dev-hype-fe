@@ -1,149 +1,87 @@
 import React from 'react'
+import clsx from 'clsx'
 
-import {
-  Box,
-  Button,
-  Heading,
-  IconButton,
-  Menu,
-  MenuButton,
-  MenuGroup,
-  MenuItem,
-  MenuList,
-  Text,
-  Tooltip,
-} from '@chakra-ui/react'
+import { TbArrowNarrowLeft, TbBell, TbMessageCircle2 } from 'react-icons/tb'
 
-import {
-  FaAngleDown,
-  FaCog,
-  FaRegBell,
-  FaRegEnvelope,
-  FaSignOutAlt,
-} from 'react-icons/fa'
-
-import CountBadge from '../CountBadge'
-import AuthModal from 'src/modules/auth/components/AuthModal'
-
-import { useAuthModal } from 'src/modules/auth/hooks/useAuthModal'
-import { useAuthContext } from 'src/modules/auth/providers/AuthProvider'
-import { useAuthUserQuery } from 'src/modules/users/hooks/queries/useAuthUserQuery'
+// import { useAuthModal } from 'src/modules/auth/hooks/useAuthModal'
+// import { useAuthContext } from 'src/modules/auth/providers/AuthProvider'
+// import { useAuthUserQuery } from 'src/modules/users/hooks/queries/useAuthUserQuery'
 
 import { corePaths } from '../../constants/paths'
-import { removeAuthCookie_client } from 'src/modules/auth/utils/authCookie'
+import Link from 'next/link'
+import Image from 'next/image'
+
+import Logo from 'public/images/logo.png'
+import IconButton from '../IconButton'
+import UserDropdown from './UserDropdown'
+import Tooltip from '../Tooltip'
 
 interface IPageHeaderProps {
   title: string
+  backUrl?: string
 }
 
-const PageHeader: React.FC<IPageHeaderProps> = (props) => {
-  const { title } = props
-
-  const { openAuthModal } = useAuthModal()
-
-  const { setLoggedInFlagOff } = useAuthContext()
-
-  const { data: userData } = useAuthUserQuery()
+const PageHeader: React.FC<IPageHeaderProps> = props => {
+  const { backUrl, title } = props
 
   return (
-    <>
-      <Box
-        h="12"
-        position="fixed"
-        top="0"
-        left={{ base: 0, md: '24' }}
-        right="0"
-        shadow="sm"
-        bgColor="whiteAlpha.900"
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-        px={{ base: '3', sm: '4', md: '8' }}
-        zIndex="banner"
-      >
-        <Heading as="h1" size="md" fontWeight={600}>
-          {title}
-        </Heading>
+    <header
+      className={clsx([
+        'h-16',
+        'col-span-3',
+        'px-8',
+        'sm:px-9',
+        'sticky',
+        'top-0',
+        'z-appBar',
+        'bg-white/70',
+        'dark:bg-black/70',
+        'backdrop-blur',
+      ])}
+    >
+      <div className="hidden lg:flex items-center justify-between h-full">
+        <Link href={corePaths.home()}>
+          <a className="leading-none">
+            <Image
+              src={Logo.src}
+              alt="Dev Hype"
+              width={48}
+              height={48}
+              objectFit="contain"
+              objectPosition="center"
+            />
+          </a>
+        </Link>
 
-        <Box display="flex" alignItems="center">
-          {userData?.me ? (
-            <>
-              <CountBadge count={50} max={999}>
-                <Tooltip label="Notifications" hasArrow={false}>
-                  <IconButton
-                    aria-label="notifications"
-                    icon={<FaRegBell size={18} />}
-                    variant="ghost"
-                    size="sm"
-                    colorScheme="brand"
-                  />
-                </Tooltip>
-              </CountBadge>
+        <div className="flex items-center">
+          <Tooltip title="Messages">
+            <IconButton variant="ghost" color="gray" className="mr-2">
+              <TbMessageCircle2 size={24} />
+            </IconButton>
+          </Tooltip>
 
-              <CountBadge count={8} max={99}>
-                <Tooltip label="Messages" hasArrow={false}>
-                  <IconButton
-                    aria-label="messages"
-                    icon={<FaRegEnvelope size={18} />}
-                    variant="ghost"
-                    size="sm"
-                    colorScheme="brand"
-                    ml="2"
-                  />
-                </Tooltip>
-              </CountBadge>
+          <Tooltip title="Notifications">
+            <IconButton variant="ghost" color="gray" className="mr-6">
+              <TbBell size={24} />
+            </IconButton>
+          </Tooltip>
 
-              <Menu>
-                <MenuButton
-                  as={Button}
-                  rightIcon={<FaAngleDown />}
-                  variant="ghost"
-                  size="xs"
-                  ml="4"
-                >
-                  <Text fontSize="sm" textTransform="capitalize">
-                    {userData.me.profile
-                      ? `${userData.me.profile.firstName} ${userData.me.profile.lastName}`
-                      : userData.me.email}
-                  </Text>
-                </MenuButton>
+          <UserDropdown />
+        </div>
+      </div>
 
-                <MenuList>
-                  <MenuGroup title="Account">
-                    <MenuItem icon={<FaCog size={14} />} fontSize="sm">
-                      Settings
-                    </MenuItem>
+      <div className="flex items-center h-full lg:hidden">
+        {backUrl ? (
+          <Link href={backUrl} passHref>
+            <IconButton as="a">
+              <TbArrowNarrowLeft />
+            </IconButton>
+          </Link>
+        ) : null}
 
-                    <MenuItem
-                      icon={<FaSignOutAlt size={14} />}
-                      fontSize="sm"
-                      onClick={() => {
-                        removeAuthCookie_client()
-                        setLoggedInFlagOff()
-                        window.location.href = corePaths.home()
-                      }}
-                    >
-                      Logout
-                    </MenuItem>
-                  </MenuGroup>
-                </MenuList>
-              </Menu>
-            </>
-          ) : (
-            <Button
-              size="xs"
-              colorScheme="brand"
-              variant="ghost"
-              onClick={openAuthModal}
-            >
-              Login / Signup
-            </Button>
-          )}
-        </Box>
-      </Box>
-
-      <AuthModal />
-    </>
+        <h1 className="text-md font-bold">{title}</h1>
+      </div>
+    </header>
   )
 }
 
