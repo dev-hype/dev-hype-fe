@@ -45,8 +45,8 @@ const PageHeader: React.FC<IPageHeaderProps> = props => {
             <Image
               src={Logo.src}
               alt="Dev Hype"
-              width={48}
-              height={48}
+              width={120}
+              height={40}
               objectFit="contain"
               objectPosition="center"
             />
